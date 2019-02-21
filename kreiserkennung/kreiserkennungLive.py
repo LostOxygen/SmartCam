@@ -4,7 +4,7 @@
 # Author: Jonathan Evertz
 # Date: 21.2.2019
 # Version: 1.2
-# 
+#
 ##########################
 
 import cv2
@@ -59,7 +59,7 @@ if config_test:
         cv2.putText(frame, str((oben_links[0], unten_rechts[1])) , (oben_links[0], unten_rechts[1]), cv2.FONT_HERSHEY_PLAIN, 1, (255,255,255), 1, cv2.LINE_AA, 0)
         cv2.putText(frame, str((unten_rechts[0], oben_links[1])) , (unten_rechts[0], oben_links[1]), cv2.FONT_HERSHEY_PLAIN, 1, (255,255,255), 1, cv2.LINE_AA, 0)
 
-        #Temp Variablen zum arbeiten
+        #Temp Variablen zum arbeiten für nächsten Kreis
         kdistanz = 100000
         kkreis_r = 0
         kkreis_xy = (0,0)
@@ -73,9 +73,9 @@ if config_test:
         if circles is not None:
             for i in circles[0,:]:
     			#Kreis zeichnen
-                cv2.circle(ausschnitt,(i[0],i[1]),i[2],(0,255,0),2) #(Quelle, (x,y) = Center, Radius, Farbe, )
+                cv2.circle(frame,(int(oben_links[0] + i[0]), int(oben_links[1] + i[1])),i[2],(0,0,255),2) #(Quelle, (x,y) = Center, Radius, Farbe, )
                 #Mittelpunkt malen
-                cv2.circle(ausschnitt,(i[0],i[1]),2,(0,0,255),3)
+                cv2.circle(frame,(int(oben_links[0] + i[0]), int(oben_links[1] + i[1])),2,(0,0,255),3)
                 #den nächsten Kreis finden
 
                 distanz = math.sqrt(((mittelpunkt[0] - (oben_links[0]+i[0]))**2) + ((mittelpunkt[1] - (oben_links[1]+i[1]))**2))
@@ -95,8 +95,8 @@ if config_test:
 
         ausschnitt = cv2.cvtColor(ausschnitt, cv2.COLOR_GRAY2RGB)
         cv2.circle(frame, mittelpunkt, 2, (255,255,255),2) #Mittelpunkt des Bildes
-        cv2.circle(frame, kkreis_xy, kkreis_r,(0,0,255),2) #ausgewählter Kreisen
-        cv2.circle(frame, kkreis_xy, 2,(0,0,255),2) #Mittelpunkt des Kreises
+        cv2.circle(frame, kkreis_xy, kkreis_r,(0,255,0),2) #ausgewählter Kreisen
+        cv2.circle(frame, kkreis_xy, 2,(0,255,0),2) #Mittelpunkt des Kreises
 
         if circles is not None: #Damit nur eine Linie gezeichnet wird, wenn er Kreise findet
             cv2.line(frame,mittelpunkt,kkreis_xy,(255,255,255),5) #Linie zwischen Mittelpunkt und ausgewähltem Kreis
