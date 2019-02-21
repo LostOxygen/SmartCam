@@ -4,7 +4,7 @@
 # Author: Jonathan Evertz
 # Date: 21.2.2019
 # Version: 1.2
-# Durchmesser: 30 Pixel entsprechen 3.7mm
+# 
 ##########################
 
 import cv2
