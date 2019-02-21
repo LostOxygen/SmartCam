@@ -105,7 +105,6 @@ if config_test:
 
         cv2.namedWindow(fenster_name, 1)
         cv2.imshow(fenster_name, frame)
-        #print(canny.dtype)
         key = cv2.waitKey(1)
         # Wenn ESC gedrückt wird, wird  das Programm beendet
         if key == 27:
