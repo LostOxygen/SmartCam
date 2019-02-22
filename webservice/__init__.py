@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
 import os
+
 from flask import Flask
-app = Flask(__name__)
 
 def create_app(test_config=None):
     #Applikation und Config wird erstellt
@@ -26,14 +26,3 @@ def create_app(test_config=None):
         return 'Ich sage hier nur Hallo!'
 
     return app
-
-@app.route('/') #der Pfad der Webseite (hier also das root Verzeichnis)
-def hello_world():
-    return 'Hello, World!'
-
-@app.route('/test')
-def test():
-    return 'test uff!'
-
-if __name__ == '__main__':
-    app.run()
