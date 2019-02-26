@@ -1,39 +1,30 @@
 #!/usr/bin/python3
+from flask import Flask, render_template, Response, request
+from camera import VideoCamera
+#from wtforms import Form
 
-import os
-from flask import Flask
 app = Flask(__name__)
 
-def create_app(test_config=None):
-    #Applikation und Config wird erstellt
-    app = Flask(__name__, instance_relative_config=True)
-    app.config.from_mapping(SECRET_KEY='dev', DATABSE=os.path.join(app.instance_path, 'flaskr.sqlite'))
-    #Secret Key sollte in Config überschrieben werden, Database wird im Instanzordner gespeichert
-    if test_config is None:
-        #Instanzconfig laden
-        app.config.from_pyfile('config.py', silent=True)
-    else:
-        #testconfig laden, falls sie der funktion übergeben wurde
-        app.config.from_mapping(test_config)
+@app.route('/')
+def index():
+    if request.method == 'POST':
+        if request.form['submit_button'] == '1':
+            return app.send_static_file("test.jpg")
+        else:
+            pass # unknown
+    elif request.method == 'GET':
+        return render_template('index.html')
 
-    try:
-        os.makedirs(app.instance_path)
-    except OSError:
-        pass
+def gen(camera):
+    while True:
+        frame = camera.get_frame()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
-    @app.route('/hello')
-    def hello():
-        return 'Ich sage hier nur Hallo!'
-
-    return app
-
-@app.route('/') #der Pfad der Webseite (hier also das root Verzeichnis)
-def hello_world():
-    return 'Hello, World!'
-
-@app.route('/test')
-def test():
-    return 'test uff!'
+@app.route('/video_feed')
+def video_feed():
+    return Response(gen(VideoCamera()),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='127.0.0.1', debug=True)
