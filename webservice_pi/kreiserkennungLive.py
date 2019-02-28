@@ -15,18 +15,17 @@ import math
 import configparser
 from pathlib import Path
 from pprint import pprint #Nur für Debug benötigt
+from picamera import PiCamera
+from picamera.array import PiRGBArray
+import time
+import numpy as np
 
-cam = PiCamera()
-cam.resolution = (1920, 1080)
-cam.framerate = 30
-rawCapture = PiRGBArray(cam, size=(1920, 1080))
-
-time.sleep(1) #eine Sekunde warten, damit die Kamera fokussieren kann
 
 
 class KreisLive():
-    def kreislive():
+    def kreislive(cam):
         #Variablen
+        rawCapture = PiRGBArray(cam, size=(1920, 1080))
         config_test = True
         kreis_durchmesser_mm = 7
         min_threshold = 0
@@ -53,6 +52,7 @@ class KreisLive():
         umrechnung_pixel_mm = kreis_durchmesser_mm / kreis_durchmesser_pixel #Rechnet mm pro Pixel aus
 
         # ----------------------------------- Main Code -----------------------
+        time.sleep(1)
         if config_test:
             for frame in cam.capture_continuous(rawCapture, format="bgr", use_video_port=True):
                 frame = frame.array

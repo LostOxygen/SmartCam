@@ -1,5 +1,4 @@
-#!/usr/bin/python3
-#-----------------
+#!/usr/bin/python3 -----------------
 #   Jonathan Evertz
 #   28.02.2019
 #   Webservice für Raspberrypi / OpenCV
@@ -11,7 +10,7 @@ import webbrowser
 from camera import VideoCamera
 from kreiserkennungLive import KreisLive
 from camera_pi import Camera
-from time import sleep
+import time
 import datetime
 
 from picamera.array import PiRGBArray
@@ -19,7 +18,6 @@ from picamera import PiCamera
 
 #-------------------- Variablen --------------------
 app = Flask(__name__)
-cam = PiCamera()
 
 #-------------------- Sonstiges --------------------
 def gen(camera): #Generator für den Kamerastream
@@ -27,11 +25,11 @@ def gen(camera): #Generator für den Kamerastream
         frame = camera.get_frame()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
-def gen2(): #Generator für den Kreiserkennungskamerastream
-    while True:
-        frame = KreisLive.kreislive()
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+#def gen2(): #Generator für den Kreiserkennungskamerastream
+#    while True:
+#        frame = KreisLive.kreislive(cam)
+#        yield (b'--frame\r\n'
+#               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
 #---------------------------- Webservice Routen ----------------------
 @app.route('/index', methods=['GET','POST'])
@@ -47,16 +45,18 @@ def live(): #Kamerastream in HTML einbetten
 @app.route('/api/bild/')
 @app.route('/api/bild')
 def bild():
-    d = datetime.now()
-    imgYear = "%04d" % (d.year)
-    imgMonth = "%02d" % (d.month)
-    imgDate = "%02d" % (d.day)
-    imgHour = "%02d" % (d.hour)
-    imgMins = "%02d" % (d.minute)
+	
+	d = datetime.now()
+	imgYear = "%04d" % (d.year)
+	imgMonth = "%02d" % (d.month)
+	imgDate = "%02d" % (d.day)
+	imgHour = "%02d" % (d.hour)
+	imgMins = "%02d" % (d.minute)
 
-    fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
-    cam.capture(fileName)
-    return send_from_directory(directory="", filename=fileName)
+	fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
+	
+	return "Hier wird bald Bild: " + fileName + " sein."
+	#return send_from_directory(directory="", filename=fileName)
 
 @app.route('/api/offset/')
 @app.route('/api/offset')
@@ -71,8 +71,8 @@ def api():
 @app.route('/api/kreislive/')
 @app.route('/api/kreislive')
 def kreislive():
-    return Response(gen2(), mimetype='multipart/x-mixed-replace; boundary=frame')
-
+#    return Response(gen2(), mimetype='multipart/x-mixed-replace; boundary=frame')
+     return "Aktuell noch WIP"
 @app.route('/api/kreisbild/')
 @app.route('/api/kreisbild')
 def kreisbild():
@@ -81,7 +81,7 @@ def kreisbild():
 
 #---------------------- Main init -----------------------------
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port='80', debug=True)
+    app.run(host='134.147.234.230', port=80, debug=True)
 
 
 #------------------ Testzeug -----------------------------
