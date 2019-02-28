@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+#   OpenCV Kamera für Laptops
 import cv2
 
 class VideoCamera(object):
@@ -15,3 +15,9 @@ class VideoCamera(object):
         #OpenCV benutzt RAW, also konvertieren zu JPEG!
         ret, jpeg = cv2.imencode('.jpg', image)
         return jpeg.tobytes()
+
+    def get_jpg(self):
+        success, image = self.video.read()
+        #OpenCV benutzt RAW, also konvertieren zu JPEG!
+        ret, jpeg = cv2.imencode('.jpg', image)
+        return jpeg

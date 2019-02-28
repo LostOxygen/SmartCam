@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+# Kameramodul für Raspberrypi zum abfangen einzelner Bilder für Livestream etc
+
 import time
 import io
 import threading
@@ -30,7 +32,7 @@ class Camera(object):
     def _thread(cls):
         with picamera.PiCamera() as camera:
             # camera setup
-            camera.resolution = (320, 240)
+            camera.resolution = (1920, 1080)
             camera.hflip = True
             camera.vflip = True
 
