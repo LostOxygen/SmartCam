@@ -3,7 +3,11 @@
 Relevante Dateien für den RaspberryPi liegen alle im ebenso genannten Ordner.
 Der Rest ist zur Entwicklung auf meinem lokalen System und wird auf einem Pi NICHT funktionieren.
 
-Die Skripte haben alle einen Shebang Kopf und können mit "./skriptname.py" oder "python3 skript.py" gestartet werden.
-Kommentare sind zureichend gesetzt sowie spezifizierte Fehlermeldungen.
+Die Skripte haben alle einen Shebang Head und können mit "./skriptname.py" oder "python3 skript.py" gestartet werden.
+Kommentare sind zureichend gesetzt sowie zum Teil spezifizierte Fehlermeldungen.
+
+Der Webservice ist nach dem Starten unter 134.147.234.230 auf Port 80 zu erreichen. Bis auf dem Livestream funktioniert die Pi Version jedoch noch nicht, da es Probleme mit der Kamera gibt, und auch der Livestream hängt sich des öfteren auf.
+
+Die Kreiserkennung läuft soweit aber und erkennt den nächsten Kreis und schätzt die Entfernung etc. und auch der Configgenerator funktioniert. Diesen einfach starten und mit ESC beenden, sobald der gewünschte Kreis (welcher auch markiert wird) sich im Bildausschnitt befindet. Aktuell funktioniert das ganze aber nur, sofern maximal ein einzelner Kreis im Bildausschnitt ist. Zur Not einfach die Config unverändert lassen.
 
 07.03.2019
