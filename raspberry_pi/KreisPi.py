@@ -19,9 +19,9 @@ from picamera import PiCamera
 import time
 
 cam = PiCamera()
-cam.resolution = (1920, 1080)
+cam.resolution = (1920, 1088)
 cam.framerate = 30
-rawCapture = PiRGBArray(cam, size=(1920, 1080))
+rawCapture = PiRGBArray(cam, size=(1920, 1088))
 
 time.sleep(1) #eine Sekunde warten, damit die Kamera fokussieren kann
 
