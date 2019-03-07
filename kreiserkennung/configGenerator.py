@@ -14,6 +14,7 @@ import numpy as np
 import argparse
 import math
 import configparser
+import time 
 
 #Variablen
 kreis_durchmesser_mm = 7
@@ -54,17 +55,24 @@ while cam.isOpened():
             cv2.circle(ausschnitt,(i[0],i[1]),2,(0,0,255),3)
             #den nächsten Kreis finden
             kkreis_r = i[2]
+            kkreis_xy = (int(oben_links[0] + i[0]), int(oben_links[1] + i[1]))
 
     ausschnitt = cv2.cvtColor(ausschnitt, cv2.COLOR_GRAY2RGB)
+    cv2.circle(frame, mittelpunkt, 2, (255,255,255),2) #Mittelpunkt des Bildes
+    cv2.circle(frame, kkreis_xy, kkreis_r,(0,255,0),2) #ausgewählter Kreisen
+    cv2.circle(frame, kkreis_xy, 2,(0,255,0),2) #Mittelpunkt des Kreises
+
+
     cv2.namedWindow(fenster_name, 1)
     cv2.imshow(fenster_name, frame)
     config['KREISERKENNUNG'] = {'AbstandZumObjekt' : '15', 'DurchmesserKreisInPixel' : kkreis_r}
+    with open('config.ini', 'w') as configfile: #Werte in Config schreiben
+        config.write(configfile)
     key = cv2.waitKey(1)
     # Wenn ESC gedrückt wird, wird  das Programm beendet
     if key == 27:
         break
     # Alles beenden
-with open('config.ini', 'w') as configfile:
-    config.write(configfile)
+
 cam.release()
 cv2.destroyAllWindows()
