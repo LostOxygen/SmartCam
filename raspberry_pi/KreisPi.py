@@ -2,8 +2,7 @@
 
 ##########################
 # Author: Jonathan Evertz
-# Date: 28.2.2019
-# Version: 1.2
+# Date: 07.03.2019
 ##########################
 
 import cv2
@@ -15,6 +14,9 @@ import math
 import configparser
 from pathlib import Path
 from pprint import pprint #Nur für Debug benötigt
+from picamera.array import PiRGBArray
+from picamera import PiCamera
+import time
 
 cam = PiCamera()
 cam.resolution = (1920, 1080)
