@@ -18,7 +18,7 @@ from picamera import PiCamera
 
 #-------------------- Variablen --------------------
 app = Flask(__name__)
-
+camera2 = PiCamera()
 #-------------------- Sonstiges --------------------
 def gen(camera): #Generator für den Kamerastream
     while True:
@@ -52,7 +52,7 @@ def bild():
     imgHour = "%02d" % (d.hour)
     imgMins = "%02d" % (d.minute)
     fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
-    Camera.capture(fileName)
+    camera2.capture(fileName)
     #return "Hier wird bald Bild: " + fileName + " sein."
     return send_from_directory(directory="", filename=fileName)
 
