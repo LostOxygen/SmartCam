@@ -45,7 +45,7 @@ def live(): #Kamerastream in HTML einbetten
 @app.route('/api/bild/')
 @app.route('/api/bild')
 def bild():
-	d = datetime.now()
+    d = datetime.now()
     imgYear = "%04d" % (d.year)
     imgMonth = "%02d" % (d.month)
     imgDate = "%02d" % (d.day)
