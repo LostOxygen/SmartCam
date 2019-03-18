@@ -50,7 +50,7 @@ def bild():
     imgHour = "%02d" % (d.hour)
     imgMins = "%02d" % (d.minute)
     fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
-    bild = open(filename, "w")
+    bild = open(fileName, "w")
     bild.write(camera.get_frame())
     bild.close()
     #return "Hier wird bald Bild: " + fileName + " sein."
