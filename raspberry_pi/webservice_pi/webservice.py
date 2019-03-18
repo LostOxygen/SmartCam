@@ -81,7 +81,7 @@ def kreisbild():
 
 #---------------------- Main init -----------------------------
 if __name__ == '__main__':
-    app.run(host='134.147.234.230', port=80, debug=True threaded=True)
+    app.run(host='134.147.234.230', port=80, debug=True, threaded=True)
 
 
 #------------------ Testzeug -----------------------------
