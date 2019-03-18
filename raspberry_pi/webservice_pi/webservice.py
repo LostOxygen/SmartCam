@@ -11,7 +11,7 @@ from camera import VideoCamera
 from kreiserkennungLive import KreisLive
 from camera_pi import Camera
 import time
-import datetime
+import datetime as datetime
 
 from picamera.array import PiRGBArray
 from picamera import PiCamera
