@@ -24,6 +24,19 @@ def gen(camera): #Generator für den Kamerastream
         frame = camera.get_frame()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+
+def make_picture(camera):
+    d = datetime.now()
+    imgYear = "%04d" % (d.year)
+    imgMonth = "%02d" % (d.month)
+    imgDate = "%02d" % (d.day)
+    imgHour = "%02d" % (d.hour)
+    imgMins = "%02d" % (d.minute)
+    fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
+    bild = open(fileName, "w")
+    bild.write(Camera.get_frame())
+    bild.close()
+
 #def gen2(): #Generator für den Kreiserkennungskamerastream
 #    while True:
 #        frame = KreisLive.kreislive(cam)
@@ -43,16 +56,7 @@ def live(): #Kamerastream in HTML einbetten
 @app.route('/api/bild/')
 @app.route('/api/bild')
 def bild():
-    d = datetime.now()
-    imgYear = "%04d" % (d.year)
-    imgMonth = "%02d" % (d.month)
-    imgDate = "%02d" % (d.day)
-    imgHour = "%02d" % (d.hour)
-    imgMins = "%02d" % (d.minute)
-    fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
-    bild = open(fileName, "w")
-    bild.write(Camera.get_frame())
-    bild.close()
+    make_picture(Camera())
     #return "Hier wird bald Bild: " + fileName + " sein."
     return send_from_directory(directory="", filename=fileName)
 
