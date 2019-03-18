@@ -45,7 +45,7 @@ def live(): #Kamerastream in HTML einbetten
 @app.route('/api/bild/')
 @app.route('/api/bild')
 def bild():
-	
+
 	d = datetime.now()
 	imgYear = "%04d" % (d.year)
 	imgMonth = "%02d" % (d.month)
@@ -54,7 +54,7 @@ def bild():
 	imgMins = "%02d" % (d.minute)
 
 	fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
-	
+
 	return "Hier wird bald Bild: " + fileName + " sein."
 	#return send_from_directory(directory="", filename=fileName)
 
@@ -71,17 +71,17 @@ def api():
 @app.route('/api/kreislive/')
 @app.route('/api/kreislive')
 def kreislive():
-#    return Response(gen2(), mimetype='multipart/x-mixed-replace; boundary=frame')
-     return "Aktuell noch WIP"
+    return Response(gen2(), mimetype='multipart/x-mixed-replace; boundary=frame')
+#     return "Aktuell noch WIP"
 @app.route('/api/kreisbild/')
 @app.route('/api/kreisbild')
 def kreisbild():
-    return "Aktuell noch WIP"
-    #return render_template('kreisbild.html')
+    #return "Aktuell noch WIP"
+    return render_template('kreisbild.html')
 
 #---------------------- Main init -----------------------------
 if __name__ == '__main__':
-    app.run(host='134.147.234.230', port=80, debug=True)
+    app.run(host='134.147.234.230', port=80, debug=True threaded=True)
 
 
 #------------------ Testzeug -----------------------------
