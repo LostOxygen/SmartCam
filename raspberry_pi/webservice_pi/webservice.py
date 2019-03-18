@@ -12,9 +12,8 @@ from kreiserkennungLive import KreisLive
 from camera_pi import Camera
 import time
 from datetime import datetime
-
-from picamera.array import PiRGBArray
-from picamera import PiCamera
+import cv2
+import numpy as np
 
 #-------------------- Variablen --------------------
 app = Flask(__name__)
@@ -33,9 +32,10 @@ def make_picture(camera):
     imgHour = "%02d" % (d.hour)
     imgMins = "%02d" % (d.minute)
     fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
-    bild = open(fileName, "w")
-    bild.write(camera.get_frame())
-    bild.close()
+    #bild = open(fileName, "w")
+    #bild.write(camera.get_frame())
+    #bild.close()
+    cv2.imwrite(fileName, camera.get_frame())
 
 #def gen2(): #Generator für den Kreiserkennungskamerastream
 #    while True:
