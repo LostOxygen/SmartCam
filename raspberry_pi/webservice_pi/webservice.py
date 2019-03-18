@@ -51,7 +51,7 @@ def bild():
     imgMins = "%02d" % (d.minute)
     fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
     bild = open(fileName, "w")
-    bild.write(camera.get_frame())
+    bild.write(Camera.get_frame())
     bild.close()
     #return "Hier wird bald Bild: " + fileName + " sein."
     return send_from_directory(directory="", filename=fileName)
