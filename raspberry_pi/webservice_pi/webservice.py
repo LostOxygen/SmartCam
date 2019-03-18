@@ -18,7 +18,6 @@ from picamera import PiCamera
 
 #-------------------- Variablen --------------------
 app = Flask(__name__)
-camera2 = PiCamera()
 #-------------------- Sonstiges --------------------
 def gen(camera): #Generator für den Kamerastream
     while True:
@@ -30,7 +29,6 @@ def gen(camera): #Generator für den Kamerastream
 #        frame = KreisLive.kreislive(cam)
 #        yield (b'--frame\r\n'
 #               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
-
 #---------------------------- Webservice Routen ----------------------
 @app.route('/index', methods=['GET','POST'])
 @app.route('/',  methods=['GET','POST'])
@@ -52,7 +50,9 @@ def bild():
     imgHour = "%02d" % (d.hour)
     imgMins = "%02d" % (d.minute)
     fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
-    camera2.capture(fileName)
+    bild = open(filename, "w")
+    bild.write(camera.get_frame())
+    bild.close()
     #return "Hier wird bald Bild: " + fileName + " sein."
     return send_from_directory(directory="", filename=fileName)
 
