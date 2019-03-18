@@ -55,8 +55,8 @@ def bild():
 
 	fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
     Camera.capture(fileName)
-	return "Hier wird bald Bild: " + fileName + " sein."
-	#return send_from_directory(directory="", filename=fileName)
+    #return "Hier wird bald Bild: " + fileName + " sein."
+	return send_from_directory(directory="", filename=fileName)
 
 @app.route('/api/offset/')
 @app.route('/api/offset')
