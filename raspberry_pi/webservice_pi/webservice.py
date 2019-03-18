@@ -1,5 +1,5 @@
 #!/usr/bin/python3 -----------------
-#   Jonathan Evertz 
+#   Jonathan Evertz
 #   18.03.2019
 #   Webservice für Raspberrypi / OpenCV
 #-----------------
@@ -13,7 +13,9 @@ from camera_pi import Camera
 import time
 from datetime import datetime
 import cv2
+import os
 import numpy as np
+from PIL import Image
 
 #-------------------- Variablen --------------------
 app = Flask(__name__)
@@ -32,10 +34,12 @@ def make_picture(camera):
     imgHour = "%02d" % (d.hour)
     imgMins = "%02d" % (d.minute)
     fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
-    #bild = open(fileName, "w")
+    bild = open(fileName, "w")
     #bild.write(camera.get_frame())
-    #bild.close()
-    cv2.imwrite(fileName, camera.get_frame())
+    bild.close()
+
+    img = Image.open(fileName)
+    img.save(camera.get_frame())
 
 #def gen2(): #Generator für den Kreiserkennungskamerastream
 #    while True:
