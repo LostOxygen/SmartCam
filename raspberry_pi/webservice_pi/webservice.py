@@ -1,5 +1,5 @@
 #!/usr/bin/python3 -----------------
-#   Jonathan Evertz
+#   Jonathan Evertz 
 #   18.03.2019
 #   Webservice für Raspberrypi / OpenCV
 #-----------------
