@@ -34,7 +34,7 @@ def make_picture(camera):
     imgMins = "%02d" % (d.minute)
     fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
     bild = open(fileName, "w")
-    bild.write(Camera.get_frame())
+    bild.write(camera.get_frame())
     bild.close()
 
 #def gen2(): #Generator für den Kreiserkennungskamerastream
