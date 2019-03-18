@@ -47,12 +47,12 @@ def live(): #Kamerastream in HTML einbetten
 def bild():
 
 	d = datetime.now()
-	imgYear = "%04d" % (d.year)
-	imgMonth = "%02d" % (d.month)
-	imgDate = "%02d" % (d.day)
-	imgHour = "%02d" % (d.hour)
+    imgYear = "%04d" % (d.year)
+    imgMonth = "%02d" % (d.month)
+    imgDate = "%02d" % (d.day)
+    imgHour = "%02d" % (d.hour)
     imgMins = "%02d" % (d.minute)
-	fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
+    fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
     Camera.capture(fileName)
     #return "Hier wird bald Bild: " + fileName + " sein."
     return send_from_directory(directory="", filename=fileName)
