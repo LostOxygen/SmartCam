@@ -34,9 +34,9 @@ def make_picture(camera):
     imgHour = "%02d" % (d.hour)
     imgMins = "%02d" % (d.minute)
     fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
-    bild = open(fileName, "x")
+    #bild = open(fileName, "x")
     #bild.write(camera.get_frame())
-    bild.close()
+    #bild.close()
 
     if camera.get_frame is not None:
         img = Image.open("test.jpg")
