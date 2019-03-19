@@ -38,12 +38,12 @@ def make_picture(camera):
     #bild.write(camera.get_frame())
     bild.close()
 
-    img = Image.open(fileName)
-    img.save(camera.get_frame())
+    img = Image.open(camera.get_frame())
+    img.save(fileName)
 
-#def gen2(): #Generator für den Kreiserkennungskamerastream
+#def gen_kreis(camera): #Generator für den Kreiserkennungskamerastream
 #    while True:
-#        frame = KreisLive.kreislive(cam)
+#        frame = KreisLive.kreislive(camera.get_frame())
 #        yield (b'--frame\r\n'
 #               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 #---------------------------- Webservice Routen ----------------------
@@ -77,7 +77,7 @@ def api():
 @app.route('/api/kreislive/')
 @app.route('/api/kreislive')
 def kreislive():
-    return Response(gen2(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(gen2(Camera()), mimetype='multipart/x-mixed-replace; boundary=frame')
 #     return "Aktuell noch WIP"
 @app.route('/api/kreisbild/')
 @app.route('/api/kreisbild')
