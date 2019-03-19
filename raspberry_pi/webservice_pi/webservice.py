@@ -49,7 +49,7 @@ def index():
 @app.route('/api/live/')
 @app.route('/api/live')
 def live(): #Kamerastream in HTML einbetten
-    return Response(gen(camera,mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(gen(Camera),mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/api/bild/')
 @app.route('/api/bild')
