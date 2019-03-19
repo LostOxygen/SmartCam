@@ -39,8 +39,9 @@ def make_picture(camera):
     bild.close()
 
     if camera.get_frame is not None:
-        img = Image.open(camera.get_frame())
-        img.save(str(fileName))
+        img = Image.open(fileName)
+        img = camera.get_frame()
+        img.save(fileName, "jpg")
     else:
         return "Kamera Frame ist None"
 
