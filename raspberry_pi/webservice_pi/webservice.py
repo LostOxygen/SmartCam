@@ -16,6 +16,7 @@ import cv2
 import os
 import numpy as np
 from PIL import Image
+import io
 
 #-------------------- Variablen --------------------
 app = Flask(__name__)
@@ -40,7 +41,7 @@ def make_picture(camera):
 
     if camera.get_frame is not None:
         #img = Image.new("RGB",(1920,1080),color=0)
-        img2 = Image.open(BytesIO(camera.get_frame()))
+        img2 = Image.open(io.BytesIO(camera.get_frame()))
         #img = camera.get_frame()
         img2.save(fileName)
     else:
