@@ -4,7 +4,6 @@
 #   Webservice für Raspberrypi / OpenCV
 #-----------------
 
-
 from flask import Flask, render_template, Response, request, flash, jsonify, send_from_directory, url_for
 import webbrowser
 from camera import VideoCamera
@@ -25,7 +24,7 @@ def gen(camera): #Generator für den Kamerastream
     while True:
         frame = camera.get_frame()
         yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 def make_picture(camera, fileName):
     if camera.get_frame is not None:
@@ -40,15 +39,15 @@ def make_picture(camera, fileName):
 #        yield (b'--frame\r\n'
 #               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 #---------------------------- Webservice Routen ----------------------
-@app.route('/index', methods=['GET','POST'])
-@app.route('/',  methods=['GET','POST'])
+@app.route('/index')
+@app.route('/')
 def index():
     return render_template('index.html')
 
 @app.route('/api/live/')
 @app.route('/api/live')
 def live(): #Kamerastream in HTML einbetten
-    return Response(gen(Camera),mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(gen(Camera()),mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/api/bild/')
 @app.route('/api/bild')
@@ -78,8 +77,7 @@ def api():
 @app.route('/api/kreislive/')
 @app.route('/api/kreislive')
 def kreislive():
-    camera = Camera()
-    return Response(gen2(camera), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(gen2(Camera()), mimetype='multipart/x-mixed-replace; boundary=frame')
 #     return "Aktuell noch WIP"
 @app.route('/api/kreisbild/')
 @app.route('/api/kreisbild')

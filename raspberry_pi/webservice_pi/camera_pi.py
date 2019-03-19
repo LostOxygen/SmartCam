@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+#-*- coding: utf-8 -*-
 
 # Kameramodul für Raspberrypi zum abfangen einzelner Bilder für Livestream etc
 
