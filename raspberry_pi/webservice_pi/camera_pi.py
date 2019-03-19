@@ -40,11 +40,11 @@ class Camera(object):
             camera.start_preview()
             time.sleep(2)
 
-            #stream = io.BytesIO()
-            for frame in camera.capture_continuous(stream, 'rgb', use_video_port=True):
+            stream = io.BytesIO()
+            for foo in camera.capture_continuous(stream, 'jpeg', use_video_port=True):
                 # store frame
                 stream.seek(0)
-                cls.frame = frame.array
+                cls.frame = stream.read()
 
                 # reset stream for next frame
                 stream.seek(0)
