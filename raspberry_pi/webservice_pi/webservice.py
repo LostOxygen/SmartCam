@@ -39,7 +39,7 @@ def make_picture(camera):
     bild.close()
 
     if camera.get_frame is not None:
-        img = Image.open(fileName)
+        img = Image.open("test.jpg")
         img = camera.get_frame()
         img.save(fileName, "jpg")
     else:
