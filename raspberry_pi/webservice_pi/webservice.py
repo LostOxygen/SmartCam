@@ -39,7 +39,6 @@ def make_picture(camera, fileName):
 #        frame = KreisLive.kreislive(camera.get_frame())
 #        yield (b'--frame\r\n'
 #               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
-
 #---------------------------- Webservice Routen ----------------------
 @app.route('/index', methods=['GET','POST'])
 @app.route('/',  methods=['GET','POST'])
