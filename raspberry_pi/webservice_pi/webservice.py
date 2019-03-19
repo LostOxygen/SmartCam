@@ -38,7 +38,7 @@ def make_picture(camera):
     #bild.write(camera.get_frame())
     bild.close()
 
-    if camera.get_frame not None:
+    if camera.get_frame is not None:
         img = Image.open(camera.get_frame())
         img.save(fileName)
     else:
