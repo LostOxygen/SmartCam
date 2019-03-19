@@ -38,8 +38,11 @@ def make_picture(camera):
     #bild.write(camera.get_frame())
     bild.close()
 
-    img = Image.open(camera.get_frame())
-    img.save(fileName)
+    if camera.get_frame not None:
+        img = Image.open(camera.get_frame())
+        img.save(fileName)
+    else:
+        return "Kamera Frame ist None"
 
 #def gen_kreis(camera): #Generator für den Kreiserkennungskamerastream
 #    while True:
