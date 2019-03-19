@@ -60,7 +60,7 @@ def bild():
     imgHour = "%02d" % (d.hour)
     imgMins = "%02d" % (d.minute)
     fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
-    make_picture(Camera(), fileName)
+    #make_picture(Camera(), fileName)
     return send_from_directory(directory="", filename=fileName)
 
 @app.route('/api/offset/')
