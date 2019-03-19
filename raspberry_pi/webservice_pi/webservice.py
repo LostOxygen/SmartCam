@@ -40,7 +40,7 @@ def make_picture(camera):
 
     if camera.get_frame is not None:
         img = Image.open(camera.get_frame())
-        img.save(fileName)
+        img.save(str(fileName))
     else:
         return "Kamera Frame ist None"
 
