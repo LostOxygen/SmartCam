@@ -20,6 +20,7 @@ import io
 
 #-------------------- Variablen --------------------
 app = Flask(__name__)
+camera = Camera()
 #-------------------- Sonstiges --------------------
 def gen(camera): #Generator für den Kamerastream
     while True:
@@ -48,7 +49,7 @@ def index():
 @app.route('/api/live/')
 @app.route('/api/live')
 def live(): #Kamerastream in HTML einbetten
-    return Response(gen(Camera()),mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(gen(camera,mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/api/bild/')
 @app.route('/api/bild')
@@ -60,8 +61,7 @@ def bild():
     imgHour = "%02d" % (d.hour)
     imgMins = "%02d" % (d.minute)
     fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
-    make_picture(Camera(), fileName)
-    #return "WIP"
+    make_picture(camera, fileName)
     return send_from_directory(directory="images", filename=fileName)
 
 @app.route('/api/offset/')
