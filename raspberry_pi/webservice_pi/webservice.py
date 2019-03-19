@@ -1,6 +1,6 @@
 #!/usr/bin/python3 -----------------
 #   Jonathan Evertz
-#   18.03.2019
+#   19.03.2019
 #   Webservice für Raspberrypi / OpenCV
 #-----------------
 
@@ -24,7 +24,7 @@ def gen(camera): #Generator für den Kamerastream
     while True:
         frame = camera.get_frame()
         yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
 def make_picture(camera, fileName):
     if camera.get_frame is not None:
