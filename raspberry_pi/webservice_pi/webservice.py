@@ -30,7 +30,7 @@ def gen(camera): #Generator für den Kamerastream
 def make_picture(camera, fileName):
     if camera.get_frame is not None:
         img2 = Image.open(io.BytesIO(camera.get_frame())) #lädt frame als ByteIO um es zu öffnen
-        img2.save("/images/" + fileName) #speichert es als fileName ab
+        img2.save("home/pi/Desktop/OpenCV/raspberry_pi/webservice_pi/images/" + fileName) #speichert es als fileName ab
     else:
         return "Kamera Frame ist None"
 
