@@ -27,18 +27,7 @@ def gen(camera): #Generator für den Kamerastream
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
-def make_picture(camera):
-    d = datetime.now()
-    imgYear = "%04d" % (d.year)
-    imgMonth = "%02d" % (d.month)
-    imgDate = "%02d" % (d.day)
-    imgHour = "%02d" % (d.hour)
-    imgMins = "%02d" % (d.minute)
-    fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
-    #bild = open(fileName, "x")
-    #bild.write(camera.get_frame())
-    #bild.close()
-
+def make_picture(camera, fileName):
     if camera.get_frame is not None:
         #img = Image.new("RGB",(1920,1080),color=0)
         img2 = Image.open(io.BytesIO(camera.get_frame()))
@@ -66,8 +55,14 @@ def live(): #Kamerastream in HTML einbetten
 @app.route('/api/bild/')
 @app.route('/api/bild')
 def bild():
-    make_picture(Camera())
-    #return "Hier wird bald Bild: " + fileName + " sein."
+    d = datetime.now()
+    imgYear = "%04d" % (d.year)
+    imgMonth = "%02d" % (d.month)
+    imgDate = "%02d" % (d.day)
+    imgHour = "%02d" % (d.hour)
+    imgMins = "%02d" % (d.minute)
+    fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
+    make_picture(Camera(), fileName)
     return send_from_directory(directory="", filename=fileName)
 
 @app.route('/api/offset/')
