@@ -29,10 +29,8 @@ def gen(camera): #Generator für den Kamerastream
 
 def make_picture(camera, fileName):
     if camera.get_frame is not None:
-        #img = Image.new("RGB",(1920,1080),color=0)
-        img2 = Image.open(io.BytesIO(camera.get_frame()))
-        #img = camera.get_frame()
-        img2.save(fileName)
+        img2 = Image.open(io.BytesIO(camera.get_frame())) #lädt frame als ByteIO um es zu öffnen
+        img2.save("/images/" + fileName) #speichert es als fileName ab
     else:
         return "Kamera Frame ist None"
 
