@@ -41,7 +41,7 @@ def make_picture(camera):
     if camera.get_frame is not None:
         img = Image.new("RGB",(1920,1080),color=0)
         img = camera.get_frame()
-        img.save(fileName, "jpg")
+        img.save(fileName)
     else:
         return "Kamera Frame ist None"
 
