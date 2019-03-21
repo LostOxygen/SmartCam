@@ -7,7 +7,13 @@ PORT = 65432 #Port des Servers
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
     sock.connect((HOST,PORT))
-    sock.sendall(b'Hello, World')
-    data = sock.recv(1024)
-
-print('Received', repr(data))
+    while True:
+        command = input("Befehl: ")
+        command = command.encode()
+        sock.sendall(command)
+        data = sock.recv(1024)
+        response = repr(data)
+        print('Received Data: ', response)
+        if str(response) == 'Ciao':
+            break
+print("Verbindung Beendet!")

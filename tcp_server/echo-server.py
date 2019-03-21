@@ -13,6 +13,17 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
         print('Connected by: ', addr)
         while True:
             data = conn.recv(1024)
+            data = data.decode()
             if not data:
+                pass
+
+            if str(data) == 'test':
+                ausgabe1 = 'Hallo'
+                ausgabe1 = ausgabe1.encode()
+                conn.sendall(ausgabe1)
+
+            if str(data) == 'exit':
+                ausgabe2 = 'Ciao'
+                ausgabe2 = ausgabe2.encode()
+                conn.sendall(ausgabe2)
                 break
-            conn.sendall(data)
