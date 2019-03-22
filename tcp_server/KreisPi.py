@@ -17,6 +17,10 @@ from pprint import pprint #Nur für Debug benötigt
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time
+from PIL import Image
+import io
+import time
+from datetime import datetime
 
 class Kreis():
     def kreis():
@@ -39,6 +43,13 @@ class Kreis():
         gauss_faktor = 0
         gauss_matrix = (7,7)
         clear = lambda: os.system('clear')
+        d = datetime.now()
+        imgYear = "%04d" % (d.year)
+        imgMonth = "%02d" % (d.month)
+        imgDate = "%02d" % (d.day)
+        imgHour = "%02d" % (d.hour)
+        imgMins = "%02d" % (d.minute)
+        fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
 
         # ----------- Config einlesen und überprüfen --------------------------
         config = configparser.ConfigParser()
@@ -117,6 +128,9 @@ class Kreis():
                 cv2.imshow(fenster_name, frame)
                 rawCapture.truncate(0)
                 offset = (abs(mittelpunkt[0] - kkreis_xy[0])*umrechnung_pixel_mm , abs(mittelpunkt[1] - kkreis_xy[1])*umrechnung_pixel_mm)
+
+                img = Image.open(io.BytesIO(frame)) #lädt frame als ByteIO um es zu öffnen
+                img.save("/home/pi/Desktop/OpenCV/tcp_server/images/" + fileName) #speichert es als fileName ab
                 break
 
             # Alles beenden
