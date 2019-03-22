@@ -17,7 +17,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock: #AF_INET = Inet 
                 data = data.decode() #Dekodiert, weil Binär
                 if not data:
                     #print('Warte auf Daten..')
-                    pass
+                    break
 
                 if str(data) == 'test':
                     ausgabe1 = 'Hallo'
