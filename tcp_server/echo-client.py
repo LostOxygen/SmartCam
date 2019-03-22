@@ -2,7 +2,7 @@
 
 import socket
 
-HOST = '127.0.0.1' #IP Adresse des RPI
+HOST = '127.0.0.1' #IP Adresse des RPI / Servers
 PORT = 65432 #Port des Servers
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
@@ -12,7 +12,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
         command = command.encode()
         sock.sendall(command)
         data = sock.recv(1024)
-        response = repr(data)
+        #response = repr(data)
+        response = data.decode()
         print('Received Data: ', response)
         if str(response) == 'Ciao':
             break
