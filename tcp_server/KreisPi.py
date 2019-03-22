@@ -116,7 +116,7 @@ class Kreis():
                 cv2.namedWindow(fenster_name, 1)
                 cv2.imshow(fenster_name, frame)
                 rawCapture.truncate(0)
-                offset = (abs(mittelpunkt[0] - kkreis_xy[0]) , abs(mittelpunkt[1] - kkreis_xy[1]))
+                offset = (abs(mittelpunkt[0] - kkreis_xy[0])*umrechnung_pixel_mm , abs(mittelpunkt[1] - kkreis_xy[1])*umrechnung_pixel_mm)
                 break
 
             # Alles beenden
