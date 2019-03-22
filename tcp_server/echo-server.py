@@ -31,6 +31,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock: #AF_INET = Inet 
                     break
 
                 else:
-                    ausgabe3 = str(data).len()
+                    ausgabe3 = len(str(data))
                     ausgabe3 = ausgabe3.encode()
                     conn.sendall("Laenge der Nachricht: " + ausgabe3)
