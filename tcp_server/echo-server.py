@@ -34,8 +34,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock: #AF_INET = Inet 
                 ausgabe = str(data)
                 laenge = len(ausgabe)
                 ausgabe3 = "Nachricht: " + ausgabe + " mit Laenge: " + str(laenge)
-                ausgabe4 = ausgabe3.encode()
+                ausgabe4 = "GOX13.4Y15.6\x00"
+                ausgabe4 = ausgabe4.encode()
                 conn.sendall(ausgabe4)
 
                 print(ausgabe3)
-                pprint.pprint(ausgabe3)
