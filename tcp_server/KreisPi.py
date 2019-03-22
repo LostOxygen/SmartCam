@@ -127,10 +127,10 @@ class Kreis():
                 cv2.namedWindow(fenster_name, 1)
                 cv2.imshow(fenster_name, frame)
                 rawCapture.truncate(0)
-                offset = (abs(mittelpunkt[0] - kkreis_xy[0])*umrechnung_pixel_mm , abs(mittelpunkt[1] - kkreis_xy[1])*umrechnung_pixel_mm)
+                offset = (abs(mittelpunkt[0] - kkreis_xy[0]) , abs(mittelpunkt[1] - kkreis_xy[1]))
 
-                img = Image.open(frame) #lädt frame als ByteIO um es zu öffnen
-                img.save("/home/pi/Desktop/OpenCV/tcp_server/images/" + fileName) #speichert es als fileName ab
+                #img = Image.open(frame) #lädt frame als ByteIO um es zu öffnen
+                #img.save("/home/pi/Desktop/OpenCV/tcp_server/images/" + fileName) #speichert es als fileName ab
                 break
 
             # Alles beenden
