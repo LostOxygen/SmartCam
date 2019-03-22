@@ -30,9 +30,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock: #AF_INET = Inet 
                     conn.sendall(ausgabe2)
                     break
 
-                else:
-                    ausgabe = str(data)
-                    laenge = len(str(data))
-                    ausgabe3 = "Nachricht: " + ausgabe + " mit Laenge: " + str(laenge)
-                    ausgabe3 = ausgabe3.encode()
-                    conn.sendall(ausgabe3)
+                ausgabe = str(data)
+                laenge = len(str(data))
+                ausgabe3 = "Nachricht: " + ausgabe + " mit Laenge: " + str(laenge)
+                ausgabe3 = ausgabe3.encode()
+                conn.sendall(ausgabe3)
