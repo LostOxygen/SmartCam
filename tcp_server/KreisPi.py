@@ -18,8 +18,8 @@ from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time
 
-class KreisLive():
-    def kreislive(cam):
+class Kreis():
+    def kreis():
         cam = PiCamera()
         cam.resolution = (1920, 1088)
         cam.framerate = 30

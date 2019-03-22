@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import socket
+from KreisPi import Kreis
 import pprint
 
 HOST = '192.168.8.60' #IP Adresse des RPI
@@ -16,26 +17,25 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock: #AF_INET = Inet 
             while True:
                 data = conn.recv(1024) #empfängt Daten der Verbindung (max 1024 Byte)
                 data = data.decode() #Dekodiert, weil Binär
+                data = str(data) #Data zu String konvertieren
+
                 if not data:
                     #print('Warte auf Daten..')
                     break
 
-                if str(data) == 'test':
+                if data == 'test':
                     ausgabe1 = 'Hallo'
                     ausgabe1 = ausgabe1.encode() #wieder in binär kodieren
                     conn.sendall(ausgabe1)
 
-                if str(data) == 'exit':
+                if data == 'exit':
                     ausgabe2 = 'Ciao'
                     ausgabe2 = ausgabe2.encode()
                     conn.sendall(ausgabe2)
                     break
 
-                ausgabe = str(data)
-                laenge = len(ausgabe)
-                ausgabe3 = "Nachricht: " + ausgabe + " mit Laenge: " + str(laenge)
-                ausgabe4 = "GOX13.4Y15.6\x00"
-                ausgabe4 = ausgabe4.encode()
-                conn.sendall(ausgabe4)
-
-                print(ausgabe3)
+                if data[0] == 'G' and data[1] == 'O':
+                    offset = Kreis.kreis()
+                    ausgabe = "GO" + "X" + str(offset[0]) + "Y" + str(offset[1]) + "\x00"
+                    ausgabe = ausgabe.encode()
+                    conn.sendall(ausgabe)
