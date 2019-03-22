@@ -8,10 +8,12 @@ PORT = 65432 #Port auf dem gehört wird
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock: #AF_INET = Inet Adress Family (IPv4), SOCK_STREAM = socket type (TCP)
     sock.bind((HOST,PORT))
     sock.listen()
-    conn, addr = sock.accept()
+
     with conn:
-        print('Connected by: ', addr)
+
         while True:
+            conn, addr = sock.accept()
+            print('Connected by: ', addr)
             data = conn.recv(1024) #empfängt Daten der Verbindung (max 1024 Byte)
             data = data.decode() #Dekodiert, weil Binär
             if not data:
