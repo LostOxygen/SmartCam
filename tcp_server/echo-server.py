@@ -2,7 +2,7 @@
 
 import socket
 
-HOST = '127.0.0.1' #IP Adresse des RPI
+HOST = '134.147.234.230' #IP Adresse des RPI
 PORT = 65432 #Port auf dem gehört wird
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock: #AF_INET = Inet Adress Family (IPv4), SOCK_STREAM = socket type (TCP)
@@ -17,7 +17,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock: #AF_INET = Inet 
             if not data:
                 #print('Warte auf Daten..')
                 pass
-                
+
             if str(data) == 'test':
                 ausgabe1 = 'Hallo'
                 ausgabe1 = ausgabe1.encode() #wieder in binär kodieren
