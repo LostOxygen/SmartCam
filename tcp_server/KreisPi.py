@@ -129,7 +129,7 @@ class Kreis():
                 rawCapture.truncate(0)
                 offset = (abs(mittelpunkt[0] - kkreis_xy[0])*umrechnung_pixel_mm , abs(mittelpunkt[1] - kkreis_xy[1])*umrechnung_pixel_mm)
 
-                img = Image.open(io.BytesIO(frame)) #lädt frame als ByteIO um es zu öffnen
+                img = Image.open(frame) #lädt frame als ByteIO um es zu öffnen
                 img.save("/home/pi/Desktop/OpenCV/tcp_server/images/" + fileName) #speichert es als fileName ab
                 break
 
