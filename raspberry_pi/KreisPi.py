@@ -22,7 +22,7 @@ cam = PiCamera()
 cam.resolution = (1920, 1088)
 cam.framerate = 30
 rawCapture = PiRGBArray(cam, size=(1920, 1088))
-
+#Mitte = (960,544)
 time.sleep(1) #eine Sekunde warten, damit die Kamera fokussieren kann
 
 #Variablen
@@ -30,8 +30,8 @@ config_test = True
 kreis_durchmesser_mm = 7
 min_threshold = 0
 max_threshold = 100
-oben_links = (400,150)
-unten_rechts = (900,600)
+oben_links = (460,144)
+unten_rechts = (1360,944)
 fenster_name = "OpenCV"
 gauss_faktor = 0
 gauss_matrix = (7,7)
