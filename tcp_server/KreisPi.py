@@ -120,6 +120,6 @@ class Kreis():
                 break
 
             # Alles beenden
-            cam.release()
+            #cam.release()
             cv2.destroyAllWindows()
             return offset
