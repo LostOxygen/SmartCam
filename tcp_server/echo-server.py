@@ -2,7 +2,7 @@
 
 import socket
 
-HOST = '134.147.234.230' #IP Adresse des RPI
+HOST = '192.168.8.60' #IP Adresse des RPI
 PORT = 65432 #Port auf dem gehört wird
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock: #AF_INET = Inet Adress Family (IPv4), SOCK_STREAM = socket type (TCP)
