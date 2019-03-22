@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import socket
+import pprint
 
 HOST = '192.168.8.60' #IP Adresse des RPI
 PORT = 65432 #Port auf dem gehört wird
@@ -35,3 +36,5 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock: #AF_INET = Inet 
                 ausgabe3 = "Nachricht: " + ausgabe + " mit Laenge: " + str(laenge)
                 ausgabe3 = ausgabe3.encode()
                 conn.sendall(ausgabe3)
+
+                pprint.pprint(ausgabe3)
