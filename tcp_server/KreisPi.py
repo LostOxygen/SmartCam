@@ -43,6 +43,7 @@ class Kreis():
         gauss_faktor = 0
         gauss_matrix = (7,7)
         clear = lambda: os.system('clear')
+        #dateinamen generieren
         d = datetime.now()
         imgYear = "%04d" % (d.year)
         imgMonth = "%02d" % (d.month)
