@@ -3,7 +3,7 @@
 import socket
 import sys
 from KreisPi import Kreis
-
+from configGenerator import Config
 import pprint #Debug
 
 # ------------ Netzwerk ----------------
@@ -33,7 +33,7 @@ def main():
                     data = data.decode() #Dekodiert, weil Binär
                     data = str(data) #Data zu String konvertieren
 
-                    if not data:
+                    if not data: #Guckt ob überhaupt Daten kommen
                         break
 
                     if data[0] == 'G' and data[1] == 'O': #Get Offset
@@ -44,10 +44,16 @@ def main():
 
                     if data[0] == 'C' and data[1] == 'O': #configGenerator
                         ausgabe = "Server wird konfiguriert!" + "\x00"
-
+                        if Config.createConfig == True:
+                            succ = "Config wurde generiert!" + "\x00"
+                            succ = succ.encode()
+                            conn.sendall(succ)
+                        else:
+                            err = "Config konnte nicht erstellt werden!" + "\x00"
+                            err = err.encode()
+                            conn.sendall(err)
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
-                        break
 
                     if data[0] == 'E' and data[1] == 'X': #Exit
                         ausgabe = "Server wird beendet!" + "\x00"
