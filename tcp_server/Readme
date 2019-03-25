@@ -1,6 +1,6 @@
 TCP/IP Server für RPI mit OpenCV Funktionalität
 
-!Dependencies: KreisPi.py (gegeben)
+!Dependencies: KreisPi.py (gegeben), Pillow, OpenCV
 
 !Ausführen: entweder "./server.py" oder mit "python3 server.py"
 
