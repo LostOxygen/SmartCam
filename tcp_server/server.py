@@ -20,6 +20,9 @@ exit = False
 #argument.add_argument("--arg", required = False, help = "Argument zum übergeben", action ="store_true")
 #args = argument.parse_args()
 # ------------ Main Code ---------------
+
+def parsen(data):
+
 def main():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock: #AF_INET = Inet Adress Family (IPv4), SOCK_STREAM = socket type (TCP)
         sock.bind((HOST,PORT))
@@ -56,7 +59,8 @@ def main():
                         conn.sendall(ausgabe)
 
                     if data[0] == 'E' and data[1] == 'X': #Exit
-                        ausgabe = "Server wird beendet!" + "\x00"
+                        ausgabe = "EX" + "\x00"
+                        print("Server wird beendet!")
                         exit = True
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
