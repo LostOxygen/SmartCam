@@ -14,7 +14,6 @@ PORT = 65432 #Port auf dem gehört wird
 # ------------ Variablen ---------------
 exit = False
 
-
 # ---------- Argumente -----------------
 #argument = argparse.ArgumentParser()
 #argument.add_argument("--arg", required = False, help = "Argument zum übergeben", action ="store_true")
