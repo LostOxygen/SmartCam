@@ -20,9 +20,6 @@ exit = False
 #argument.add_argument("--arg", required = False, help = "Argument zum übergeben", action ="store_true")
 #args = argument.parse_args()
 # ------------ Main Code ---------------
-
-def parsen(data):
-
 def main():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock: #AF_INET = Inet Adress Family (IPv4), SOCK_STREAM = socket type (TCP)
         sock.bind((HOST,PORT))
@@ -41,13 +38,16 @@ def main():
 
                     if data[0] == 'G' and data[1] == 'O': #Get Offset
                         offset = Kreis.kreis()
+                        #offset = (15.3,14.7)
                         ausgabe = "GO" + "X" + str(offset[0]) + "Y" + str(offset[1]) + "\x00"
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
 
                     if data[0] == 'C' and data[1] == 'O': #configGenerator
                         ausgabe = "Server wird konfiguriert!" + "\x00"
-                        if Config.createConfig == True:
+                        ausgabe = ausgabe.encode()
+                        conn.sendall(ausgabe)
+                        if Config.createConfig == True: #Überprüft ob config generiert wurde
                             succ = "Config wurde generiert!" + "\x00"
                             succ = succ.encode()
                             conn.sendall(succ)
@@ -55,8 +55,6 @@ def main():
                             err = "Config konnte nicht erstellt werden!" + "\x00"
                             err = err.encode()
                             conn.sendall(err)
-                        ausgabe = ausgabe.encode()
-                        conn.sendall(ausgabe)
 
                     if data[0] == 'E' and data[1] == 'X': #Exit
                         ausgabe = "EX" + "\x00"
