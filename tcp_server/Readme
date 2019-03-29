@@ -1,9 +1,0 @@
-TCP/IP Server für RPI mit OpenCV Funktionalität
-
-!Dependencies: KreisPi.py (gegeben), Pillow, OpenCV
-
-!Ausführen: entweder "./server.py" oder mit "python3 server.py"
-
-Befehle:    GO -> Get Offset führt Kreiserkennung aus und schickt X/Y Offset als "GOXoffYoff" zurück
-            EX -> Beendet den Server und schließt die Verbindung
-            CO -> konfiguriert die Kreiserkennung mit dem Config generator
