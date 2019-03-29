@@ -8,6 +8,6 @@
 ### Ausführen: entweder **./server.py** oder mit **python3 server.py**
 
 ### Befehle:
-**GO** -> Get Offset führt Kreiserkennung aus und schickt X/Y Offset als *GOXoffYoff* zurück
-**EX** -> Beendet den Server und schließt die Verbindung
-**CO** -> konfiguriert die Kreiserkennung mit dem Config generator
++ **GO** -> Get Offset führt Kreiserkennung aus und schickt X/Y Offset als *GOXoffYoff* zurück
++ **EX** -> Beendet den Server und schließt die Verbindung
++ **CO** -> konfiguriert die Kreiserkennung mit dem Config generator
