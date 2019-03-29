@@ -1,7 +1,6 @@
 # Readme für RoboSchalt mit OpenCV
-
-
 ### Dependecies:
+
     [OpenCV](www.alatortsev.com/2018/11/21/installing-opencv-4-0-on-raspberry-pi-3-b/)
     Pillow: **sudo pip3 install Pillow**
     Flask: **sudo pip3 install Flask**
