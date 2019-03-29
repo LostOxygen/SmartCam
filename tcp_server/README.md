@@ -5,7 +5,8 @@
 + [Pillow](https://pillow.readthedocs.io/en/stable/): **sudo pip3 install Pillow**
 + [OpenCV](www.alatortsev.com/2018/11/21/installing-opencv-4-0-on-raspberry-pi-3-b/)
 
-### Ausführen: entweder **./server.py** oder mit **python3 server.py**
+### Ausführen:
+entweder **./server.py** oder mit **python3 server.py**
 
 ### Befehle:
 + **GO** -> Get Offset führt Kreiserkennung aus und schickt X/Y Offset als *GOXoffYoff* zurück
