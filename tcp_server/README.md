@@ -12,3 +12,5 @@ entweder **./server.py** oder mit **python3 server.py**
 + **GO** -> Get Offset führt Kreiserkennung aus und schickt X/Y Offset als *GOXoffYoff* zurück
 + **EX** -> Beendet den Server und schließt die Verbindung
 + **CO** -> konfiguriert die Kreiserkennung mit dem Config generator
++ **IM** -> erstellt ein einfaches Bild
++ **CV** -> erstellt ein Bild mit erkannten Kreisen
