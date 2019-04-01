@@ -80,10 +80,8 @@ def main():
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
 
-                    if data[0] == 'C' and data[1] == 'V': #Get Offset
-                        offset = Kreis.kreis()
-
-                        ausgabe = "GO" + "X" + str(offset[0]) + "Y" + str(offset[1]) + "\x00"
+                    if data[0] == 'C' and data[1] == 'V': #erstellt bild mit kreis
+                        ausgabe = "OK" + "\x00"
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
 
