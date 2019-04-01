@@ -64,6 +64,11 @@ class Kreis():
             config_test = False
 
         kreis_durchmesser_pixel = float(config['KREISERKENNUNG']['durchmesserkreisinpixel']) #fragt Wert aus Config File ab
+
+        if kreis_durchmesser_pixel == 0:
+            kreis_durchmesser_pixel = 1
+            print("kreis_durchmesser_pixel war 0 und wurde auf 1 gesetzt")
+            
         umrechnung_pixel_mm = kreis_durchmesser_mm / kreis_durchmesser_pixel #Rechnet mm pro Pixel aus
 
         # ----------------------------------- Main Code -----------------------
