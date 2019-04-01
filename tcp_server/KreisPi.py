@@ -2,7 +2,7 @@
 
 ##########################
 # Author: Jonathan Evertz
-# Date: 22.03.2019
+# Date: 01.04.2019
 ##########################
 
 import cv2
@@ -23,7 +23,7 @@ import time
 from datetime import datetime
 
 class Kreis():
-    def kreis():
+    def kreis(picture):
         cam = PiCamera()
         cam.resolution = (1920, 1088)
         cam.framerate = 30
@@ -32,6 +32,7 @@ class Kreis():
         time.sleep(1) #eine Sekunde warten, damit die Kamera fokussieren kann
 
         #Variablen
+        image_frame = None
         offset = (0,0)
         config_test = True
         kreis_durchmesser_mm = 7
@@ -68,7 +69,7 @@ class Kreis():
         if kreis_durchmesser_pixel == 0:
             kreis_durchmesser_pixel = 1
             print("kreis_durchmesser_pixel war 0 und wurde auf 1 gesetzt")
-            
+
         umrechnung_pixel_mm = kreis_durchmesser_mm / kreis_durchmesser_pixel #Rechnet mm pro Pixel aus
 
         # ----------------------------------- Main Code -----------------------
@@ -134,7 +135,7 @@ class Kreis():
                 cv2.imshow(fenster_name, frame)
                 rawCapture.truncate(0)
                 offset = (abs(mittelpunkt[0] - kkreis_xy[0]) , abs(mittelpunkt[1] - kkreis_xy[1]))
-
+                image_frame = frame
                 #img = Image.open(frame) #lädt frame als ByteIO um es zu öffnen
                 #img.save("/home/pi/Desktop/OpenCV/tcp_server/images/" + fileName) #speichert es als fileName ab
                 break
@@ -142,4 +143,9 @@ class Kreis():
             # Alles beenden
             #cam.release()
             cv2.destroyAllWindows()
-            return offset
+            if picture:
+                if image_frame is not None:
+                    cv2.imwrite("/home/pi/Desktop/OpenCV/tcp_server/images/" + fileName, image_frame) #speichert es als fileName ab
+                return True
+            else:
+                return offset
