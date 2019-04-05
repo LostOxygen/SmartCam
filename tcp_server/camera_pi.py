@@ -7,6 +7,7 @@ import time
 import io
 import threading
 import picamera
+from picamera.array import PiRGBArray
 
 
 class Camera(object):
