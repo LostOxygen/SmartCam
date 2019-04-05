@@ -53,8 +53,9 @@ def main():
                         try:
                             offset = Kreis.kreis(camera, False)
                             ausgabe = "GO" + "X" + str(offset[0]) + "Y" + str(offset[1]) + "\x00"
-                        except:
+                        except Exception as e:
                             print("Fehler beim Offset erstellen!")
+                            print(e)
                             ausgabe = "ER" + "\x00"
 
                         ausgabe = ausgabe.encode()
@@ -86,8 +87,9 @@ def main():
                                 ausgabe = "OK" + "\x00"
                             else:
                                 ausgabe = "NO" + "\x00"
-                        except:
+                        except Exception as e:
                             print("Fehler beim erstellen eines Bildes mit Kreiserkennung")
+                            print(e)
                             ausgabe = "ER" + "\x00"
 
                         ausgabe = ausgabe.encode()
