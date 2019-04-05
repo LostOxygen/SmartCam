@@ -68,7 +68,7 @@ class Kreis():
 
         # ----------------------------------- Main Code -----------------------
         if config_test:
-            frame = np.array(camera.get_frame())
+            frame = camera.get_frame()
             print(frame.dtype)
             frame = cv2.UMat(frame)
             print(frame.dtype)
