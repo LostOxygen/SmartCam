@@ -21,13 +21,13 @@ PORT = 65432 #Port auf dem gehört wird
 
 # ------------ Variablen ---------------
 exit = False
-
+camera = Camera()
 # ------------ Main Code ---------------
 
 def make_picture(camera, fileName):
     if camera.get_frame is not None:
         img2 = Image.open(io.BytesIO(camera.get_frame())) #lädt frame als ByteIO um es zu öffnen
-        img2.save("/home/pi/Desktop/OpenCV/raspberry_pi/webservice_pi/images/" + fileName) #speichert es als fileName ab
+        img2.save("/home/pi/Desktop/OpenCV/tcp_server/images/" + fileName) #speichert es als fileName ab
         return True
     else:
         print("Kamera Frame ist None")
@@ -51,7 +51,7 @@ def main():
 #--------------------------------------------------------------------------------------------------
                     if data[0] == 'G' and data[1] == 'O': #Get Offset
                         try:
-                            offset = Kreis.kreis(False)
+                            offset = Kreis.kreis(camera, False)
                             ausgabe = "GO" + "X" + str(offset[0]) + "Y" + str(offset[1]) + "\x00"
                         except:
                             print("Fehler beim Offset erstellen!")
@@ -61,7 +61,7 @@ def main():
                         conn.sendall(ausgabe)
 #--------------------------------------------------------------------------------------------------
                     if data[0] == 'I' and data[1] == 'M': #erstellt einfaches Bild
-                        camera = Camera()
+                        #camera = Camera()
 
                         d = datetime.now()
                         imgYear = "%04d" % (d.year)
@@ -76,13 +76,13 @@ def main():
                         else:
                             ausgabe = "NO" + "\x00"
 
-                        del camera
+                        #del camera
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
 #--------------------------------------------------------------------------------------------------
                     if data[0] == 'C' and data[1] == 'V': #erstellt bild mit kreis
                         try:
-                            if Kreis.kreis(True): #Kreis mit Image = True aufrufen
+                            if Kreis.kreis(camera, True): #Kreis mit Image = True aufrufen
                                 ausgabe = "OK" + "\x00"
                             else:
                                 ausgabe = "NO" + "\x00"

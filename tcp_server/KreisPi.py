@@ -24,13 +24,6 @@ from datetime import datetime
 
 class Kreis():
     def kreis(camera, picture): #Picture ist bool und ist für das erstellen eines Bildes oder nicht
-        #cam = PiCamera()
-        cam = camera #Übergibt die Kamera die der Server erstellt
-        cam.resolution = (1920, 1088)
-        cam.framerate = 30
-        rawCapture = PiRGBArray(cam, size=(1920, 1088))
-        #Mitte = (960,544)
-        time.sleep(1) #eine Sekunde warten, damit die Kamera fokussieren kann
 
         #Variablen
         image_frame = None
@@ -75,73 +68,72 @@ class Kreis():
 
         # ----------------------------------- Main Code -----------------------
         if config_test:
-            for frame in cam.capture_continuous(rawCapture, format="bgr", use_video_port=True):
-                frame = frame.array
-                # in Graubild umwandeln
-                gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-                #blurren
-                blur = cv2.medianBlur(gray, 5)
-                #zeichnet Rechteckt
-                rechteck = cv2.rectangle(frame, oben_links, unten_rechts, (100,50,200), 5)
-                cv2.putText(frame, str(oben_links) , oben_links, cv2.FONT_HERSHEY_PLAIN, 1, (255,255,255), 1, cv2.LINE_AA, 0)
-                cv2.putText(frame, str(unten_rechts) , unten_rechts, cv2.FONT_HERSHEY_PLAIN, 1, (255,255,255), 1, cv2.LINE_AA, 0)
-                cv2.putText(frame, str((oben_links[0], unten_rechts[1])) , (oben_links[0], unten_rechts[1]), cv2.FONT_HERSHEY_PLAIN, 1, (255,255,255), 1, cv2.LINE_AA, 0)
-                cv2.putText(frame, str((unten_rechts[0], oben_links[1])) , (unten_rechts[0], oben_links[1]), cv2.FONT_HERSHEY_PLAIN, 1, (255,255,255), 1, cv2.LINE_AA, 0)
+            frame = camera.get_frame()
+            # in Graubild umwandeln
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            #blurren
+            blur = cv2.medianBlur(gray, 5)
+            #zeichnet Rechteckt
+            rechteck = cv2.rectangle(frame, oben_links, unten_rechts, (100,50,200), 5)
+            cv2.putText(frame, str(oben_links) , oben_links, cv2.FONT_HERSHEY_PLAIN, 1, (255,255,255), 1, cv2.LINE_AA, 0)
+            cv2.putText(frame, str(unten_rechts) , unten_rechts, cv2.FONT_HERSHEY_PLAIN, 1, (255,255,255), 1, cv2.LINE_AA, 0)
+            cv2.putText(frame, str((oben_links[0], unten_rechts[1])) , (oben_links[0], unten_rechts[1]), cv2.FONT_HERSHEY_PLAIN, 1, (255,255,255), 1, cv2.LINE_AA, 0)
+            cv2.putText(frame, str((unten_rechts[0], oben_links[1])) , (unten_rechts[0], oben_links[1]), cv2.FONT_HERSHEY_PLAIN, 1, (255,255,255), 1, cv2.LINE_AA, 0)
 
-                #Temp Variablen zum arbeiten für nächsten Kreis
-                kdistanz = 100000
-                kkreis_r = 0
-                kkreis_xy = (0,0)
+            #Temp Variablen zum arbeiten für nächsten Kreis
+            kdistanz = 100000
+            kkreis_r = 0
+            kkreis_xy = (0,0)
 
-                #verarbeitet den Teil im Rechteck
-                ausschnitt = blur[oben_links[1] : unten_rechts[1], oben_links[0] : unten_rechts[0]]
-                mittelpunkt = (int(oben_links[0]+(unten_rechts[0]-oben_links[0])/2), int(oben_links[1]+(unten_rechts[1]-oben_links[1])/2))
-                cv2.circle(ausschnitt,mittelpunkt,2,(0,0,255),3)
-                circles = cv2.HoughCircles(ausschnitt,cv2.HOUGH_GRADIENT,1,20,param1=100,param2=20,minRadius=27,maxRadius= 32)
-                if circles is not None:
-                    for i in circles[0,:]:
-            			#Kreis zeichnen
-                        cv2.circle(frame,(int(oben_links[0] + i[0]), int(oben_links[1] + i[1])),i[2],(0,0,255),2) #(Quelle, (x,y) = Center, Radius, Farbe, )
-                        #Mittelpunkt malen
-                        cv2.circle(frame,(int(oben_links[0] + i[0]), int(oben_links[1] + i[1])),2,(0,0,255),3)
-                        #den nächsten Kreis finden
+            #verarbeitet den Teil im Rechteck
+            ausschnitt = blur[oben_links[1] : unten_rechts[1], oben_links[0] : unten_rechts[0]]
+            mittelpunkt = (int(oben_links[0]+(unten_rechts[0]-oben_links[0])/2), int(oben_links[1]+(unten_rechts[1]-oben_links[1])/2))
+            cv2.circle(ausschnitt,mittelpunkt,2,(0,0,255),3)
+            circles = cv2.HoughCircles(ausschnitt,cv2.HOUGH_GRADIENT,1,20,param1=100,param2=20,minRadius=27,maxRadius= 32)
+            if circles is not None:
+                for i in circles[0,:]:
+            		#Kreis zeichnen
+                    cv2.circle(frame,(int(oben_links[0] + i[0]), int(oben_links[1] + i[1])),i[2],(0,0,255),2) #(Quelle, (x,y) = Center, Radius, Farbe, )
+                    #Mittelpunkt malen
+                    cv2.circle(frame,(int(oben_links[0] + i[0]), int(oben_links[1] + i[1])),2,(0,0,255),3)
+                    #den nächsten Kreis finden
 
-                        distanz = math.sqrt(((mittelpunkt[0] - (oben_links[0]+i[0]))**2) + ((mittelpunkt[1] - (oben_links[1]+i[1]))**2))
+                    distanz = math.sqrt(((mittelpunkt[0] - (oben_links[0]+i[0]))**2) + ((mittelpunkt[1] - (oben_links[1]+i[1]))**2))
 
-                        if distanz < kdistanz:
-                            kdistanz = distanz
-                            kkreis_r = i[2]
-                            kkreis_xy = (int(oben_links[0] + i[0]), int(oben_links[1] + i[1]))
-
+                    if distanz < kdistanz:
+                        kdistanz = distanz
+                        kkreis_r = i[2]
+                        kkreis_xy = (int(oben_links[0] + i[0]), int(oben_links[1] + i[1]))
 
 
-                ausschnitt = cv2.cvtColor(ausschnitt, cv2.COLOR_GRAY2RGB)
-                cv2.circle(frame, mittelpunkt, 2, (255,255,255),2) #Mittelpunkt des Bildes
-                cv2.circle(frame, kkreis_xy, kkreis_r,(0,255,0),2) #ausgewählter Kreisen
-                cv2.circle(frame, kkreis_xy, 2,(0,255,0),2) #Mittelpunkt des Kreises
 
-                if circles is not None: #Damit nur eine Linie gezeichnet wird, wenn er Kreise findet
-                    cv2.line(frame,mittelpunkt,kkreis_xy,(255,255,255),5) #Linie zwischen Mittelpunkt und ausgewähltem Kreis
-                    cv2.putText(frame, str(round(kdistanz, 2)) , kkreis_xy, cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 2, cv2.LINE_AA, 0)
-                    cv2.putText(frame, 'geschaetzte Distanz (in CM): ' + str(round((kdistanz*umrechnung_pixel_mm)/10,2)), (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 2, cv2.LINE_AA, 0)
+            ausschnitt = cv2.cvtColor(ausschnitt, cv2.COLOR_GRAY2RGB)
+            cv2.circle(frame, mittelpunkt, 2, (255,255,255),2) #Mittelpunkt des Bildes
+            cv2.circle(frame, kkreis_xy, kkreis_r,(0,255,0),2) #ausgewählter Kreisen
+            cv2.circle(frame, kkreis_xy, 2,(0,255,0),2) #Mittelpunkt des Kreises
 
-                #cv2.namedWindow(fenster_name, 1)
-                #cv2.imshow(fenster_name, frame)
-                rawCapture.truncate(0)
-                offset = (abs(mittelpunkt[0] - kkreis_xy[0]) , abs(mittelpunkt[1] - kkreis_xy[1]))
-                image_frame = frame
-                #img = Image.open(frame) #lädt frame als ByteIO um es zu öffnen
-                #img.save("/home/pi/Desktop/OpenCV/tcp_server/images/" + fileName) #speichert es als fileName ab
-                del cam
-                break
+            if circles is not None: #Damit nur eine Linie gezeichnet wird, wenn er Kreise findet
+                cv2.line(frame,mittelpunkt,kkreis_xy,(255,255,255),5) #Linie zwischen Mittelpunkt und ausgewähltem Kreis
+                cv2.putText(frame, str(round(kdistanz, 2)) , kkreis_xy, cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 2, cv2.LINE_AA, 0)
+                cv2.putText(frame, 'geschaetzte Distanz (in CM): ' + str(round((kdistanz*umrechnung_pixel_mm)/10,2)), (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 2, cv2.LINE_AA, 0)
 
-            # Alles beenden
-            #cam.release()
-            #cv2.destroyAllWindows()
-            if picture:
-                if image_frame is not None:
-                    cv2.imwrite("/home/pi/Desktop/OpenCV/tcp_server/images/" + fileName, image_frame) #speichert es als fileName ab
-                    print("speichert Bild: " + fileName)
-                    return True
-            else:
-                return offset
+            #cv2.namedWindow(fenster_name, 1)
+            #cv2.imshow(fenster_name, frame)
+            rawCapture.truncate(0)
+            offset = (abs(mittelpunkt[0] - kkreis_xy[0]) , abs(mittelpunkt[1] - kkreis_xy[1]))
+            image_frame = frame
+            #img = Image.open(frame) #lädt frame als ByteIO um es zu öffnen
+            #img.save("/home/pi/Desktop/OpenCV/tcp_server/images/" + fileName) #speichert es als fileName ab
+            del cam
+            break
+
+        # Alles beenden
+        #cam.release()
+        #cv2.destroyAllWindows()
+        if picture:
+            if image_frame is not None:
+                cv2.imwrite("/home/pi/Desktop/OpenCV/tcp_server/images/" + fileName, image_frame) #speichert es als fileName ab
+                print("speichert Bild: " + fileName)
+                return True
+        else:
+            return offset
