@@ -69,8 +69,9 @@ class Kreis():
         # ----------------------------------- Main Code -----------------------
         if config_test:
             frame = camera.get_frame()
-            print(frame.dtype)
+            pprint(frame)
             frame = cv2.UMat(frame)
+            pprint(frame)
             print(frame.dtype)
             # in Graubild umwandeln
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
