@@ -116,10 +116,6 @@ class Kreis():
                             print('Y: ' + str(i[1]))
                             print('Radius: ' + str(i[2]))
 
-                print('Mittelpunkt Bild: ' + str(mittelpunkt))
-                print('Distanz zum nächsten Kreismittelpunkt (Pixeln): ' + str(kdistanz))
-                print('Nächster Kreis: ' + str(kkreis_xy))
-                print('geschätzte Distanz (in CM): ' + str((kdistanz*umrechnung_pixel_mm)/10)) # Distanz in Pixeln mal mm Pro Pixel durch 10 für CM
 
                 ausschnitt = cv2.cvtColor(ausschnitt, cv2.COLOR_GRAY2RGB)
                 cv2.circle(frame, mittelpunkt, 2, (255,255,255),2) #Mittelpunkt des Bildes
@@ -146,6 +142,7 @@ class Kreis():
             if picture:
                 if image_frame is not None:
                     cv2.imwrite("/home/pi/Desktop/OpenCV/tcp_server/images/" + fileName, image_frame) #speichert es als fileName ab
-                return True
+                    print("speichert Bild: " + fileName)
+                    return True
             else:
                 return offset
