@@ -124,8 +124,6 @@ class Kreis():
             image_frame = frame
             #img = Image.open(frame) #lädt frame als ByteIO um es zu öffnen
             #img.save("/home/pi/Desktop/OpenCV/tcp_server/images/" + fileName) #speichert es als fileName ab
-            del cam
-            break
 
         # Alles beenden
         #cam.release()
