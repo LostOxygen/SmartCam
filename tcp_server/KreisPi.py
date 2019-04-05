@@ -119,7 +119,7 @@ class Kreis():
 
             #cv2.namedWindow(fenster_name, 1)
             #cv2.imshow(fenster_name, frame)
-            rawCapture.truncate(0)
+            #rawCapture.truncate(0)
             offset = (abs(mittelpunkt[0] - kkreis_xy[0]) , abs(mittelpunkt[1] - kkreis_xy[1]))
             image_frame = frame
             #img = Image.open(frame) #lädt frame als ByteIO um es zu öffnen
