@@ -7,7 +7,7 @@ PORT = 65432 #Port des Servers
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
     sock.connect((HOST,PORT))
-    print("Befehle: \n EX : beendet Server und Verbindung \n GO : liefert Offset zurueck \n CO : konfiguriert die Kreiserkennung")
+    print("Befehle: \n EX : beendet Server und Verbindung \n GO : liefert Offset zurueck \n CO : konfiguriert die Kreiserkennung \n IM : erstellt ein einfaches Bild \n CV : erstellt ein Bild mit erkannten Kreisen")
     while True:
         command = input("Befehl: ")
         command = command.encode()
@@ -16,7 +16,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
         response = data.decode()
         print('Empfangene Daten: ', response)
 
-        if response[0] == 'E' and response[1] == 'X':
+        if response is not None and response[0] == 'E' and response[1] == 'X':
             print("Verbindung wird beendet..")
             break
 print("Verbindung Beendet!")

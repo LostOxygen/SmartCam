@@ -71,7 +71,7 @@ def main():
                         imgMins = "%02d" % (d.minute)
                         fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
 
-                        if make_picture(camera, filename):
+                        if make_picture(camera, fileName):
                             ausgabe = "OK" + "\x00"
                         else:
                             ausgabe = "NO" + "\x00"
