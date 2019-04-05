@@ -23,8 +23,9 @@ import time
 from datetime import datetime
 
 class Kreis():
-    def kreis(picture): #Picture ist bool und ist für das erstellen eines Bildes oder nicht
-        cam = PiCamera()
+    def kreis(camera, picture): #Picture ist bool und ist für das erstellen eines Bildes oder nicht
+        #cam = PiCamera()
+        cam = camera #Übergibt die Kamera die der Server erstellt
         cam.resolution = (1920, 1088)
         cam.framerate = 30
         rawCapture = PiRGBArray(cam, size=(1920, 1088))
@@ -97,7 +98,6 @@ class Kreis():
                 mittelpunkt = (int(oben_links[0]+(unten_rechts[0]-oben_links[0])/2), int(oben_links[1]+(unten_rechts[1]-oben_links[1])/2))
                 cv2.circle(ausschnitt,mittelpunkt,2,(0,0,255),3)
                 circles = cv2.HoughCircles(ausschnitt,cv2.HOUGH_GRADIENT,1,20,param1=100,param2=20,minRadius=27,maxRadius= 32)
-                clear()
                 if circles is not None:
                     for i in circles[0,:]:
             			#Kreis zeichnen
@@ -112,9 +112,7 @@ class Kreis():
                             kdistanz = distanz
                             kkreis_r = i[2]
                             kkreis_xy = (int(oben_links[0] + i[0]), int(oben_links[1] + i[1]))
-                            print('X: ' + str(i[0]))
-                            print('Y: ' + str(i[1]))
-                            print('Radius: ' + str(i[2]))
+
 
 
                 ausschnitt = cv2.cvtColor(ausschnitt, cv2.COLOR_GRAY2RGB)

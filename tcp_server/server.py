@@ -22,10 +22,6 @@ PORT = 65432 #Port auf dem gehört wird
 # ------------ Variablen ---------------
 exit = False
 
-# ---------- Argumente -----------------
-#argument = argparse.ArgumentParser()
-#argument.add_argument("--arg", required = False, help = "Argument zum übergeben", action ="store_true")
-#args = argument.parse_args()
 # ------------ Main Code ---------------
 
 def make_picture(camera, fileName):
