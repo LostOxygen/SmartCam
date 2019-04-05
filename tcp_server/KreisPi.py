@@ -68,7 +68,7 @@ class Kreis():
 
         # ----------------------------------- Main Code -----------------------
         if config_test:
-            frame = camera.get_frame()
+            frame = np.array(camera.get_frame())
             # in Graubild umwandeln
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             #blurren
@@ -130,8 +130,8 @@ class Kreis():
         #cv2.destroyAllWindows()
         if picture:
             if image_frame is not None:
-                ret, jpeg = cv2.imencode('.jpg', image_frame)
-                cv2.imwrite("/home/pi/Desktop/OpenCV/tcp_server/images/" + fileName, jpg) #speichert es als fileName ab
+                #ret, jpeg = cv2.imencode('.jpg', image_frame)
+                cv2.imwrite("/home/pi/Desktop/OpenCV/tcp_server/images/" + fileName, image_frame) #speichert es als fileName ab
                 print("speichert Bild: " + fileName)
                 return True
         else:
