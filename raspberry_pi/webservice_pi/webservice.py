@@ -19,7 +19,9 @@ import io
 
 #-------------------- Variablen --------------------
 app = Flask(__name__)
+camera = Camera()
 #-------------------- Sonstiges --------------------
+
 def gen(camera): #Generator für den Kamerastream
     while True:
         frame = camera.get_frame()
@@ -33,11 +35,12 @@ def make_picture(camera, fileName):
     else:
         return "Kamera Frame ist None"
 
-#def gen_kreis(camera): #Generator für den Kreiserkennungskamerastream
-#    while True:
-#        frame = KreisLive.kreislive(camera.get_frame())
-#        yield (b'--frame\r\n'
-#               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+def gen_kreis(camera): #Generator für den Kreiserkennungskamerastream
+    while True:
+        frame = KreisLive.kreislive(camera.get_frame())
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+
 #---------------------------- Webservice Routen ----------------------
 @app.route('/index')
 @app.route('/')
@@ -47,12 +50,12 @@ def index():
 @app.route('/api/live/')
 @app.route('/api/live')
 def live(): #Kamerastream in HTML einbetten
-    return Response(gen(Camera()),mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(gen(camera),mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/api/bild/')
 @app.route('/api/bild')
 def bild():
-    camera = Camera()
+    #camera = Camera()
     d = datetime.now()
     imgYear = "%04d" % (d.year)
     imgMonth = "%02d" % (d.month)
@@ -61,7 +64,7 @@ def bild():
     imgMins = "%02d" % (d.minute)
     fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
     make_picture(camera, fileName)
-    del camera
+    #del camera
     return send_from_directory(directory="images", filename=fileName)
 
 @app.route('/api/offset/')
@@ -77,7 +80,7 @@ def api():
 @app.route('/api/kreislive/')
 @app.route('/api/kreislive')
 def kreislive():
-    return Response(gen2(Camera()), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(gen2(camera), mimetype='multipart/x-mixed-replace; boundary=frame')
 #     return "Aktuell noch WIP"
 @app.route('/api/kreisbild/')
 @app.route('/api/kreisbild')
