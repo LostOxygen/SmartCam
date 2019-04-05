@@ -49,17 +49,17 @@ def main():
                     data = conn.recv(1024) #empfängt Daten der Verbindung (max 1024 Byte)
                     data = data.decode() #Dekodiert, weil Binär
                     data = str(data) #Data zu String konvertieren
-
+#--------------------------------------------------------------------------------------------------
                     if not data: #Guckt ob überhaupt Daten kommen
                         break
-
+#--------------------------------------------------------------------------------------------------
                     if data[0] == 'G' and data[1] == 'O': #Get Offset
                         offset = Kreis.kreis(False)
                         #offset = (15.3,14.7)
                         ausgabe = "GO" + "X" + str(offset[0]) + "Y" + str(offset[1]) + "\x00"
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
-
+#--------------------------------------------------------------------------------------------------
                     if data[0] == 'I' and data[1] == 'M': #erstellt einfaches Bild
                         camera = Camera()
 
@@ -79,7 +79,7 @@ def main():
                         del camera
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
-
+#--------------------------------------------------------------------------------------------------
                     if data[0] == 'C' and data[1] == 'V': #erstellt bild mit kreis
                         if Kreis.kreis(True): #Kreis mit Image = True aufrufen
                             ausgabe = "OK" + "\x00"
@@ -87,7 +87,7 @@ def main():
                             ausgabe = "NO" + "\x00"
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
-
+#--------------------------------------------------------------------------------------------------
                     if data[0] == 'C' and data[1] == 'O': #configGenerator
                         ausgabe = "Server wird konfiguriert!" + "\x00"
                         ausgabe = ausgabe.encode()
@@ -100,8 +100,8 @@ def main():
                             err = "Config konnte nicht erstellt werden!" + "\x00"
                             err = err.encode()
                             conn.sendall(err)
-
-                    if data[0] == 'E' and data[1] == 'X': #Exit
+#--------------------------------------------------------------------------------------------------
+                    if data[0] == 'E' and data[1] == 'X': #Exit und sendet EX als Exitcode
                         ausgabe = "EX" + "\x00"
                         print("Server wird beendet!")
                         exit = True

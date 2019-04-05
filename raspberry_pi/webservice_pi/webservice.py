@@ -80,7 +80,7 @@ def api():
 @app.route('/api/kreislive/')
 @app.route('/api/kreislive')
 def kreislive():
-    return Response(gen2(camera), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(gen_kreis(camera), mimetype='multipart/x-mixed-replace; boundary=frame')
 #     return "Aktuell noch WIP"
 @app.route('/api/kreisbild/')
 @app.route('/api/kreisbild')
