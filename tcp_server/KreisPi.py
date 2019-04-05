@@ -131,8 +131,8 @@ class Kreis():
                     cv2.putText(frame, str(round(kdistanz, 2)) , kkreis_xy, cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 2, cv2.LINE_AA, 0)
                     cv2.putText(frame, 'geschaetzte Distanz (in CM): ' + str(round((kdistanz*umrechnung_pixel_mm)/10,2)), (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 2, cv2.LINE_AA, 0)
 
-                cv2.namedWindow(fenster_name, 1)
-                cv2.imshow(fenster_name, frame)
+                #cv2.namedWindow(fenster_name, 1)
+                #cv2.imshow(fenster_name, frame)
                 rawCapture.truncate(0)
                 offset = (abs(mittelpunkt[0] - kkreis_xy[0]) , abs(mittelpunkt[1] - kkreis_xy[1]))
                 image_frame = frame
