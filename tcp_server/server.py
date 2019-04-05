@@ -54,9 +54,13 @@ def main():
                         break
 #--------------------------------------------------------------------------------------------------
                     if data[0] == 'G' and data[1] == 'O': #Get Offset
-                        offset = Kreis.kreis(False)
-                        #offset = (15.3,14.7)
-                        ausgabe = "GO" + "X" + str(offset[0]) + "Y" + str(offset[1]) + "\x00"
+                        try:
+                            offset = Kreis.kreis(False)
+                            ausgabe = "GO" + "X" + str(offset[0]) + "Y" + str(offset[1]) + "\x00"
+                        except:
+                            print("Fehler beim Offset erstellen!")
+                            ausgabe = "ER" + "\x00"
+
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
 #--------------------------------------------------------------------------------------------------
@@ -81,10 +85,15 @@ def main():
                         conn.sendall(ausgabe)
 #--------------------------------------------------------------------------------------------------
                     if data[0] == 'C' and data[1] == 'V': #erstellt bild mit kreis
-                        if Kreis.kreis(True): #Kreis mit Image = True aufrufen
-                            ausgabe = "OK" + "\x00"
-                        else:
-                            ausgabe = "NO" + "\x00"
+                        try:
+                            if Kreis.kreis(True): #Kreis mit Image = True aufrufen
+                                ausgabe = "OK" + "\x00"
+                            else:
+                                ausgabe = "NO" + "\x00"
+                        except:
+                            print("Fehler beim erstellen eines Bildes mit Kreiserkennung")
+                            ausgabe = "ER" + "\x00"
+
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
 #--------------------------------------------------------------------------------------------------
