@@ -49,7 +49,7 @@ class Camera(object):
             camera.start_preview()
             time.sleep(2)
 
-            stream = io.BytesIO()
+            #stream = io.BytesIO()
             for frame in camera.capture_continuous(stream, 'bgr', use_video_port=True):
                 cls.frame_cv = frame.array
                 # store frame
