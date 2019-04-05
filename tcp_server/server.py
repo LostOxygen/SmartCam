@@ -70,6 +70,7 @@ def main():
                         imgDate = "%02d" % (d.day)
                         imgHour = "%02d" % (d.hour)
                         imgMins = "%02d" % (d.minute)
+                        #Todo Sekunde programmieren
                         fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
 
                         if make_picture(camera, fileName):
