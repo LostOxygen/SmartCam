@@ -21,13 +21,13 @@ PORT = 65432 #Port auf dem gehört wird
 
 # ------------ Variablen ---------------
 exit = False
-camera = Camera()
+camera = Camera() #erstellt Global eine Kamera
 # ------------ Main Code ---------------
 
 def make_picture(camera, fileName):
     if camera.get_frame is not None:
-        ret, jpeg = cv2.imencode('.jpg', camera.get_frame_cv())
-        img2 = Image.open(io.BytesIO(jpeg.tobytes()))
+        ret, jpeg = cv2.imencode('.jpg', camera.get_frame_cv()) #dekodiert das RAW Image zu JPEG
+        img2 = Image.open(io.BytesIO(jpeg.tobytes())) #konvertiert jpeg zu einem Byte Objekt um es mit BytesIO zu handhaben
         img2.save("/home/pi/Desktop/OpenCV/tcp_server/images/" + fileName) #speichert es als fileName ab
         return True
     else:

@@ -26,12 +26,12 @@ class Camera(object):
             while self.frame is None:
                 time.sleep(0)
 
-    def get_frame(self):
+    def get_frame(self): #normales Frame zurück
         Camera.last_access = time.time()
         self.initialize()
         return self.frame
 
-    def get_frame_cv(self):
+    def get_frame_cv(self): #numpy Frame für Verarbeitung
         Camera.last_access = time.time()
         self.initialize()
         return self.frame_cv
@@ -41,7 +41,7 @@ class Camera(object):
         with picamera.PiCamera() as camera:
             # camera setup
             camera.resolution = (1920, 1088)
-            stream = PiRGBArray(camera, size=(1920, 1088))
+            stream = PiRGBArray(camera, size=(1920, 1088)) #Benutzt ein PiRGBArray
             camera.hflip = True
             camera.vflip = True
 
@@ -51,7 +51,7 @@ class Camera(object):
 
             #stream = io.BytesIO()
             for frame in camera.capture_continuous(stream, 'bgr', use_video_port=True):
-                cls.frame_cv = frame.array
+                cls.frame_cv = frame.array #numpy Array für Bildverarbeitung
                 # store frame
                 stream.seek(0)
                 cls.frame = stream.read()
