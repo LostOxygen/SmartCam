@@ -39,7 +39,8 @@ class Camera(object):
     def _thread(cls):
         with picamera.PiCamera() as camera:
             # camera setup
-            camera.resolution = (1920, 1080)
+            camera.resolution = (1920, 1088)
+            stream = PiRGBArray(camera, size=(1920, 1088))
             camera.hflip = True
             camera.vflip = True
 
