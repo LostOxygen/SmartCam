@@ -23,7 +23,7 @@ import time
 from datetime import datetime
 
 class Kreis():
-    def kreis(picture):
+    def kreis(picture): #Picture ist bool und ist für das erstellen eines Bildes oder nicht
         cam = PiCamera()
         cam.resolution = (1920, 1088)
         cam.framerate = 30
@@ -134,6 +134,7 @@ class Kreis():
                 image_frame = frame
                 #img = Image.open(frame) #lädt frame als ByteIO um es zu öffnen
                 #img.save("/home/pi/Desktop/OpenCV/tcp_server/images/" + fileName) #speichert es als fileName ab
+                del cam
                 break
 
             # Alles beenden
