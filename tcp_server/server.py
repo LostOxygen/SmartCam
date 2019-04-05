@@ -26,7 +26,7 @@ camera = Camera()
 
 def make_picture(camera, fileName):
     if camera.get_frame is not None:
-        ret, jpeg = cv2.imencode('.jpg', camera.get_frame())
+        ret, jpeg = cv2.imencode('.jpg', camera.get_frame_cv())
         img2 = Image.open(jpeg.tobytes())
         img2.save("/home/pi/Desktop/OpenCV/tcp_server/images/" + fileName) #speichert es als fileName ab
         return True
