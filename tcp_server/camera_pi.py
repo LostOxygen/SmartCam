@@ -12,6 +12,7 @@ import picamera
 class Camera(object):
     thread = None  # background thread that reads frames from camera
     frame = None  # current frame is stored here by background thread
+    frame_cv = None
     last_access = 0  # time of last client access to the camera
 
     def initialize(self):
@@ -29,6 +30,11 @@ class Camera(object):
         self.initialize()
         return self.frame
 
+    def get_frame_cv(self):
+        Camera.last_access = time.time()
+        self.initialize()
+        return self.frame_cv
+
     @classmethod
     def _thread(cls):
         with picamera.PiCamera() as camera:
@@ -42,7 +48,8 @@ class Camera(object):
             time.sleep(2)
 
             stream = io.BytesIO()
-            for foo in camera.capture_continuous(stream, 'jpeg', use_video_port=True):
+            for frame in camera.capture_continuous(stream, 'jpeg', use_video_port=True):
+                cls.frame_cv = frame.array
                 # store frame
                 stream.seek(0)
                 cls.frame = stream.read()

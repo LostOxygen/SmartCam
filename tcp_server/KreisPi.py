@@ -68,11 +68,7 @@ class Kreis():
 
         # ----------------------------------- Main Code -----------------------
         if config_test:
-            frame = camera.get_frame()
-            pprint(frame)
-            frame = cv2.UMat(frame)
-            pprint(frame)
-            print(frame.dtype)
+            frame = camera.get_frame_cv()
             # in Graubild umwandeln
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             #blurren
