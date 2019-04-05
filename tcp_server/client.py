@@ -16,7 +16,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
         response = data.decode()
         print('Empfangene Daten: ', response)
 
-        if response is not None and response[0] == 'E' and response[1] == 'X':
+        if response[0] == 'E' and response[1] == 'X':
             print("Verbindung wird beendet..")
             break
 print("Verbindung Beendet!")
