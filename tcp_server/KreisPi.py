@@ -142,7 +142,7 @@ class Kreis():
 
             # Alles beenden
             #cam.release()
-            cv2.destroyAllWindows()
+            #cv2.destroyAllWindows()
             if picture:
                 if image_frame is not None:
                     cv2.imwrite("/home/pi/Desktop/OpenCV/tcp_server/images/" + fileName, image_frame) #speichert es als fileName ab
