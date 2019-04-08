@@ -56,5 +56,4 @@ class Config():
         with open('config.ini', 'w') as configfile: #Werte in Config schreiben
             config.write(configfile)
 
-
-    return True
+        return True
