@@ -13,6 +13,8 @@ import numpy as np
 import argparse
 import math
 import configparser
+from picamera.array import PiRGBArray
+from picamera import PiCamera
 
 class Config():
     def createConfig(camera):
@@ -29,7 +31,7 @@ class Config():
         config = configparser.ConfigParser()
 
         # ----------------------------------- Main Code -----------------------
-        ret, frame = camera.get_frame_cv()
+        frame = camera.get_frame_cv()
         # in Graubild umwandeln
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         #blurren
@@ -56,5 +58,5 @@ class Config():
         config['KREISERKENNUNG'] = {'AbstandZumObjekt' : '15', 'DurchmesserKreisInPixel' : kkreis_r}
         with open('config.ini', 'w') as configfile: #Werte in Config schreiben
             config.write(configfile)
-
+        print("Durchmesser Kreis in Pixel: " + kkreis_r)
         return True
