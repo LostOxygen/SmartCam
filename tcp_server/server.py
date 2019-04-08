@@ -102,15 +102,17 @@ def main():
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
                         try:
-                            Config.createConfig(camera)
-                            succ = "OK" + "\x00"
-                            succ = succ.encode()
-                            conn.sendall(succ)
+                            if Config.createConfig(camera):
+                                ausgabe = "OK" + "\x00"
+                            else:
+                                ausgabe = "NO" + "\x00"
+                            ausgabe = ausgabe.encode()
+                            conn.sendall(ausgabe)
                         except Exception as e:
-                            err = "ER" + "\x00"
+                            ausgabe = "ER" + "\x00"
                             print(e)
-                            err = err.encode()
-                            conn.sendall(err)
+                            ausgabe = ausgabe.encode()
+                            conn.sendall(ausgabe)
 #--------------------------------------------------------------------------------------------------
                     if data[0] == 'E' and data[1] == 'X': #Exit und sendet EX als Exitcode
                         ausgabe = "EX" + "\x00"
