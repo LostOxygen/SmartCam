@@ -1,5 +1,6 @@
 # Readme für RoboSchalt mit OpenCV
-### Dependecies (bestenfalls in dieser Reihenfolge installieren):
+### Dependecies:
+(bestenfalls in dieser Reihenfolge installieren)
 *Es wird zwingend Python3 benötigt!*
 + [Pillow](https://pillow.readthedocs.io/en/stable/): **sudo pip3 install Pillow**
 + [Flask](http://flask.pocoo.org/): **sudo pip3 install Flask**
