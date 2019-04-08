@@ -51,7 +51,8 @@ class Config():
                 kkreis_xy = (int(oben_links[0] + i[0]), int(oben_links[1] + i[1]))
         else:
             print("kein Kreis für Configerstellung gefunden")
-            return false
+            return False
+
         config['KREISERKENNUNG'] = {'AbstandZumObjekt' : '15', 'DurchmesserKreisInPixel' : kkreis_r}
         with open('config.ini', 'w') as configfile: #Werte in Config schreiben
             config.write(configfile)
