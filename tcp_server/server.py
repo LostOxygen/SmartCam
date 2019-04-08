@@ -102,7 +102,7 @@ def main():
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
                         try:
-                            Config.createConfig
+                            Config.createConfig(camera)
                             succ = "OK" + "\x00"
                             succ = succ.encode()
                             conn.sendall(succ)
