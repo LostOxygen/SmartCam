@@ -121,6 +121,12 @@ def main():
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
                         break
+#--------------------------------------------------------------------------------------------------
+                    if data[0] == 'L' and data[1] == 'I': #Licht an und aus
+                        ausgabe = "Todo Licht" + "\x00"
+                        ausgabe = ausgabe.encode()
+                        conn.sendall(ausgabe)
+                        break
 
             if exit == True:
                 break
