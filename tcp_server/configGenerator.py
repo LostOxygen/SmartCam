@@ -62,5 +62,5 @@ class Config():
         config['KREISERKENNUNG'] = {'AbstandZumObjekt' : '15', 'DurchmesserKreisInPixel' : kkreis_r}
         with open('config.ini', 'w') as configfile: #Werte in Config schreiben
             config.write(configfile)
-        print("Durchmesser Kreis in Pixel: " + str(kkreis_r)
+        print("Durchmesser Kreis in Pixel: " + str(kkreis_r))
         return True
