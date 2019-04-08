@@ -39,7 +39,7 @@ class Config():
         config = configparser.ConfigParser()
 
         # ----------------------------------- Main Code -----------------------
-        cam = cv2.VideoCapture(0);
+        cam = cv2.VideoCapture(0):
         while cam.isOpened():
             ret, frame = cam.read()
             # in Graubild umwandeln

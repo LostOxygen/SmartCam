@@ -101,12 +101,14 @@ def main():
                         ausgabe = "Server wird konfiguriert!" + "\x00"
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
-                        if Config.createConfig == True: #Überprüft ob config generiert wurde
-                            succ = "Config wurde generiert!" + "\x00"
+                        try:
+                            Config.createConfig
+                            succ = "OK" + "\x00"
                             succ = succ.encode()
                             conn.sendall(succ)
-                        else:
-                            err = "Config konnte nicht erstellt werden!" + "\x00"
+                        except Exception as e:
+                            err = "ER" + "\x00"
+                            print(e)
                             err = err.encode()
                             conn.sendall(err)
 #--------------------------------------------------------------------------------------------------
