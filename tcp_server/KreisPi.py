@@ -19,7 +19,6 @@ from picamera import PiCamera
 import time
 from PIL import Image
 import io
-import time
 from datetime import datetime
 
 class Kreis():
