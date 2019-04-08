@@ -1,7 +1,7 @@
 # TCP/IP Server für RPI mit OpenCV Funktionalität
 
 ### Dependencies:
-siehe [Dependecies](https://github.com/LostOxygen/OpenCV#Dependecies:)
+siehe [Dependecies](https://github.com/LostOxygen/OpenCV#Dependecies)
 
 ### Ausführen:
 entweder **./server.py** oder mit **python3 server.py**
