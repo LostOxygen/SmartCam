@@ -13,12 +13,12 @@ Grundsätzlich werden alle Skripte mit **./skriptname.py** oder **python3 skript
 
 ### Libfaac für Debian (Stretch)
 Läuft der Raspberrypi unter Debian/Raspbian, so gibt es das Paket Libfaac nicht in den offiziellen Repo's. Deswegen:
-```console
- *sudo nano /etc/apt/sources.list*
- *deb http://www.deb-multimedia.org/ stretch main non-free* hinzufügen
- *sudo apt-get install debian-keyring*
- *gpg --keyserver pgp.mit.edu --recv-keys 1F41B907*
- *gpg --armor --export 1F41B907 | apt-key add*
- *sudo apt-get install deb-multimedia-keyring*
- *sudo apt-get update*
- *sudo apt-get install libfaac-dev* ```
+```shell
+ sudo nano /etc/apt/sources.list
+ deb http://www.deb-multimedia.org/ stretch main non-free hinzufügen
+ sudo apt-get install debian-keyring
+ gpg --keyserver pgp.mit.edu --recv-keys 1F41B907
+ gpg --armor --export 1F41B907 | apt-key add
+ sudo apt-get install deb-multimedia-keyring
+ sudo apt-get update
+ sudo apt-get install libfaac-dev ```
