@@ -38,7 +38,7 @@ def make_picture(camera, fileName): #Funktion zum Bild erstellen
         return False
 
 #---------------------------- Beginn Server ------------------------------------------------------
-def main(self):
+def main():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock: #AF_INET = Inet Adress Family (IPv4), SOCK_STREAM = socket type (TCP)
         sock.bind((HOST,PORT))
         sock.listen()
@@ -126,9 +126,11 @@ def main(self):
 #--------------------------------------------------------------------------------------------------
                     if data[0] == 'F' and data[1] == 'X': #Licht an und aus
                         if data[2] == 'O' and data [3] == 'N':
-                            thread  = threading.Thread(target=self._thread)
+                            thread  = threading.Thread(target=_thread())
+                            thread.start()
                             ausgabe = "OK" + "\x00"
                         elif data[2] == 'O' and data[3] == 'F' and data[4] == 'F':
+                            thread.stop()
                             thread = None
                             ausgabe = "OK" + "\x00"
                         else:
