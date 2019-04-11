@@ -145,8 +145,8 @@ def main():
                 break
 #------------------------------ Ende Server   -----------------------------------------------------
 
-@classmethod #Thread für Lichtkreis
-def _thread(cls):
+#Thread für Lichtkreis
+def _thread():
     print("test")
 
 
