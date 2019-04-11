@@ -147,7 +147,8 @@ def main():
 
 #Thread für Lichtkreis
 def _thread():
-    print("test")
+    while True:
+        print("test")
 
 
 
