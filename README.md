@@ -1,4 +1,4 @@
-# Readme für RoboSchalt mit OpenCV
+# Readme für RoboSchalt mit OpenCV (Python)
 ### Dependecies:
 (bestenfalls in dieser Reihenfolge installieren)
 *Es wird zwingend Python3 benötigt!*
