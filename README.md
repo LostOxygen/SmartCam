@@ -19,6 +19,23 @@ Läuft der Raspberrypi unter Debian/Raspbian, so gibt es das Paket Libfaac nicht
  sudo apt-get install debian-keyring
  gpg --keyserver pgp.mit.edu --recv-keys 1F41B907
  gpg --armor --export 1F41B907 | apt-key add
+ sudo apt-get update (ggf. zwischendurch öfters)
  sudo apt-get install deb-multimedia-keyring
  sudo apt-get update
- sudo apt-get install libfaac-dev ```
+ sudo apt-get install libfaac-dev
+```
+### Troubleshooting
+Überprüfen ob OpenCV richtig installiert wurde:
+```python
+  import cv2
+  cv2.__version__
+```
+Falls das Modul cv2 in python3 nicht gefunden werden kann:
+```shell
+  /usr/local/lib/python2.x/dist-packages
+```
+nach Ordner *cv2* durchsuchen und ggf. nach
+```shell
+  /usr/local/lib/python3.x/dist-packages
+```
+kopieren.
