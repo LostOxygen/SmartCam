@@ -38,7 +38,7 @@ def make_picture(camera, fileName): #Funktion zum Bild erstellen
         return False
 
 #---------------------------- Beginn Server ------------------------------------------------------
-def main():
+def main(self):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock: #AF_INET = Inet Adress Family (IPv4), SOCK_STREAM = socket type (TCP)
         sock.bind((HOST,PORT))
         sock.listen()
