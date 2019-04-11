@@ -13,6 +13,7 @@ import numpy as np
 from PIL import Image
 import io
 import pprint #Debug
+import threading
 
 # ------------ Netzwerk ----------------
 #HOST = '192.168.8.60' #IP Adresse des RPI
@@ -22,9 +23,11 @@ PORT = 65432 #Port auf dem gehört wird
 # ------------ Variablen ---------------
 exit = False
 camera = Camera() #erstellt Global eine Kamera
+lichtwert = (0,0,0)
+thread = None
 # ------------ Main Code ---------------
 
-def make_picture(camera, fileName):
+def make_picture(camera, fileName): #Funktion zum Bild erstellen
     if camera.get_frame is not None:
         ret, jpeg = cv2.imencode('.jpg', camera.get_frame_cv()) #dekodiert das RAW Image zu JPEG
         img2 = Image.open(io.BytesIO(jpeg.tobytes())) #konvertiert jpeg zu einem Byte Objekt um es mit BytesIO zu handhaben
@@ -34,6 +37,7 @@ def make_picture(camera, fileName):
         print("Kamera Frame ist None")
         return False
 
+#---------------------------- Beginn Server ------------------------------------------------------
 def main():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock: #AF_INET = Inet Adress Family (IPv4), SOCK_STREAM = socket type (TCP)
         sock.bind((HOST,PORT))
@@ -63,7 +67,6 @@ def main():
                         conn.sendall(ausgabe)
 #--------------------------------------------------------------------------------------------------
                     if data[0] == 'I' and data[1] == 'M': #erstellt einfaches Bild
-                        #camera = Camera()
 
                         d = datetime.now()
                         imgYear = "%04d" % (d.year)
@@ -79,7 +82,6 @@ def main():
                         else:
                             ausgabe = "NO" + "\x00"
 
-                        #del camera
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
 #--------------------------------------------------------------------------------------------------
@@ -122,14 +124,30 @@ def main():
                         conn.sendall(ausgabe)
                         break
 #--------------------------------------------------------------------------------------------------
-                    if data[0] == 'L' and data[1] == 'I': #Licht an und aus
-                        ausgabe = "Todo Licht" + "\x00"
+                    if data[0] == 'F' and data[1] == 'X': #Licht an und aus
+                        if data[2] == 'O' and data [3] == 'N':
+                            thread  = threading.Thread(target=self._thread)
+                            ausgabe = "OK" + "\x00"
+                        elif data[2] == 'O' and data[3] == 'F' and data[4] == 'F':
+                            thread = None
+                            ausgabe = "OK" + "\x00"
+                        else:
+                            lichtwert = (data[2],data[3],data[4])
+                            print("Licht wurde auf " + str(lichtwert) + " gesetzt.")
+                            ausgabe = "OK" + "\x00"
+
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
-                        break
-
+#--------------------------------------------------------------------------------------------------
             if exit == True:
                 break
+#------------------------------ Ende Server   -----------------------------------------------------
+
+@classmethod #Thread für Lichtkreis
+def _thread(cls):
+    print("test")
+
+
 
 if __name__ == '__main__':
     main()
