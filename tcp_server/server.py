@@ -16,7 +16,6 @@ import pprint #Debug
 
 #------------ NeoPixel Config -----------
 from neopixel import *
-from rpi_ws281x import *
 LED_COUNT = 16 #Anzahl LEDs
 LED_PIN = 18 #GPIO Pin für LEDs
 LED_FREQ_HZ = 800000 #Frequenz fürs Signal in Hz
