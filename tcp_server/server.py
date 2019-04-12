@@ -32,7 +32,7 @@ PORT = 65432 #Port auf dem gehört wird
 exit = False
 camera = Camera() #erstellt Global eine Kamera
 lichtwert = (0,0,0)
-strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS)
+
 
 # ------------ Main Code ---------------
 
@@ -153,4 +153,5 @@ def main():
 
 
 if __name__ == '__main__':
+    strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS)
     main()
