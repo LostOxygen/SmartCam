@@ -13,7 +13,15 @@ import numpy as np
 from PIL import Image
 import io
 import pprint #Debug
-import threading
+
+#------------ NeoPixel Config -----------
+from neopixel import *
+LED_COUNT = 16 #Anzahl LEDs
+LED_PIN = 18 #GPIO Pin für LEDs
+LED_FREQ_HZ = 800000 #Frequenz fürs Signal in Hz
+LED_DMA = 10 #DMA Channel für Signal
+LED_BRIGHTNESS = 255 #Helligkeit von 0 bis 255
+LED_INVERT = False
 
 # ------------ Netzwerk ----------------
 #HOST = '192.168.8.60' #IP Adresse des RPI
@@ -24,7 +32,8 @@ PORT = 65432 #Port auf dem gehört wird
 exit = False
 camera = Camera() #erstellt Global eine Kamera
 lichtwert = (0,0,0)
-thread = None
+strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS)
+
 # ------------ Main Code ---------------
 
 def make_picture(camera, fileName): #Funktion zum Bild erstellen
@@ -39,6 +48,7 @@ def make_picture(camera, fileName): #Funktion zum Bild erstellen
 
 #---------------------------- Beginn Server ------------------------------------------------------
 def main():
+    strip.begin()
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock: #AF_INET = Inet Adress Family (IPv4), SOCK_STREAM = socket type (TCP)
         sock.bind((HOST,PORT))
         sock.listen()
@@ -124,23 +134,22 @@ def main():
                         conn.sendall(ausgabe)
                         break
 #--------------------------------------------------------------------------------------------------
-                    if data[0] == 'F' and data[1] == 'X': #Licht an und aus
-                        lichtwert = (data[2],data[3],data[4])
+                    if data[0] == 'F' and data[1] == 'X': #Licht
+                        lichtwert = str(data[2]) + str(data[3]) + str(data[4]) #Hängt Daten aneinander
+                        lichtwert = (int(lichtwert),int(lichtwert),int(lichtwert)) #speichert sie als INT Tripel ab
                         print("Licht wurde auf " + str(lichtwert) + " gesetzt.")
-                        ausgabe = "OK" + "\x00"
 
+                        for i in range(0, strip.numPixels(), 1): #setzt alle Pixel auf 'Lichtwert'
+                            strip.setPixelColor(i, Color(lichtwert))
+                            strip.show()
+
+                        ausgabe = "OK" + "\x00"
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
 #--------------------------------------------------------------------------------------------------
             if exit == True:
                 break
 #------------------------------ Ende Server   -----------------------------------------------------
-
-#Thread für Lichtkreis
-def _thread():
-    while True:
-        print("test")
-
 
 
 if __name__ == '__main__':
