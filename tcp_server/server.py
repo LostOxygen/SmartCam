@@ -22,6 +22,7 @@ LED_FREQ_HZ = 800000 #Frequenz fürs Signal in Hz
 LED_DMA = 10 #DMA Channel für Signal
 LED_BRIGHTNESS = 255 #Helligkeit von 0 bis 255
 LED_INVERT = False
+LED_CHANNEL = 5
 
 # ------------ Netzwerk ----------------
 #HOST = '192.168.8.60' #IP Adresse des RPI
@@ -153,5 +154,5 @@ def main():
 
 
 if __name__ == '__main__':
-    strip = NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL, LED_STRIP)
+    strip = NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_STRIP)
     main()
