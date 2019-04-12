@@ -15,7 +15,7 @@ import io
 import pprint #Debug
 
 #------------ NeoPixel Config -----------
-from neopixel import *
+#from neopixel import *
 LED_COUNT = 16 #Anzahl LEDs
 LED_PIN = 18 #GPIO Pin für LEDs
 LED_FREQ_HZ = 800000 #Frequenz fürs Signal in Hz
@@ -154,5 +154,5 @@ def main():
 
 
 if __name__ == '__main__':
-    strip = NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS)
+    #strip = NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS)
     main()
