@@ -125,18 +125,9 @@ def main():
                         break
 #--------------------------------------------------------------------------------------------------
                     if data[0] == 'F' and data[1] == 'X': #Licht an und aus
-                        if data[2] == 'O' and data [3] == 'N':
-                            thread  = threading.Thread(target=_thread())
-                            thread.start()
-                            ausgabe = "OK" + "\x00"
-                        elif data[2] == 'O' and data[3] == 'F' and data[4] == 'F':
-                            thread.stop()
-                            thread = None
-                            ausgabe = "OK" + "\x00"
-                        else:
-                            lichtwert = (data[2],data[3],data[4])
-                            print("Licht wurde auf " + str(lichtwert) + " gesetzt.")
-                            ausgabe = "OK" + "\x00"
+                        lichtwert = (data[2],data[3],data[4])
+                        print("Licht wurde auf " + str(lichtwert) + " gesetzt.")
+                        ausgabe = "OK" + "\x00"
 
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
