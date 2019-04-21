@@ -9,7 +9,7 @@
 + [OpenCV](http://www.codebind.com/cpp-tutorial/install-opencv-ubuntu-cpp/) (vor dem kompilieren libfaac s.u. installieren!)
 + zusätzlich für [V4L2 Codec](https://www.raspberrypi.org/forums/viewtopic.php?t=62364):  **sudo modprobe bcm2835-v4l2**
 
-Grundsätzlich werden alle Skripte mit **./skriptname.py** oder **python3 skriptname.py** gestartet, lediglich *webservice.py* erfordert **sudo**.
+Grundsätzlich werden alle Skripte mit **./skriptname.py** oder **python3 skriptname.py** gestartet, lediglich *webservice.py* und der *TCP/IP Server* erfordern **sudo**.
 
 ### Libfaac für Debian (Stretch)
 Läuft der Raspberrypi unter Debian/Raspbian, so gibt es das Paket Libfaac nicht in den offiziellen Repo's. Deswegen:
