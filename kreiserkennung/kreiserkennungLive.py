@@ -114,7 +114,6 @@ if config_test:
         # Wenn ESC gedrückt wird, wird  das Programm beendet
         if key == 27:
             break
-
     # Alles beenden
     cam.release()
     cv2.destroyAllWindows()
