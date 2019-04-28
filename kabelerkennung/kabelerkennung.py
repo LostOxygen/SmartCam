@@ -15,6 +15,8 @@ from matplotlib import pyplot as plt
 #Variablen
 fenster_name = "Kabelerkenung"
 mittelpunkt = (int(1920/2), int(1080/2))
+threshold_val = 80
+threshold_max = 300
 
 def main(argv):
     filename = argv[0]
@@ -25,6 +27,10 @@ def main(argv):
         return -1
 
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    blur = cv2.bilateralFilter(gray, 9, 50, 175)
+    #blur = cv2.medianBlur(gray, 5)
+    ret, thresh = cv2.threshold(blur, threshold_val, threshold_max, cv2.THRESH_BINARY) #Threshold generieren
+    contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE) #Konturen suchen
     corners = cv2.goodFeaturesToTrack(gray, 300, 0.01, 10)
     corners = np.int0(corners)
 
@@ -42,6 +48,9 @@ def main(argv):
     cv2.circle(img, mittelpunkt, 2, (255,255,0), 2)
     cv2.line(img, mittelpunkt, (min_xy[0],mittelpunkt[1]), (255,255,0), 2)
     cv2.line(img, mittelpunkt, min_xy, (255,255,0), 2)
+
+    #Konturen zeichnen
+    cv2.drawContours(img, contours, -1, (0,255,0), 3)
 
     cv2.namedWindow(fenster_name, 1)
     cv2.imshow(fenster_name, img)
