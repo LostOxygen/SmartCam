@@ -86,6 +86,8 @@ def main(argv):
     cv2.imshow(fenster_name, img)
     cv2.waitKey(0)
 
+
+    print("Distanz: " + str(round(umrechnung_pixel_mm * dist)) + "mm")
     #cv2.imwrite("bild.jpg", img) #speichert ein Bild
     #plt.imshow(img), plt.show()
 
