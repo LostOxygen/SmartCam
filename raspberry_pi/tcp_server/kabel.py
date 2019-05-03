@@ -20,7 +20,6 @@ from datetime import datetime
 
 class Kabel():
     def kabel(camera):
-
         #Variablen
         fenster_name = "Kabelerkenung"
         mittelpunkt = (int(1920/2), int(1080/2))
@@ -81,8 +80,9 @@ class Kabel():
                 if x < min_xy[0]: #guckt nach kleinstem x wert
                     min_xy = (x,y)
 
-        #berechnet Distanz
-        dist = math.sqrt((min_xy[0] - min_xy[0])**2 + (min_xy[1] - mittelpunkt[1])**2)
+        #berechnet Distanz von Höhe und Länge des Kabels
+        dist_y = math.sqrt((min_xy[0] - min_xy[0])**2 + (min_xy[1] - mittelpunkt[1])**2)
+        dist_z = math.sqrt((mittelpunkt[0] - min_xy[1])**2 + (mittelpunkt[1] - mittelpunkt[1])**2)
 
     #----------- optische Ausgabe --------------------------
         cv2.circle(img, min_xy, 2, (0,255,0), 2) #zeichnet punkt ganz links
@@ -101,8 +101,11 @@ class Kabel():
         cv2.imshow(fenster_name, img)
         cv2.waitKey(0)
 
-        distanz = round(umrechnung_pixel_mm * dist)
-        print("Distanz: " + str(distanz) + "mm")
+        #Umrechnung per Config in mm
+        distanz_y = round(umrechnung_pixel_mm * dist_y)
+        distanz_z = round(umrechnung_pixel_mm * dist_z)
+        print("Distanz_Z: " + str(distanz_z) + "mm")
+        print("Distanz: " + str(distanz_y) + "mm")
         #cv2.imwrite("bild.jpg", img) #speichert ein Bild
 
-        return distanz
+        return (distanz_y, distanz_z)

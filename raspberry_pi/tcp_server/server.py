@@ -79,10 +79,10 @@ def main():
                         conn.sendall(ausgabe)
 
 #--------------------------------------------------------------------------------------------------
-                    if data[0] == 'K' and data[1] == 'Y': #Get Kabeloffset Y
+                    if data[0] == 'K' and data[1] == 'O': #Get Kabeloffset
                         try:
                             offset = Kabel.kabel(camera)
-                            ausgabe = "KY" +  str(offset[0]) "\x00"
+                            ausgabe = "KO" + "Y" + str(offset[0]) + "Z" + str(offset[1]) +"\x00"
                         except Exception as e:
                             print("Fehler beim Offset erstellen!")
                             print(e)
@@ -90,21 +90,6 @@ def main():
 
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
-
-#--------------------------------------------------------------------------------------------------
-                    if data[0] == 'K' and data[1] == 'X': #Get Kabeloffset Y
-                        try:
-                            offset = Kabel.kabel(camera)
-                            ausgabe = "KX" +  str(offset[0]) "\x00"
-                        except Exception as e:
-                            print("Fehler beim Offset erstellen!")
-                            print(e)
-                            ausgabe = "ER" + "\x00"
-
-                        ausgabe = ausgabe.encode()
-                        conn.sendall(ausgabe)
-
-
 
 #--------------------------------------------------------------------------------------------------
 
