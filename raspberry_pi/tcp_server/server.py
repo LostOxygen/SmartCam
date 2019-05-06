@@ -50,6 +50,7 @@ def make_picture(camera, fileName): #Funktion zum Bild erstellen
 
 #---------------------------- Beginn Server ------------------------------------------------------
 def main():
+    print("Befehle: \n EX : beendet Server und Verbindung \n GO : liefert Offset zurueck \n CO : konfiguriert die Kreiserkennung \n IM : erstellt ein einfaches Bild \n CV : erstellt ein Bild mit erkannten Kreisen \n FX123: setzt LED-Ring auf Farbwert 123,123,123 \n KO: liefert Kabeloffset zurück \n")
     #strip.begin()
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock: #AF_INET = Inet Adress Family (IPv4), SOCK_STREAM = socket type (TCP)
         sock.bind((HOST,PORT))
