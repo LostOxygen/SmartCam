@@ -152,15 +152,15 @@ def main():
                         break
 #--------------------------------------------------------------------------------------------------
                     if data[0] == 'F' and data[1] == 'X': #Licht
-                        lichtwert = str(data[2]) + str(data[3]) + str(data[4]) #Hängt Daten aneinander
-                        lichtwert = (int(lichtwert),int(lichtwert),int(lichtwert)) #speichert sie als INT Tripel ab
-                        print("Licht wurde auf " + str(lichtwert) + " gesetzt.")
+                        #lichtwert = str(data[2]) + str(data[3]) + str(data[4]) #Hängt Daten aneinander
+                        #lichtwert = (int(lichtwert),int(lichtwert),int(lichtwert)) #speichert sie als INT Tripel ab
+                        #print("Licht wurde auf " + str(lichtwert) + " gesetzt.")
 
-                        for i in range(0, strip.numPixels(), 1): #setzt alle Pixel auf 'Lichtwert'
-                            strip.setPixelColor(i, Color(lichtwert))
-                            strip.show()
+                        #for i in range(0, strip.numPixels(), 1): #setzt alle Pixel auf 'Lichtwert'
+                        #    strip.setPixelColor(i, Color(lichtwert))
+                        #    strip.show()
 
-                        ausgabe = "OK" + "\x00"
+                        ausgabe = "WIP" + "\x00"
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
 #--------------------------------------------------------------------------------------------------
