@@ -83,20 +83,7 @@ class Kabel():
         dist_y = math.sqrt((min_xy[0] - min_xy[0])**2 + (min_xy[1] - mittelpunkt[1])**2)
         dist_z = math.sqrt((mittelpunkt[0] - min_xy[1])**2 + (mittelpunkt[1] - mittelpunkt[1])**2)
 
-    #----------- optische Ausgabe --------------------------
-        cv2.circle(img, min_xy, 2, (0,255,0), 2) #zeichnet punkt ganz links
-        cv2.line(img, min_xy, (min_xy[0], mittelpunkt[1]), (255,255,0), 2) #zeichnet linie von punkt nach oben
-        #zeichnet Mittelpunkt und Linie nach links
-        cv2.circle(img, mittelpunkt, 2, (255,255,0), 2)
-        cv2.line(img, mittelpunkt, (min_xy[0],mittelpunkt[1]), (255,255,0), 2)
-        cv2.line(img, mittelpunkt, min_xy, (255,255,0), 2)
-        #Konturen zeichnen
-        cv2.drawContours(img, contours, -1, (0,255,0), 3)
     #-------------------------------------------------------
-
-        cv2.namedWindow(fenster_name, 1)
-        cv2.imshow(fenster_name, img)
-        cv2.waitKey(0)
 
         #Umrechnung per Config in mm
         distanz_y = round(umrechnung_pixel_mm * dist_y)
