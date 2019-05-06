@@ -86,10 +86,8 @@ class Kabel():
     #-------------------------------------------------------
 
         #Umrechnung per Config in mm
-        distanz_y = round(umrechnung_pixel_mm * dist_y)
-        distanz_z = round(umrechnung_pixel_mm * dist_z)
-        print("Distanz_Z: " + str(distanz_z) + "mm")
-        print("Distanz: " + str(distanz_y) + "mm")
+        print("Distanz_Z: " + str(round(umrechnung_pixel_mm * dist_z)) + "mm")
+        print("Distanz_Y: " + str(round(umrechnung_pixel_mm * dist_y)) + "mm")
         #cv2.imwrite("bild.jpg", img) #speichert ein Bild
 
-        return (distanz_y, distanz_z)
+        return (dist_y, dist_z)
