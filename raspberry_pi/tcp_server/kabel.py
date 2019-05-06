@@ -90,8 +90,6 @@ class Kabel():
         cv2.circle(img, mittelpunkt, 2, (255,255,0), 2)
         cv2.line(img, mittelpunkt, (min_xy[0],mittelpunkt[1]), (255,255,0), 2)
         cv2.line(img, mittelpunkt, min_xy, (255,255,0), 2)
-        #erzeugt Text mit Pixelangabe
-        cv2.putText(img, str(round(dist, 2)) + "px diff." , (min_xy[0],mittelpunkt[1]), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
         #Konturen zeichnen
         cv2.drawContours(img, contours, -1, (0,255,0), 3)
     #-------------------------------------------------------
