@@ -10,7 +10,6 @@ import math
 import configparser
 from pathlib import Path
 from pprint import pprint #Nur für Debug benötigt
-from matplotlib import pyplot as plt
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time
