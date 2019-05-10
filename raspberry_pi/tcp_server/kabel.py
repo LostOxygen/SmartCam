@@ -91,4 +91,4 @@ class Kabel():
         #cv2.imwrite("bild.jpg", img) #speichert ein Bild
 
         offset = (abs(mittelpunkt[0] - min_xy[0]) , abs(mittelpunkt[1] - min_xy[1]))
-        return (offset[0], offset[1], dist_z)
+        return (round(offset[0]), round(offset[1]), dist_z)
