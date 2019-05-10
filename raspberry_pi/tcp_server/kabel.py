@@ -90,4 +90,5 @@ class Kabel():
         print("Distanz_Y: " + str(round(umrechnung_pixel_mm * dist_y)) + "mm")
         #cv2.imwrite("bild.jpg", img) #speichert ein Bild
 
-        return (dist_y, dist_z)
+        offset = (abs(mittelpunkt[0] - min_xy[0]) , abs(mittelpunkt[1] - min_xy[1]))
+        return (offset[0], offset[1], dist_z)
