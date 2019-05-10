@@ -12,7 +12,7 @@ entweder **sudo ./server.py** oder mit **sudo python3 server.py**
 + **CO** -> konfiguriert die Kreiserkennung mit dem Config generator
 + **IM** -> erstellt ein einfaches Bild
 + **CV** -> erstellt ein Bild mit erkannten Kreisen
-+ **KO** -> gibt Kabel Offset zurück. Muss zweimal gemacht werden um beide Seiten des Kabels zu berücksichtigen. Format der Rückgabe: *KOYoffZoff*. Wobei Z die Länge des Kabels angibt.
++ **KO** -> gibt Kabel Offset zurück. Muss zweimal gemacht werden um beide Seiten des Kabels zu berücksichtigen. Format der Rückgabe: *KOXoffYoffZoff*. Wobei Z die Länge des Kabels angibt. (X,Y) ist die Koordinate der Kabelspitze **relativ** zum Bildmittelpunkt.
 + *(deaktiviert)* **FX** -> nimmt Befehl als *FXxxx* entgegen und setzt alle LEDs auf *xxx*
 
 ### Debugging:
