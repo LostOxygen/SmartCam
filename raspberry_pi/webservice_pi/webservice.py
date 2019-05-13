@@ -77,6 +77,16 @@ def offset():
 def api():
     return render_template('api.html')
 
+@app.route('/api/kabel/')
+@app.route('/api/kabel')
+def api():
+    return send_from_directory(directory="/home/pi/Desktop/OpenCV/raspberry_pi/bilder", filename="kabel.jpg")
+
+@app.route('/api/kreis/')
+@app.route('/api/kreis')
+def api():
+    return send_from_directory(directory="/home/pi/Desktop/OpenCV/raspberry_pi/bilder", filename="kreis.jpg")
+
 @app.route('/api/kreislive/')
 @app.route('/api/kreislive')
 def kreislive():
