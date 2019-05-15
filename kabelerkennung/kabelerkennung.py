@@ -97,6 +97,8 @@ def main(argv):
 
     print("Distanz: " + str(round(umrechnung_pixel_mm * dist)) + "mm")
     #cv2.imwrite("bild.jpg", img) #speichert ein Bild
+    offset = (abs(mittelpunkt[0] - min_xy[0]) , abs(mittelpunkt[1] - min_xy[1]))
+    print(offset)
     plt.imshow(img), plt.show()
 
 
