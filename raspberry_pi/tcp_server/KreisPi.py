@@ -104,8 +104,6 @@ class Kreis():
                         kkreis_r = i[2]
                         kkreis_xy = (int(oben_links[0] + i[0]), int(oben_links[1] + i[1]))
 
-
-
             ausschnitt = cv2.cvtColor(ausschnitt, cv2.COLOR_GRAY2RGB)
             cv2.circle(frame, mittelpunkt, 2, (255,255,255),2) #Mittelpunkt des Bildes
             cv2.circle(frame, kkreis_xy, kkreis_r,(0,255,0),2) #ausgewählter Kreisen
