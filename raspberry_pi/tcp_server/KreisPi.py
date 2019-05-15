@@ -87,7 +87,9 @@ class Kreis():
             #verarbeitet den Teil im Rechteck
             ausschnitt = blur[oben_links[1] : unten_rechts[1], oben_links[0] : unten_rechts[0]]
             mittelpunkt = (int(oben_links[0]+(unten_rechts[0]-oben_links[0])/2), int(oben_links[1]+(unten_rechts[1]-oben_links[1])/2))
-            cv2.circle(ausschnitt,mittelpunkt,2,(0,0,255),3)
+
+            cv2.circle(ausschnitt,mittelpunkt,2,(0,0,255),3) #zeichnet Mittelpunkt
+
             circles = cv2.HoughCircles(ausschnitt,cv2.HOUGH_GRADIENT,1,20,param1=100,param2=20,minRadius=27,maxRadius= 32)
             if circles is not None:
                 for i in circles[0,:]:
@@ -113,6 +115,8 @@ class Kreis():
                 cv2.line(frame,mittelpunkt,kkreis_xy,(255,255,255),5) #Linie zwischen Mittelpunkt und ausgewähltem Kreis
                 cv2.putText(frame, str(round(kdistanz, 2)) , kkreis_xy, cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 2, cv2.LINE_AA, 0)
                 cv2.putText(frame, 'geschaetzte Distanz (in CM): ' + str(round((kdistanz*umrechnung_pixel_mm)/10,2)), (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 2, cv2.LINE_AA, 0)
+            else:
+                return (999999,999999)
 
             offset = (abs(mittelpunkt[0] - kkreis_xy[0]) , abs(mittelpunkt[1] - kkreis_xy[1]))
             image_frame = frame
@@ -123,5 +127,5 @@ class Kreis():
                 print("speichert Bild: " + fileName + " in: /home/pi/Desktop/OpenCV/raspberry_pi/tcp_server/images/")
                 return True
         else:
-            cv2.imwrite("/home/pi/Desktop/OpenCV/raspberry_pi/bilder/kreis.jpg", image_frame) #speichert ein Bild
+            cv2.imwrite("/home/pi/Desktop/OpenCV/raspberry_pi/bilder/kreis.jpg", frame) #speichert ein Bild
             return offset
