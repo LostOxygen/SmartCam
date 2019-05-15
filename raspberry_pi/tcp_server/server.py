@@ -160,6 +160,10 @@ def main():
                         #for i in range(0, strip.numPixels(), 1): #setzt alle Pixel auf 'Lichtwert'
                         #    strip.setPixelColor(i, Color(lichtwert))
                         #    strip.show()
+                        color = str(data[2]) + str(data[3]) + str(data[4]) + str(data[5]) + str(data[6]) + str(data[7])
+
+                        cmd = '/home/pi/led.py' + color
+                        os.system(cmd)
 
                         ausgabe = "WIP" + "\x00"
                         ausgabe = ausgabe.encode()
@@ -171,5 +175,5 @@ def main():
 
 
 if __name__ == '__main__':
-    #strip = NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS)
+    strip = NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS)
     main()
