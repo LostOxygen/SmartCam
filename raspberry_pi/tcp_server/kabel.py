@@ -95,11 +95,11 @@ class Kabel():
         #Konturen zeichnen
         cv2.drawContours(img, contours, -1, (0,255,0), 3)
     #-------------------------------------------------------
-
         #Umrechnung per Config in mm
         print("Distanz_Z: " + str(round(umrechnung_pixel_mm * dist_z)) + "mm")
         print("Distanz_Y: " + str(round(umrechnung_pixel_mm * dist_y)) + "mm")
         cv2.imwrite("/home/pi/Desktop/OpenCV/raspberry_pi/bilder/kabel.jpg", img) #speichert ein Bild
 
-        offset = (abs(mittelpunkt[0] - min_xy[0]) , abs(mittelpunkt[1] - min_xy[1]))
-        return (round(offset[0]), round(offset[1]), dist_z)
+        offset = abs(mittelpunkt[1] - min_xy[1])
+
+        return offset
