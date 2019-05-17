@@ -92,6 +92,7 @@ class Kreis():
 
             circles = cv2.HoughCircles(ausschnitt,cv2.HOUGH_GRADIENT,1,20,param1=100,param2=20,minRadius=27,maxRadius= 32)
             if circles is not None:
+                print("Circles gefunden")
                 for i in circles[0,:]:
             		#Kreis zeichnen
                     cv2.circle(frame,(int(oben_links[0] + i[0]), int(oben_links[1] + i[1])),i[2],(0,0,255),2) #(Quelle, (x,y) = Center, Radius, Farbe, )
