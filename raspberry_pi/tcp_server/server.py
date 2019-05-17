@@ -37,7 +37,7 @@ PORT = 65432 #Port auf dem gehört wird (Standard)
 exit = False
 camera = Camera() #erstellt Global eine Kamera
 lichtwert = (0,0,0)
-config_test = True #zum Abfragen der Config 
+config_test = True #zum Abfragen der Config
 
 
 # ------------ Main Code ---------------
@@ -207,6 +207,9 @@ if __name__ == '__main__':
         print('Config konnte nicht gefunden werden. Bitte erst mit configGenerator.py eine Config generieren lassen!')
         config_test = False
 
+    if config_test:
+        HOST = config['CONFIG']['host']
+        PORT = config['CONFIG']['port']
 
 
     main()
