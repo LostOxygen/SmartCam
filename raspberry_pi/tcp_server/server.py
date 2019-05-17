@@ -85,7 +85,7 @@ def main():
                     if data[0] == 'K' and data[1] == 'O': #Get Kabeloffset
                         try:
                             offset = Kabel.kabel(camera)
-                            ausgabe = "KO" + "Y" + str(offset) + "\x00"
+                            ausgabe = "KO" + "X" + str(offset[0]) + "Y" + str(offset[1]) + "\x00"
                         except Exception as e:
                             print("Fehler beim Offset erstellen!")
                             print(e)
