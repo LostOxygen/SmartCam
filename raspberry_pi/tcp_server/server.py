@@ -27,8 +27,8 @@ LED_INVERT = False
 LED_CHANNEL = 5
 
 # ------------ Netzwerk ----------------
-HOST = '192.168.8.60' #IP Adresse des RPI1
-#HOST = '192.168.8.65' #IP Adresse des RPI2
+#HOST = '192.168.8.60' #IP Adresse des RPI1
+HOST = '192.168.8.65' #IP Adresse des RPI2
 #HOST = '127.0.0.1'
 PORT = 65432 #Port auf dem gehört wird
 
