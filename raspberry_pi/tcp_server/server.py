@@ -13,6 +13,7 @@ import os
 import numpy as np
 from PIL import Image
 import io
+import requests
 import pprint #Debug
 
 #------------ NeoPixel Config -----------
@@ -162,12 +163,26 @@ def main():
                         #    strip.show()
                         color = str(data[2]) + str(data[3]) + str(data[4]) + str(data[5]) + str(data[6]) + str(data[7])
 
-                        cmd = '/home/pi/led.py' + color
+                        cmd = '/home/pi/led.py ' + color
                         os.system(cmd)
 
                         ausgabe = "WIP" + "\x00"
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
+#--------------------------------------------------------------------------------------------------
+                    if data[0] == 'G' and data[1] == 'A' and data[2] == '0':
+                        r = requests.post('http://192.168.8.240', json={"code":"request", "cid":4711, "adr":"iolinkmaster/port[1]/iolinkdevice/pdout/setdata", "data":{"newvalue":"00"}})
+                        r = requests.post('http://192.168.8.240', json={"code":"request", "cid":4711, "adr":"iolinkmaster/port[2]/iolinkdevice/pdout/setdata", "data":{"newvalue":"01"}})
+                    if data[0] == 'G' and data[1] == 'A' and data[2] == '1':
+                        r = requests.post('http://192.168.8.240', json={"code":"request", "cid":4711, "adr":"iolinkmaster/port[2]/iolinkdevice/pdout/setdata", "data":{"newvalue":"00"}})
+                        r = requests.post('http://192.168.8.240', json={"code":"request", "cid":4711, "adr":"iolinkmaster/port[1]/iolinkdevice/pdout/setdata", "data":{"newvalue":"01"}})
+                    if data[0] == 'G' and data[1] == 'B' and data[2] == '0':
+                        r = requests.post('http://192.168.8.240', json={"code":"request", "cid":4711, "adr":"iolinkmaster/port[3]/iolinkdevice/pdout/setdata", "data":{"newvalue":"00"}})
+                        r = requests.post('http://192.168.8.240', json={"code":"request", "cid":4711, "adr":"iolinkmaster/port[4]/iolinkdevice/pdout/setdata", "data":{"newvalue":"01"}})
+                    if data[0] == 'G' and data[1] == 'B' and data[2] == '1':
+                        r = requests.post('http://192.168.8.240', json={"code":"request", "cid":4711, "adr":"iolinkmaster/port[4]/iolinkdevice/pdout/setdata", "data":{"newvalue":"00"}})
+                        r = requests.post('http://192.168.8.240', json={"code":"request", "cid":4711, "adr":"iolinkmaster/port[3]/iolinkdevice/pdout/setdata", "data":{"newvalue":"01"}})
+
 #--------------------------------------------------------------------------------------------------
             if exit == True:
                 break
