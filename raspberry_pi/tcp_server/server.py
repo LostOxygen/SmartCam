@@ -14,6 +14,7 @@ import numpy as np
 from PIL import Image
 import io
 import requests
+import confiparser
 import pprint #Debug
 
 #------------ NeoPixel Config -----------
@@ -28,14 +29,15 @@ LED_CHANNEL = 5
 
 # ------------ Netzwerk ----------------
 #HOST = '192.168.8.60' #IP Adresse des RPI1
-HOST = '192.168.8.65' #IP Adresse des RPI2
-#HOST = '127.0.0.1'
-PORT = 65432 #Port auf dem gehört wird
+#HOST = '192.168.8.65' #IP Adresse des RPI2
+HOST = '127.0.0.1' #Standard HOST wenn in der Config nichts steht
+PORT = 65432 #Port auf dem gehört wird (Standard)
 
 # ------------ Variablen ---------------
 exit = False
 camera = Camera() #erstellt Global eine Kamera
 lichtwert = (0,0,0)
+config_test = True #zum Abfragen der Config 
 
 
 # ------------ Main Code ---------------
@@ -67,6 +69,7 @@ def main():
                     data = str(data) #Data zu String konvertieren
 #--------------------------------------------------------------------------------------------------
                     if not data: #Guckt ob überhaupt Daten kommen
+                        conn.close()
                         break
 #--------------------------------------------------------------------------------------------------
                     if data[0] == 'G' and data[1] == 'O': #Get Offset
@@ -185,10 +188,25 @@ def main():
 
 #--------------------------------------------------------------------------------------------------
             if exit == True:
+                conn.close()
                 break
 #------------------------------ Ende Server   -----------------------------------------------------
 
 
 if __name__ == '__main__':
     #strip = NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS)
+
+# ----------- Config einlesen und überprüfen --------------------------
+    config = configparser.ConfigParser()
+    test = Path('config.ini')
+    if test.is_file():
+        print('Config Datei gefunden')
+        config.read('config.ini')
+
+    else:
+        print('Config konnte nicht gefunden werden. Bitte erst mit configGenerator.py eine Config generieren lassen!')
+        config_test = False
+
+
+
     main()
