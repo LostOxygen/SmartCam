@@ -64,7 +64,7 @@ class Kabel():
         blur = cv2.bilateralFilter(blur, 11, 17, 17)
         blur = cv2.Canny(blur, 30, 120)
         ausschnitt = blur[oben_links[1] : unten_rechts[1], oben_links[0] : unten_rechts[0]]
-        #ret, thresh = cv2.threshold(blur, threshold_val, threshold_max, cv2.THRESH_BINARY) #Threshold generieren
+        #ret, thresh = cv2.threshold(blur, threshold_val, threshold_max, cv2.THRESH_BINARY) #Thresholds generieren
         contours, hierarchy = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) #Konturen suchen
 
         corners = cv2.goodFeaturesToTrack(gray, maxCorners, qualityLevel, minDistance)
@@ -91,14 +91,14 @@ class Kabel():
         cv2.line(img, mittelpunkt, (min_xy[0],mittelpunkt[1]), (255,255,0), 2)
         cv2.line(img, mittelpunkt, min_xy, (255,255,0), 2)
         #erzeugt Text mit Pixelangabe
-        cv2.putText(img, str(round(dist, 2)) + "px diff." , (min_xy[0],mittelpunkt[1]), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+        cv2.putText(img, str(round(dist_y, 2)) + "px diff." , (min_xy[0],mittelpunkt[1]), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
         #Konturen zeichnen
         cv2.drawContours(img, contours, -1, (0,255,0), 3)
     #-------------------------------------------------------
         #Umrechnung per Config in mm
         print("Distanz_Z: " + str(round(umrechnung_pixel_mm * dist_z)) + "mm")
         print("Distanz_Y: " + str(round(umrechnung_pixel_mm * dist_y)) + "mm")
-        cv2.imwrite("/home/pi/Desktop/OpenCV/raspberry_pi/bilder/kabel.jpg", img) #speichert ein Bild
+        cv2.imwrite("/home/pi/pi_images/kabel.jpg", img) #speichert ein Bild
 
         offset = abs(mittelpunkt[1] - min_xy[1])
 
