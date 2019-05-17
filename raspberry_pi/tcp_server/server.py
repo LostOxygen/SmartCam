@@ -90,6 +90,7 @@ def main():
                             print("Fehler beim Offset erstellen!")
                             print(e)
                             ausgabe = "NAK" + "\x00"
+                        #print(ausgabe)
 
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
@@ -165,7 +166,7 @@ def main():
 
                         cmd = '/home/pi/led.py ' + color
                         os.system(cmd)
-
+                        ausgabe = "ACK"
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
 #--------------------------------------------------------------------------------------------------
