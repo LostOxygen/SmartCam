@@ -76,7 +76,7 @@ def main():
                         except Exception as e:
                             print("Fehler beim Offset erstellen!")
                             print(e)
-                            ausgabe = "ER" + "\x00"
+                            ausgabe = "NAK" + "\x00"
 
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
@@ -85,11 +85,11 @@ def main():
                     if data[0] == 'K' and data[1] == 'O': #Get Kabeloffset
                         try:
                             offset = Kabel.kabel(camera)
-                            ausgabe = "KO" + "Y" + str(offset[0]) + "\x00"
+                            ausgabe = "KO" + "Y" + str(offset) + "\x00"
                         except Exception as e:
                             print("Fehler beim Offset erstellen!")
                             print(e)
-                            ausgabe = "ER" + "\x00"
+                            ausgabe = "NAK" + "\x00"
 
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
@@ -107,9 +107,9 @@ def main():
                         fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
 
                         if make_picture(camera, fileName):
-                            ausgabe = "OK" + "\x00"
+                            ausgabe = "ACK" + "\x00"
                         else:
-                            ausgabe = "NO" + "\x00"
+                            ausgabe = "NAK" + "\x00"
 
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
@@ -117,13 +117,13 @@ def main():
                     if data[0] == 'C' and data[1] == 'V': #erstellt bild mit kreis
                         try:
                             if Kreis.kreis(camera, True): #Kreis mit Image = True aufrufen
-                                ausgabe = "OK" + "\x00"
+                                ausgabe = "ACK" + "\x00"
                             else:
-                                ausgabe = "NO" + "\x00"
+                                ausgabe = "NAK" + "\x00"
                         except Exception as e:
                             print("Fehler beim erstellen eines Bildes mit Kreiserkennung")
                             print(e)
-                            ausgabe = "ER" + "\x00"
+                            ausgabe = "NAK" + "\x00"
 
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
@@ -134,13 +134,13 @@ def main():
                         conn.sendall(ausgabe)
                         try:
                             if Config.createConfig(camera):
-                                ausgabe = "OK" + "\x00"
+                                ausgabe = "ACK" + "\x00"
                             else:
-                                ausgabe = "NO" + "\x00"
+                                ausgabe = "NAK" + "\x00"
                             ausgabe = ausgabe.encode()
                             conn.sendall(ausgabe)
                         except Exception as e:
-                            ausgabe = "ER" + "\x00"
+                            ausgabe = "NAK" + "\x00"
                             print(e)
                             ausgabe = ausgabe.encode()
                             conn.sendall(ausgabe)
@@ -166,7 +166,6 @@ def main():
                         cmd = '/home/pi/led.py ' + color
                         os.system(cmd)
 
-                        ausgabe = "WIP" + "\x00"
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
 #--------------------------------------------------------------------------------------------------
