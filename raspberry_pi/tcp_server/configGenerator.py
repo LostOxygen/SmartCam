@@ -1,10 +1,5 @@
 #!/usr/bin/python3
-
-##########################
-# Author: Jonathan Evertz
-# Date: 04.08.2019
-# Generator für OpenCV Config File
-##########################
+# -*- coding: utf8 -*-
 
 import cv2
 import sys

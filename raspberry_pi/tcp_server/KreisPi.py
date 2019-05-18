@@ -1,9 +1,5 @@
 #!/usr/bin/python3
-
-##########################
-# Author: Jonathan Evertz
-# Date: 01.04.2019
-##########################
+# -*- coding: utf8 -*-
 
 import cv2
 import sys
