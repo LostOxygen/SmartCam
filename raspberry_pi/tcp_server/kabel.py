@@ -96,7 +96,7 @@ class Kabel():
         cv2.drawContours(img, contours, -1, (0,255,0), 3)
     #-------------------------------------------------------
         #Umrechnung per Config in mm
-        #print("Distanz_Z: " + str(round(umrechnung_pixel_mm * dist_z)) + "mm")
+        
         print("Distanz_Y: " + round(umrechnung_pixel_mm * dist_y))
         print("umgerechnet: " + str(round(umrechnung_pixel_mm * dist_y)) + "mm")
         cv2.imwrite("/home/pi/pi_images/kabel.jpg", img) #speichert ein Bild
