@@ -212,5 +212,4 @@ if __name__ == '__main__':
         HOST = config['CONFIG']['host']
         PORT = config['CONFIG']['port']
 
-
     main()
