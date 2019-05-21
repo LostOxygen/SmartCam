@@ -55,7 +55,7 @@ class Config():
             return False
 
         config['CONFIG'] = {'post' : '192.168.8.xxx' , 'port' : '65432' , 'AbstandZumObjekt' : '15', 'DurchmesserKreisInPixel' : kkreis_r}
-        with open('config.ini', 'w') as configfile: #Werte in Config schreiben
+        with open('../config.ini', 'w') as configfile: #Werte in Config schreiben
             config.write(configfile)
         print("Durchmesser Kreis in Pixel: " + str(kkreis_r))
         return True

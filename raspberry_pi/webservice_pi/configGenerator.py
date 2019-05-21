@@ -73,7 +73,7 @@ for frame in cam.capture_continuous(rawCapture, format="bgr", use_video_port=Tru
     if key == 27:
         break
     # Alles beenden
-with open('config.ini', 'w') as configfile:
+with open('../config.ini', 'w') as configfile:
     config.write(configfile)
 cam.release()
 cv2.destroyAllWindows()

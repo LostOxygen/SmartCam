@@ -202,10 +202,10 @@ if __name__ == '__main__':
 
 # ----------- Config einlesen und überprüfen --------------------------
     config = configparser.ConfigParser()
-    test = Path('config.ini')
+    test = Path('../config.ini')
     if test.is_file():
         print('Config Datei gefunden')
-        config.read('config.ini')
+        config.read('../config.ini')
 
     else:
         print('Config konnte nicht gefunden werden. Bitte erst mit configGenerator.py eine Config generieren lassen!')
