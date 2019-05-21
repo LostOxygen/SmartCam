@@ -8,6 +8,7 @@
 + [NumPy](http://www.numpy.org/): **sudo pip3 install numpy**
 + [OpenCV](http://www.codebind.com/cpp-tutorial/install-opencv-ubuntu-cpp/) (vor dem kompilieren libfaac s.u. installieren!)
 + zusätzlich für [V4L2 Codec](https://www.raspberrypi.org/forums/viewtopic.php?t=62364):  **sudo modprobe bcm2835-v4l2**
++ für TCP/IP - Server wird noch die Schnittstelle für den LED-Ring benötigt [to-be-filled]
 
 Alle für den RPI benötigten Dateien sind **ausschließlich** im Ordner *raspberry_pi* zu finden.
 
