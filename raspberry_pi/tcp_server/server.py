@@ -211,6 +211,6 @@ if __name__ == '__main__':
 
     if config_test:
         HOST = config['CONFIG']['host']
-        PORT = config['CONFIG']['port']
+        PORT = int(config['CONFIG']['port'])
 
     main()
