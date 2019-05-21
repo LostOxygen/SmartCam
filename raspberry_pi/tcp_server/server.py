@@ -16,6 +16,7 @@ from PIL import Image
 import io
 import requests
 import configparser
+from pathlib import Path
 import pprint #Debug
 
 #------------ NeoPixel Config -----------
