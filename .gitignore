@@ -1,3 +1,4 @@
 #damit Config Files nicht behandelt werden
 *.ini
 **/__pycache__
+**/.idea
