@@ -79,12 +79,12 @@ def api():
 
 @app.route('/api/kabel/')
 @app.route('/api/kabel')
-def api():
+def kabel():
     return send_from_directory(directory="/home/pi/Desktop/OpenCV/raspberry_pi/bilder", filename="kabel.jpg")
 
 @app.route('/api/kreis/')
 @app.route('/api/kreis')
-def api():
+def kreis():
     return send_from_directory(directory="/home/pi/Desktop/OpenCV/raspberry_pi/bilder", filename="kreis.jpg")
 
 @app.route('/api/kreislive/')
