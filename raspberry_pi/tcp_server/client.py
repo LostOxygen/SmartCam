@@ -3,7 +3,8 @@
 
 import socket
 
-HOST = '127.0.0.1' #IP Adresse des RPI / Servers
+
+HOST = input("IP eingeben: ")
 PORT = 65432 #Port des Servers
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
