@@ -24,6 +24,7 @@ app = Flask(__name__)
 camera = Camera()
 HOST = '127.0.0.1' #Standard IP und Port
 PORT = 80
+config_test = True
 #-------------------- Sonstiges --------------------
 
 def gen(camera): #Generator für den Kamerastream
@@ -104,6 +105,7 @@ def kreisbild():
 
 #---------------------- Main init -----------------------------
 if __name__ == '__main__':
+
     config = configparser.ConfigParser()
     test = Path('../config.ini')
     if test.is_file():
