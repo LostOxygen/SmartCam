@@ -15,7 +15,7 @@ import numpy as np
 from PIL import Image
 import io
 import requests
-import confiparser
+import configparser
 import pprint #Debug
 
 #------------ NeoPixel Config -----------
