@@ -97,7 +97,7 @@ class Kabel():
     #-------------------------------------------------------
         #Umrechnung per Config in mm
 
-        print("Distanz_Y: " + round(umrechnung_pixel_mm * dist_y))
+        print("Distanz_Y: " + str(round(umrechnung_pixel_mm * dist_y)) + "mm")
         print("umgerechnet: " + str(round(umrechnung_pixel_mm * dist_y)) + "mm")
         cv2.imwrite("/home/pi/pi_images/kabel.jpg", img) #speichert ein Bild
 
