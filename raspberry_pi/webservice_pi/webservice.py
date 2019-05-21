@@ -16,10 +16,14 @@ import os
 import numpy as np
 from PIL import Image
 import io
+import configparser
+from pathlib import Path
 
 #-------------------- Variablen --------------------
 app = Flask(__name__)
 camera = Camera()
+HOST = '127.0.0.1' #Standard IP und Port
+PORT = 80
 #-------------------- Sonstiges --------------------
 
 def gen(camera): #Generator für den Kamerastream
@@ -100,7 +104,21 @@ def kreisbild():
 
 #---------------------- Main init -----------------------------
 if __name__ == '__main__':
-    app.run(host='134.147.234.230', port=80, debug=True, threaded=True)
+    config = configparser.ConfigParser()
+    test = Path('config.ini')
+    if test.is_file():
+        print('Config Datei gefunden')
+        config.read('config.ini')
+
+    else:
+        print('Config konnte nicht gefunden werden. Bitte erst mit configGenerator.py eine Config generieren lassen!')
+        config_test = False
+
+    if config_test:
+        HOST = config['CONFIG']['web_host']
+        PORT = int(config['CONFIG']['web_port'])
+
+    app.run(host=HOST, port=PORT, debug=True, threaded=True)
 
 
 #------------------ Testzeug -----------------------------
