@@ -67,7 +67,7 @@ for frame in cam.capture_continuous(rawCapture, format="bgr", use_video_port=Tru
     cv2.namedWindow(fenster_name, 1)
     cv2.imshow(fenster_name, frame)
     rawCapture.truncate(0)
-    config['KREISERKENNUNG'] = {'AbstandZumObjekt' : '15', 'DurchmesserKreisInPixel' : kkreis_r}
+    config['CONFIG'] = {'AbstandZumObjekt' : '15', 'DurchmesserKreisInPixel' : kkreis_r}
     key = cv2.waitKey(1)
     # Wenn ESC gedrückt wird, wird  das Programm beendet
     if key == 27:

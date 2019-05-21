@@ -43,7 +43,7 @@ class Kabel():
             print('Config konnte nicht gefunden werden. Bitte erst mit configGenerator.py eine Config generieren lassen!')
             config_test = False
 
-        kreis_durchmesser_pixel = float(config['KREISERKENNUNG']['durchmesserkreisinpixel']) #fragt Wert aus Config File ab
+        kreis_durchmesser_pixel = float(config['CONFIG']['durchmesserkreisinpixel']) #fragt Wert aus Config File ab
 
         if kreis_durchmesser_pixel == 0:
             kreis_durchmesser_pixel = 1
@@ -96,7 +96,7 @@ class Kabel():
         cv2.drawContours(img, contours, -1, (0,255,0), 3)
     #-------------------------------------------------------
         #Umrechnung per Config in mm
-        
+
         print("Distanz_Y: " + round(umrechnung_pixel_mm * dist_y))
         print("umgerechnet: " + str(round(umrechnung_pixel_mm * dist_y)) + "mm")
         cv2.imwrite("/home/pi/pi_images/kabel.jpg", img) #speichert ein Bild

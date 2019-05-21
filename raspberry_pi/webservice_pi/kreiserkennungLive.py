@@ -48,7 +48,7 @@ class KreisLive():
             print('Config konnte nicht gefunden werden. Bitte erst mit configGenerator.py eine Config generieren lassen!')
             config_test = False
 
-        kreis_durchmesser_pixel = float(config['KREISERKENNUNG']['durchmesserkreisinpixel']) #fragt Wert aus Config File ab
+        kreis_durchmesser_pixel = float(config['CONFIG']['durchmesserkreisinpixel']) #fragt Wert aus Config File ab
         umrechnung_pixel_mm = kreis_durchmesser_mm / kreis_durchmesser_pixel #Rechnet mm pro Pixel aus
 
         # ----------------------------------- Main Code -----------------------

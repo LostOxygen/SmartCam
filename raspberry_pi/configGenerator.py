@@ -73,7 +73,7 @@ while cam.isOpened():
     cv2.namedWindow(fenster_name, 1)
     cv2.imshow(fenster_name, frame)
 
-    config['KREISERKENNUNG'] = {'AbstandZumObjekt' : '15', 'DurchmesserKreisInPixel' : kkreis_r}
+    config['CONFIG'] = {'AbstandZumObjekt' : '15', 'DurchmesserKreisInPixel' : kkreis_r}
     with open('config.ini', 'w') as configfile: #Werte in Config schreiben
         config.write(configfile)
 
