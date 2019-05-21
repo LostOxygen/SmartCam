@@ -112,10 +112,11 @@ def main():
                         imgMins = "%02d" % (d.minute)
                         #Todo Sekunde programmieren
                         fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
-
-                        if make_picture(camera, fileName):
+                        try:
+                            make_picture(camera, fileName)
                             ausgabe = "ACK" + "\x00"
-                        else:
+                        except Exception as e:
+                            print(e)
                             ausgabe = "NAK" + "\x00"
 
                         ausgabe = ausgabe.encode()
