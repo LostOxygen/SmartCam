@@ -41,7 +41,6 @@ camera = Camera() #erstellt Global eine Kamera
 lichtwert = (0,0,0)
 config_test = True #zum Abfragen der Config
 
-
 # ------------ Main Code ---------------
 
 def make_picture(camera, fileName): #Funktion zum Bild erstellen
@@ -184,7 +183,7 @@ def main():
                         r = requests.post('http://192.168.8.240', json={"code":"request", "cid":4711, "adr":"iolinkmaster/port[3]/iolinkdevice/pdout/setdata", "data":{"newvalue":"01"}})
 
 #--------------------------------------------------------------------------------------------------
-            if exit == True:
+            #if exit:
                 conn.close()
                 break
 #------------------------------ Ende Server   -----------------------------------------------------
