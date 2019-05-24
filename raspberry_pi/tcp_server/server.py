@@ -152,8 +152,8 @@ def main():
                             ausgabe = ausgabe.encode()
                             conn.sendall(ausgabe)
 #--------------------------------------------------------------------------------------------------
-                    if data[0] == 'E' and data[1] == 'X': #Exit und sendet ACK als Exitcode
-                        ausgabe = "ACK" + "\x00"
+                    if data[0] == 'E' and data[1] == 'X': #Exit und sendet EX als Exitcode
+                        ausgabe = "EX" + "\x00"
                         print("Server wird beendet!")
                         exit = True
                         ausgabe = ausgabe.encode()
@@ -182,10 +182,6 @@ def main():
                         r = requests.post('http://192.168.8.240', json={"code":"request", "cid":4711, "adr":"iolinkmaster/port[4]/iolinkdevice/pdout/setdata", "data":{"newvalue":"00"}})
                         r = requests.post('http://192.168.8.240', json={"code":"request", "cid":4711, "adr":"iolinkmaster/port[3]/iolinkdevice/pdout/setdata", "data":{"newvalue":"01"}})
 
-#--------------------------------------------------------------------------------------------------
-            #if exit:
-                #conn.close()
-                #break
 #------------------------------ Ende Server   -----------------------------------------------------
 
 
