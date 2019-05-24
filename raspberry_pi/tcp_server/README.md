@@ -18,7 +18,6 @@ entweder **sudo ./server.py** oder mit **sudo python3 server.py**
 ### Debugging:
 Der Server sollte bei Fehlern nicht abstürzen, sondern per Try/Catch eine Exception werfen und einen Fehlercode zurückgeben:
 
-+ **OK**: Der Befehl wurde ohne Fehler umgesetzt
-+ **NO**: Ein Verzeichnis/Bild konnte nicht erstellt werden
-+ **ER**: Schwerwiegender Fehler. Kreiserkennung/Kamera abgestürzt z.B.
-(Fehler oder ein Print steht in der Kommandozeile des Servers)
++ **ACK**: Befehl wurde ohne Fehler ausgeführt
++ **NAK**: Befehl wurde aufgrund eines Fehlers nicht ausgeführt
++ **EX**: Server wurde per Befehl beendet
