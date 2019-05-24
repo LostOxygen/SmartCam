@@ -152,13 +152,13 @@ def main():
                             ausgabe = ausgabe.encode()
                             conn.sendall(ausgabe)
 #--------------------------------------------------------------------------------------------------
-                    if data[0] == 'E' and data[1] == 'X': #Exit und sendet EX als Exitcode
-                        ausgabe = "EX" + "\x00"
+                    if data[0] == 'E' and data[1] == 'X': #Exit und sendet ACK als Exitcode
+                        ausgabe = "ACK" + "\x00"
                         print("Server wird beendet!")
                         exit = True
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
-                        break
+                        return 0
 #--------------------------------------------------------------------------------------------------
                     if data[0] == 'F' and data[1] == 'X': #Licht
                         color = str(data[2]) + str(data[3]) + str(data[4]) + str(data[5]) + str(data[6]) + str(data[7])
@@ -184,8 +184,8 @@ def main():
 
 #--------------------------------------------------------------------------------------------------
             #if exit:
-                conn.close()
-                break
+                #conn.close()
+                #break
 #------------------------------ Ende Server   -----------------------------------------------------
 
 
