@@ -162,13 +162,6 @@ def main():
                         break
 #--------------------------------------------------------------------------------------------------
                     if data[0] == 'F' and data[1] == 'X': #Licht
-                        #lichtwert = str(data[2]) + str(data[3]) + str(data[4]) #Hängt Daten aneinander
-                        #lichtwert = (int(lichtwert),int(lichtwert),int(lichtwert)) #speichert sie als INT Tripel ab
-                        #print("Licht wurde auf " + str(lichtwert) + " gesetzt.")
-
-                        #for i in range(0, strip.numPixels(), 1): #setzt alle Pixel auf 'Lichtwert'
-                        #    strip.setPixelColor(i, Color(lichtwert))
-                        #    strip.show()
                         color = str(data[2]) + str(data[3]) + str(data[4]) + str(data[5]) + str(data[6]) + str(data[7])
 
                         cmd = '/home/pi/led.py ' + color
@@ -198,7 +191,11 @@ def main():
 
 
 if __name__ == '__main__':
-    #strip = NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS)
+# ----------- Pfade überprüfen ----------------------------------------
+if os.path.isdir('home/pi/Desktop/OpenCV/raspberry_pi/bilder'):
+    pass
+else:
+    os.system('mkdir /home/pi/Desktop/OpenCV/raspberry_pi/bilder')
 
 # ----------- Config einlesen und überprüfen --------------------------
     config = configparser.ConfigParser()
@@ -214,5 +211,6 @@ if __name__ == '__main__':
     if config_test:
         HOST = config['CONFIG']['host']
         PORT = int(config['CONFIG']['port'])
+# ---------------------------------------------------------------------
 
     main()
