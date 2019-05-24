@@ -99,7 +99,7 @@ class Kabel():
 
         print("Distanz_Y: " + str(dist_y))
         print("umgerechnet: " + str(round(umrechnung_pixel_mm * dist_y)) + "mm")
-        cv2.imwrite("/home/pi/pi_images/kabel.jpg", img) #speichert ein Bild
+        cv2.imwrite("/home/pi/Desktop/OpenCV/raspberry_pi/bilder/kabel.jpg", img) #speichert ein Bild
 
         offset = (abs(mittelpunkt[0]), abs(mittelpunkt[1] - min_xy[1]))
 
