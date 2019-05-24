@@ -192,10 +192,10 @@ def main():
 
 if __name__ == '__main__':
 # ----------- Pfade überprüfen ----------------------------------------
-if os.path.isdir('home/pi/Desktop/OpenCV/raspberry_pi/bilder'):
-    pass
-else:
-    os.system('mkdir /home/pi/Desktop/OpenCV/raspberry_pi/bilder')
+    if os.path.isdir('home/pi/Desktop/OpenCV/raspberry_pi/bilder'):
+        pass
+    else:
+        os.system('mkdir /home/pi/Desktop/OpenCV/raspberry_pi/bilder')
 
 # ----------- Config einlesen und überprüfen --------------------------
     config = configparser.ConfigParser()
