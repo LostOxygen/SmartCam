@@ -86,7 +86,7 @@ class Kreis():
 
             cv2.circle(ausschnitt,mittelpunkt,2,(0,0,255),3) #zeichnet Mittelpunkt
 
-            circles = cv2.HoughCircles(ausschnitt,cv2.HOUGH_GRADIENT,1,20,param1=100,param2=20,minRadius=27,maxRadius= 32)
+            circles = cv2.HoughCircles(ausschnitt,cv2.HOUGH_GRADIENT,1,20,param1=100,param2=20,minRadius=25,maxRadius= 40)
             if circles is not None:
                 print("Circles gefunden")
                 for i in circles[0,:]:
