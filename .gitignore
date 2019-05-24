@@ -2,3 +2,5 @@
 *.ini
 **/__pycache__
 **/.idea
+*.jpg
+*.png
