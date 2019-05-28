@@ -47,7 +47,7 @@ def make_picture(camera, fileName): #Funktion zum Bild erstellen
     if camera.get_frame is not None:
         ret, jpeg = cv2.imencode('.jpg', camera.get_frame_cv()) #dekodiert das RAW Image zu JPEG
         img2 = Image.open(io.BytesIO(jpeg.tobytes())) #konvertiert jpeg zu einem Byte Objekt um es mit BytesIO zu handhaben
-        img2.save("/home/pi/Desktop/OpenCV/raspberry_pi/tcp_server/images/" + fileName) #speichert es als fileName ab
+        img2.save("/home/pi/Desktop/OpenCV/raspberry_pi/bilder/" + fileName) #speichert es als fileName ab
         return True
     else:
         print("Kamera Frame ist None")
