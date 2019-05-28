@@ -135,12 +135,12 @@ def main():
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
 #--------------------------------------------------------------------------------------------------
-                    if data[0] == 'C' and data[1] == 'O': #configGenerator
+                    if data[0] == 'C' and data[1] == 'F' and data[2] == 'G': #configGenerator
                         ausgabe = "Server wird konfiguriert!" + "\x00"
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
                         try:
-                            if Config.createConfig(camera):
+                            if Config.createConfig(camera, data[3]): #sendet 1 oder 2 mit an den Configgenerator um verschieden Bilder zu machen
                                 ausgabe = "ACK" + "\x00"
                             else:
                                 ausgabe = "NAK" + "\x00"
@@ -198,9 +198,10 @@ if __name__ == '__main__':
     if test.is_file():
         print('Config Datei gefunden')
         config.read('../config.ini')
+        config_test = True
 
     else:
-        print('Config konnte nicht gefunden werden. Bitte erst mit configGenerator.py eine Config generieren lassen!')
+        print('Config konnte nicht gefunden werden. Bitte erst mit configGenerator.py eine Config generieren lassen und dann den Server neustarten!')
         config_test = False
 
     if config_test:
