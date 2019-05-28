@@ -56,7 +56,7 @@ class Kabel():
         img = camera.get_frame_cv()
 
         if img is None:
-            print("Fehler bei Laden der Datei: " + filename + "!\n")
+            print("Fehler bei Laden des frames!" + "!\n")
             return -1
 
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
