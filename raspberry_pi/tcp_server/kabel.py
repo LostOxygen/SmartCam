@@ -18,7 +18,7 @@ import io
 from datetime import datetime
 
 class Kabel():
-    def kabel(camera):
+    def kabel(camera, bild_num):
         #Variablen
         fenster_name = "Kabelerkenung"
         mittelpunkt = (int(1920/2), int(1080/2))
@@ -91,7 +91,8 @@ class Kabel():
         cv2.line(img, mittelpunkt, (min_xy[0],mittelpunkt[1]), (255,255,0), 2)
         cv2.line(img, mittelpunkt, min_xy, (255,255,0), 2)
         #erzeugt Text mit Pixelangabe
-        cv2.putText(img, str(round(dist_y, 2)) + "px diff." , (min_xy[0],mittelpunkt[1]), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+        cv2.putText(img, str(round(dist_x, 2)) + "px Z (Länge)" , (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+        cv2.putText(img, str(round(dist_y, 2)) + "px Y (Höhe Diff.)" , (100,150), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
         #Konturen zeichnen
         cv2.drawContours(img, contours, -1, (0,255,0), 3)
     #-------------------------------------------------------
@@ -99,7 +100,11 @@ class Kabel():
 
         print("Distanz_Y: " + str(dist_y))
         print("umgerechnet: " + str(round(umrechnung_pixel_mm * dist_y)) + "mm")
-        cv2.imwrite("/home/pi/Desktop/OpenCV/raspberry_pi/bilder/kabel.jpg", img) #speichert ein Bild
+
+        if bild_num == 1:
+            cv2.imwrite("/home/pi/Desktop/OpenCV/raspberry_pi/bilder/kabel1.jpg", img) #speichert ein Bild
+        elif bild_num == 2:
+            cv2.imwrite("/home/pi/Desktop/OpenCV/raspberry_pi/bilder/kabel2.jpg", img)
 
         offset = (abs(mittelpunkt[0]), abs(mittelpunkt[1] - min_xy[1]))
 
