@@ -81,12 +81,12 @@ def api():
 
 @app.route('/api/kabel1/')
 @app.route('/api/kabel1')
-def kabel():
+def kabel1():
     return send_from_directory(directory="../bilder", filename="kabel1.jpg")
 
 @app.route('/api/kabel2/')
 @app.route('/api/kabel2')
-def kabel():
+def kabel2():
     return send_from_directory(directory="../bilder", filename="kabel2.jpg")
 
 @app.route('/api/kreis/')
