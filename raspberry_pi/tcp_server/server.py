@@ -138,12 +138,11 @@ def main():
                     if data[0] == 'C' and data[1] == 'F' and data[2] == 'G': #configGenerator
                         ausgabe = "Server wird konfiguriert!" + "\x00"
                         ausgabe = ausgabe.encode()
-                        conn.sendall(ausgabe)
                         try:
                             Config.createConfig(camera, data[3])
                             ausgabe = "ACK" + "\x00"
 
-                            ausgabe = ausgabe.encode()
+                            ausgabe += ausgabe.encode()
                             conn.sendall(ausgabe)
                         except Exception as e:
                             ausgabe = "NAK" + "\x00"
