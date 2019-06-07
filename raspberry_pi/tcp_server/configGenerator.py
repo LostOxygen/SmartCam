@@ -92,7 +92,7 @@ class Config:
                         skalierungsfaktor = (mm_pro_pixel1 / umrechnung_mm_pro_pixel) / abs(AbstandZumObjekt1 - AbstandZumObjekt2)
 
                         config['CONFIG'] = {'mm_pro_pixel2' : umrechnung_mm_pro_pixel,
-                                            'skalierungsfaktor_pro_cm : skalierungsfaktor'}
+                                            'skalierungsfaktor_pro_cm' : skalierungsfaktor}
                         with open('../config.ini', 'w') as configfile: #Werte in Config schreiben
                             config.write(configfile)
 
