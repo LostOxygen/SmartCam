@@ -53,12 +53,13 @@ class Config:
 
             x_values = [] #Listen für x und y werte um die passenden rauszusuchen
             y_values = []
-
+            print("test5")
             for i in approx:
                 x_values.append(i[0][0])
                 y_values.append(i[0][1])
 
             if area > 400:
+                print("test4")
                 cv2.drawContours(img, [approx] ,0,(0,0,255),3)
                 cv2.circle(img, (min(x_values), min(y_values)), 2, (255,255,0), 2) #oben links
                 cv2.circle(img, (max(x_values), min(y_values)), 2, (255,255,0), 2) #oben rechts
