@@ -71,6 +71,7 @@ class Config:
                 umrechnung_mm_pro_pixel = round(seitenlaenge_quadrat / x_seite, 2)
 
                 if bild_num == 1:
+                    print("test1")
                     config['CONFIG'] = {'host' : '192.168.8.xxx' ,
                                         'port' : '65432' ,
                                         'web_host' : '134.147.234.23x',
@@ -81,6 +82,7 @@ class Config:
                     with open('../config.ini', 'w') as configfile: #Werte in Config schreiben
                         config.write(configfile)
                 elif bild_num == 2:
+                    print("test2")
                     if Path('../config.ini').is_file():
                         print('Config Datei gefunden')
                         config.read('../config.ini')
@@ -89,15 +91,15 @@ class Config:
                         AbstandZumObjekt1 = float(config['CONFIG']['AbstandZumObjekt1'])
                         AbstandZumObjekt2 = float(config['CONFIG']['AbstandZumObjekt2'])
 
-                        skalierungsfaktor = (mm_pro_pixel1 / umrechnung_mm_pro_pixel) / abs(AbstandZumObjekt1 - AbstandZumObjekt2)
+                        skalierungsfaktor = round((mm_pro_pixel1 / umrechnung_mm_pro_pixel) / abs(AbstandZumObjekt1 - AbstandZumObjekt2), 2)
 
                         config['CONFIG'] = {'mm_pro_pixel2' : umrechnung_mm_pro_pixel,
                                             'skalierungsfaktor_pro_cm' : skalierungsfaktor}
                         with open('../config.ini', 'w') as configfile: #Werte in Config schreiben
                             config.write(configfile)
-
-                cv2.putText(img, str(round(x_seite,2)) + "px X_Seite" + " in mm: ", (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
-                cv2.putText(img, str(round(y_seite,2)) + "px Y_Seite" , (100,150), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+                print("test3")
+                cv2.putText(img, str(round(x_seite, 2)) + "px X_Seite" , (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+                cv2.putText(img, str(round(y_seite, 2)) + "px Y_Seite" , (100,150), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
 
         if bild_num == 1:
             print("speichert quadrat1.jpg")
