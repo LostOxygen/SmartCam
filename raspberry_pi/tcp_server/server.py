@@ -140,10 +140,9 @@ def main():
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
                         try:
-                            if Config.createConfig(camera, data[3]): #sendet 1 oder 2 mit an den Configgenerator um verschieden Bilder zu machen
-                                ausgabe = "ACK" + "\x00"
-                            else:
-                                ausgabe = "NAK" + "\x00"
+                            Config.createConfig(camera, data[3])
+                            ausgabe = "ACK" + "\x00"
+
                             ausgabe = ausgabe.encode()
                             conn.sendall(ausgabe)
                         except Exception as e:
