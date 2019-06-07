@@ -1,8 +1,5 @@
-#!/usr/bin/python3 -----------------
-#   Jonathan Evertz
-#   19.03.2019
-#   Webservice für Raspberrypi / OpenCV
-#-----------------
+#!/usr/bin/python3
+# -*- coding: utf8 -*-
 
 from flask import Flask, render_template, Response, request, flash, jsonify, send_from_directory, url_for
 import webbrowser
