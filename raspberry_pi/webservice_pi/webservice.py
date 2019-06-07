@@ -96,12 +96,12 @@ def kreis():
 
 @app.route('/api/quadrat1/')
 @app.route('/api/quadrat2')
-def kreis():
+def quadrat1():
     return send_from_directory(directory="../bilder", filename="quadrat1.jpg")
 
 @app.route('/api/quadrat2/')
 @app.route('/api/quadrat2')
-def kreis():
+def quadrat2():
     return send_from_directory(directory="../bilder", filename="quadrat2.jpg")
 
 @app.route('/api/kreislive/')
