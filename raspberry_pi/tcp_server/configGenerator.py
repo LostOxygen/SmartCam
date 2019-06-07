@@ -80,7 +80,7 @@ class Config:
                                         'mm_pro_pixel1' : umrechnung_mm_pro_pixel}
                     with open('../config.ini', 'w') as configfile: #Werte in Config schreiben
                         config.write(configfile)
-                if bild_num == 2:
+                elif bild_num == 2:
                     if Path('../config.ini').is_file():
                         print('Config Datei gefunden')
                         config.read('../config.ini')
@@ -100,6 +100,8 @@ class Config:
                 cv2.putText(img, str(round(y_seite,2)) + "px Y_Seite" , (100,150), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
 
         if bild_num == 1:
+            print("speichert quadrat1.jpg")
             cv2.imwrite("../bilder/quadrat1.jpg", img) #speichert ein Bild
         elif bild_num == 2:
+            print("speichert quadrat1.jpg")
             cv2.imwrite("../bilder/quadrat2.jpg", img)
