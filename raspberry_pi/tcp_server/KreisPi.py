@@ -123,7 +123,7 @@ class Kreis():
         if picture:
             if image_frame is not None:
                 cv2.imwrite("../bilder/" + fileName, image_frame) #speichert es als fileName ab
-                print("speichert Bild: " + fileName + " in: /home/pi/OpenCV/raspberry_pi/bilder/")
+                print("speichert Bild: " + fileName + " in: /home/pi/raspberry_pi/bilder/")
                 return True
         else:
             cv2.imwrite("../bilder/kreis.jpg", frame) #speichert ein Bild
