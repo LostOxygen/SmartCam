@@ -33,7 +33,7 @@ class Config:
         minDistance = 10 #mindeste Distanz zwischen Punkten
 
         img = camera.get_frame_cv() #lädt frame zum erkennen
-        print("test7")
+
         if img is None:
             print("Fehler bei Laden des frames!" + "!\n")
             return -1
@@ -43,13 +43,14 @@ class Config:
         blur = cv2.bilateralFilter(blur, 11, 17, 17)
         blur = cv2.Canny(blur, 30, 120)
 
-        print("test6")
         contours, hierarchy = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        print("test8")
-        for cnt in contours:
-            area = cv2.contourArea(cnt)
-            approx = cv2.approxPolyDP(cnt, 0.02*cv2.arcLength(cnt, True), True)
 
+        for cnt in contours:
+            print("test1")
+            area = cv2.contourArea(cnt)
+            print("test2")
+            approx = cv2.approxPolyDP(cnt, 0.02*cv2.arcLength(cnt, True), True)
+            print("test3")
             x_values = [] #Listen für x und y werte um die passenden rauszusuchen
             y_values = []
             print("test5")
