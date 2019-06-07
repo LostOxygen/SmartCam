@@ -102,8 +102,10 @@ class Kabel():
         print("umgerechnet: " + str(round(umrechnung_pixel_mm * dist_y)) + "mm")
 
         if bild_num == 1:
+            print("Speichert kabel1.jpg")
             cv2.imwrite("../bilder/kabel1.jpg", img) #speichert ein Bild
         elif bild_num == 2:
+            print("Speichert kabel2.jpg")
             cv2.imwrite("../bilder/kabel2.jpg", img)
 
         offset = (abs(mittelpunkt[0]), abs(mittelpunkt[1] - min_xy[1]))
