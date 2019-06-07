@@ -44,22 +44,23 @@ class Config:
         blur = cv2.Canny(blur, 30, 120)
 
         contours, hierarchy = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        print(type(contours))
+
         for cnt in contours:
-            print("test1")
+
             area = cv2.contourArea(cnt)
-            print("test2")
+
             approx = cv2.approxPolyDP(cnt, 0.02*cv2.arcLength(cnt, True), True)
-            print("test3")
+
             x_values = [] #Listen für x und y werte um die passenden rauszusuchen
             y_values = []
-            print("test5")
+            print("test1")
             for i in approx:
+                print("test2")
                 x_values.append(i[0][0])
                 y_values.append(i[0][1])
 
             if area > 400:
-                print("test4")
+                print("test3")
                 cv2.drawContours(img, [approx] ,0,(0,0,255),3)
                 cv2.circle(img, (min(x_values), min(y_values)), 2, (255,255,0), 2) #oben links
                 cv2.circle(img, (max(x_values), min(y_values)), 2, (255,255,0), 2) #oben rechts
@@ -72,7 +73,7 @@ class Config:
                 umrechnung_mm_pro_pixel = round(seitenlaenge_quadrat / x_seite, 2)
 
                 if bild_num == 1:
-                    print("test1")
+                    print("test4")
                     config['CONFIG'] = {'host' : '192.168.8.xxx' ,
                                         'port' : '65432' ,
                                         'web_host' : '134.147.234.23x',
