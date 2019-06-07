@@ -14,7 +14,7 @@ import io
 
 #Variablen
 fenster_name = "OpenCV Quadraterkennung"
-kreis_durchmesser_mm = 7
+seitenlaenge_quadrat = 70 #mm
 min_threshold = 0
 max_threshold = 100
 oben_links = (400,150)
@@ -66,10 +66,13 @@ def main(argv):
                 cv2.circle(img, (min(x_values), max(y_values)), 2, (255,255,0), 2) #unten links
                 cv2.circle(img, (max(x_values), max(y_values)), 2, (255,255,0), 2) #unten rechts
 
-                x_seite = math.sqrt((min(x_values) - max(x_values))**2 + (min(y_values) - max(y_values))**2)
+                x_seite = math.sqrt((min(x_values) - max(x_values))**2 + (min(y_values) - min(y_values))**2)
                 y_seite = math.sqrt((min(x_values) - min(x_values))**2 + (min(y_values) - max(y_values))**2)
 
-                cv2.putText(img, str(round(x_seite,2)) + "px X_Seite" , (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+                umrechnung_mm_pro_pixel = round(seitenlaenge_quadrat / x_seite, 2)
+                print(umrechnung_mm_pro_pixel)
+
+                cv2.putText(img, str(round(x_seite,2)) + "px X_Seite" + " in mm: ", (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
                 cv2.putText(img, str(round(y_seite,2)) + "px Y_Seite" , (100,150), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
 
         cv2.namedWindow(fenster_name, 1)
