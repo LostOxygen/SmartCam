@@ -11,6 +11,7 @@
 + für TCP/IP - Server wird noch die Schnittstelle für den LED-Ring benötigt [to-be-filled]
 
 Alle für den RPI benötigten Dateien sind **ausschließlich** im Ordner *raspberry_pi* zu finden.
+Im Ordner *non_raspberry_pi* sind nur Entwicklungsdateien zu finden, welche auf dem RPI **nicht** funktionieren.
 
 Grundsätzlich werden alle Skripte mit **./skriptname.py** oder **python3 skriptname.py** gestartet, lediglich *webservice.py* und der *TCP/IP Server* erfordern **sudo**.
 
