@@ -1,4 +1,5 @@
 #damit Config Files nicht behandelt werden
+*.kate-swp
 *.ini
 **/__pycache__
 **/.idea
