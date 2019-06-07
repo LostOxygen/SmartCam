@@ -15,47 +15,42 @@ from PIL import Image
 import io
 from datetime import datetime
 
+from camera_pi import Camera
+
 class Config():
-    def createConfig(camera):
+    def createConfig(camera = Camera(), bildnum):
         #Variablen
         kreis_durchmesser_mm = 7
         min_threshold = 0
         max_threshold = 100
-        oben_links = (400,150)
-        unten_rechts = (900,600)
-        fenster_name = "OpenCV"
         gauss_faktor = 0
         gauss_matrix = (7,7)
-        clear = lambda: os.system('clear')
         config = configparser.ConfigParser()
+        maxCorners = 300 #Anzahl zu erkennenden Kanten
+        qualityLevel = 0.03 #je höher desto genauer
+        minDistance = 10 #mindeste Distanz zwischen Punkten
 
         # ----------------------------------- Main Code -----------------------
-        frame = camera.get_frame_cv()
-        # in Graubild umwandeln
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        #blurren
-        blur = cv2.medianBlur(gray, 5)
-        #zeichnet Rechteckt
-        rechteck = cv2.rectangle(frame, oben_links, unten_rechts, (100,50,200), 5)
-        #Temp Variablen zum arbeiten für nächsten Kreis
-        kdistanz = 100000
-        kkreis_r = 0
-        kkreis_xy = (0,0)
-        #verarbeitet den Teil im Rechteck
-        ausschnitt = blur[oben_links[1] : unten_rechts[1], oben_links[0] : unten_rechts[0]]
-        mittelpunkt = (int(oben_links[0]+(unten_rechts[0]-oben_links[0])/2), int(oben_links[1]+(unten_rechts[1]-oben_links[1])/2))
-        cv2.circle(ausschnitt,mittelpunkt,2,(0,0,255),3)
-        circles = cv2.HoughCircles(ausschnitt,cv2.HOUGH_GRADIENT,1,20,param1=100,param2=20,minRadius=27,maxRadius= 32)
-        if circles is not None:
-            for i in circles[0,:]:
-                kkreis_r = i[2]
-                kkreis_xy = (int(oben_links[0] + i[0]), int(oben_links[1] + i[1]))
-        else:
-            print("kein Kreis für Configerstellung gefunden")
-            return False
+        img = camera.get_frame_cv()
+
+        if img is None:
+            print("Fehler bei Laden des frames!" + "!\n")
+            return -1
+
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        blur = cv2.GaussianBlur(gray, (7,7), 1)
+        blur = cv2.bilateralFilter(blur, 11, 17, 17)
+        blur = cv2.Canny(blur, 30, 120)
+
+        contours, hierarchy = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        rect = cv2.minAreaRect(contours)
+
+        box = cv2.boxPoints(rect)
+        box = np.int0(box)
+        cv2.drawContours(img, [box] ,0,(0,0,255),2)
+
 
         config['CONFIG'] = {'post' : '192.168.8.xxx' , 'port' : '65432' , 'AbstandZumObjekt' : '15', 'DurchmesserKreisInPixel' : kkreis_r}
         with open('../config.ini', 'w') as configfile: #Werte in Config schreiben
             config.write(configfile)
-        print("Durchmesser Kreis in Pixel: " + str(kkreis_r))
         return True
