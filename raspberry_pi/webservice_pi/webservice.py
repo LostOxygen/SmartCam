@@ -69,31 +69,46 @@ def bild():
     #del camera
     return send_from_directory(directory="images", filename=fileName)
 
-@app.route('/api/offset/')
-@app.route('/api/offset')
+@app.route('/api/config/')
+@app.route('/api/config')
 def offset():
-    return render_template('offset.html')
+    return render_template('config.html')
 
 @app.route('/api/')
 @app.route('/api')
 def api():
     return render_template('api.html')
 
-@app.route('/api/kabel/')
-@app.route('/api/kabel')
+@app.route('/api/kabel1/')
+@app.route('/api/kabel1')
 def kabel():
-    return send_from_directory(directory="/home/pi/Desktop/OpenCV/raspberry_pi/bilder", filename="kabel.jpg")
+    return send_from_directory(directory="../bilder", filename="kabel1.jpg")
+
+@app.route('/api/kabel2/')
+@app.route('/api/kabel2')
+def kabel():
+    return send_from_directory(directory="../bilder", filename="kabel2.jpg")
 
 @app.route('/api/kreis/')
 @app.route('/api/kreis')
 def kreis():
     return send_from_directory(directory="../bilder", filename="kreis.jpg")
 
+@app.route('/api/quadrat1/')
+@app.route('/api/quadrat2')
+def kreis():
+    return send_from_directory(directory="../bilder", filename="quadrat1.jpg")
+
+@app.route('/api/quadrat2/')
+@app.route('/api/quadrat2')
+def kreis():
+    return send_from_directory(directory="../bilder", filename="quadrat2.jpg")
+
 @app.route('/api/kreislive/')
 @app.route('/api/kreislive')
 def kreislive():
     return Response(gen_kreis(camera), mimetype='multipart/x-mixed-replace; boundary=frame')
-#     return "Aktuell noch WIP"
+
 @app.route('/api/kreisbild/')
 @app.route('/api/kreisbild')
 def kreisbild():
@@ -118,14 +133,3 @@ if __name__ == '__main__':
         PORT = int(config['CONFIG']['web_port'])
 
     app.run(host=HOST, port=PORT, debug=True, threaded=True)
-
-
-#------------------ Testzeug -----------------------------
-#if request.method == 'POST':
-#    if request.form['submit_button'] == '1':
-#        return send_from_directory(directory="static", filename="test.png")
-#    else:
-#        return "Datei nicht gefunden!"
-#elif request.method == 'GET':
-#    return render_template('index.html')
-#----------------------------------------------------------

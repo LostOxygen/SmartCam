@@ -100,6 +100,6 @@ class Config:
                 cv2.putText(img, str(round(y_seite,2)) + "px Y_Seite" , (100,150), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
 
         if bild_num == 1:
-            cv2.imwrite("../bilder/kabel1.jpg", img) #speichert ein Bild
+            cv2.imwrite("../bilder/quadrat1.jpg", img) #speichert ein Bild
         elif bild_num == 2:
-            cv2.imwrite("../bilder/kabel2.jpg", img)
+            cv2.imwrite("../bilder/quadrat2.jpg", img)
