@@ -44,24 +44,21 @@ class Config:
         blur = cv2.Canny(blur, 30, 120)
 
         contours, hierarchy = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        print("test5")
-        print(contours)
-        for cnt in contours:
-            print("test6")
-            area = cv2.contourArea(cnt)
 
+        for cnt in contours:
+            area = cv2.contourArea(cnt)
             approx = cv2.approxPolyDP(cnt, 0.02*cv2.arcLength(cnt, True), True)
-            print("test7")
+
             x_values = [] #Listen für x und y werte um die passenden rauszusuchen
             y_values = []
-            print("test8")
+
             for i in approx:
-                print("test2")
+
                 x_values.append(i[0][0])
                 y_values.append(i[0][1])
 
             if area > 400:
-                print("test3")
+
                 cv2.drawContours(img, [approx] ,0,(0,0,255),3)
                 cv2.circle(img, (min(x_values), min(y_values)), 2, (255,255,0), 2) #oben links
                 cv2.circle(img, (max(x_values), min(y_values)), 2, (255,255,0), 2) #oben rechts
@@ -73,40 +70,39 @@ class Config:
 
                 umrechnung_mm_pro_pixel = round(seitenlaenge_quadrat / x_seite, 2)
 
-                #if bild_num == 1:
-                #    print("test4")
-                #    config['CONFIG'] = {'host' : '192.168.8.xxx' ,
-                #                        'port' : '65432' ,
-                #                        'web_host' : '134.147.234.23x',
-                #                        'web_port' : '80',
-                #                        'AbstandZumObjekt1' : '15',
-                #                        'AbstandZumObjekt2' : '20',
-                #                        'mm_pro_pixel1' : umrechnung_mm_pro_pixel}
-                #    with open('../config.ini', 'w') as configfile: #Werte in Config schreiben
-                #        config.write(configfile)
-                #elif bild_num == 2:
-                #    print("test2")
-                #    if Path('../config.ini').is_file():
-                #        print('Config Datei gefunden')
-                #        config.read('../config.ini')
+                if bild_num == 1:
+                    config['CONFIG'] = {'host' : '192.168.8.xxx' ,
+                                        'port' : '65432' ,
+                                        'web_host' : '134.147.234.23x',
+                                        'web_port' : '80',
+                                        'AbstandZumObjekt1' : '15',
+                                        'AbstandZumObjekt2' : '20',
+                                        'mm_pro_pixel1' : umrechnung_mm_pro_pixel}
+                    with open('../config.ini', 'w') as configfile: #Werte in Config schreiben
+                        config.write(configfile)
+                elif bild_num == 2:
+                    if Path('../config.ini').is_file():
+                        print('Config Datei gefunden')
+                        config.read('../config.ini')
 
-                #        mm_pro_pixel1 = float(config['CONFIG']['mm_pro_pixel1']) #fragt Wert zum berechnen von Skalierungsfaktor ab
-                #        AbstandZumObjekt1 = float(config['CONFIG']['AbstandZumObjekt1'])
-                #        AbstandZumObjekt2 = float(config['CONFIG']['AbstandZumObjekt2'])
+                        mm_pro_pixel1 = float(config['CONFIG']['mm_pro_pixel1']) #fragt Wert zum berechnen von Skalierungsfaktor ab
+                        AbstandZumObjekt1 = float(config['CONFIG']['AbstandZumObjekt1'])
+                        AbstandZumObjekt2 = float(config['CONFIG']['AbstandZumObjekt2'])
 
-                #        skalierungsfaktor = round((mm_pro_pixel1 / umrechnung_mm_pro_pixel) / abs(AbstandZumObjekt1 - AbstandZumObjekt2), 2)
+                        skalierungsfaktor = round((mm_pro_pixel1 / umrechnung_mm_pro_pixel) / abs(AbstandZumObjekt1 - AbstandZumObjekt2), 2)
 
-                #        config['CONFIG'] = {'mm_pro_pixel2' : umrechnung_mm_pro_pixel,
-                #                            'skalierungsfaktor_pro_cm' : skalierungsfaktor}
-                #        with open('../config.ini', 'w') as configfile: #Werte in Config schreiben
-                #            config.write(configfile)
-                #print("test3")
-                #cv2.putText(img, str(round(x_seite, 2)) + "px X_Seite" , (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
-                #cv2.putText(img, str(round(y_seite, 2)) + "px Y_Seite" , (100,150), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+                        config['CONFIG'] = {'mm_pro_pixel2' : umrechnung_mm_pro_pixel,
+                                            'skalierungsfaktor_pro_cm' : skalierungsfaktor}
+                        with open('../config.ini', 'w') as configfile: #Werte in Config schreiben
+                            config.write(configfile)
 
+                cv2.putText(img, str(round(x_seite, 2)) + "px X_Seite" , (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+                cv2.putText(img, str(round(y_seite, 2)) + "px Y_Seite" , (100,150), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+
+        print("test1")
         if bild_num == 1:
-            print("speichert quadrat1.jpg")
+            print("speichert quadrat1.jpg in /home/pi/OpenCV/raspberry_pi/bilder/")
             cv2.imwrite("../bilder/quadrat1.jpg", img) #speichert ein Bild
         elif bild_num == 2:
-            print("speichert quadrat1.jpg")
+            print("speichert quadrat2.jpg in /home/pi/OpenCV/raspberry_pi/bilder/")
             cv2.imwrite("../bilder/quadrat2.jpg", img)
