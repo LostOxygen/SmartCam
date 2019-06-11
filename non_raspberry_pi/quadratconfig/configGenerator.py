@@ -46,7 +46,7 @@ def main(argv):
         #ausschnitt = blur[oben_links[1] : unten_rechts[1], oben_links[0] : unten_rechts[0]]
 
         contours, hierarchy = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
+        print(contours)
         for cnt in contours:
             area = cv2.contourArea(cnt)
             #rect = cv2.minAreaRect(contours[0])

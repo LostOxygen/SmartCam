@@ -14,6 +14,7 @@ import os
 import numpy as np
 from PIL import Image
 import io
+import linecache
 import requests
 import configparser
 from pathlib import Path
@@ -40,6 +41,15 @@ exit = False
 camera = Camera() #erstellt Global eine Kamera
 lichtwert = (0,0,0)
 config_test = True #zum Abfragen der Config
+# ------------ Debug Funktionen --------
+def PrintException():
+    exc_type, exc_obj, tb = sys.exc_info()
+    f = tb.tb_frame
+    lineno = tb.tb_lineno
+    filename = f.f_code.co_filename
+    linecache.checkcache(filename)
+    line = linecache.getline(filename, lineno, f.f_globals)
+    print 'Exception in ({}, Line: {} "{}"): {}'.format(filename, lineno, line.strip(), exc_obj)
 
 # ------------ Main Code ---------------
 
@@ -81,6 +91,7 @@ def main():
                         except Exception as e:
                             print("Fehler beim Offset erstellen!")
                             print(e)
+                            PrintException()
                             ausgabe = "NAK" + "\x00"
 
                         ausgabe = ausgabe.encode()
@@ -94,8 +105,8 @@ def main():
                         except Exception as e:
                             print("Fehler beim Offset erstellen!")
                             print(e)
+                            PrintException()
                             ausgabe = "NAK" + "\x00"
-                        #print(ausgabe)
 
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
@@ -116,6 +127,7 @@ def main():
                             ausgabe = "ACK" + "\x00"
                         except Exception as e:
                             print(e)
+                            PrintException()
                             ausgabe = "NAK" + "\x00"
 
                         ausgabe = ausgabe.encode()
@@ -130,6 +142,7 @@ def main():
                         except Exception as e:
                             print("Fehler beim erstellen eines Bildes mit Kreiserkennung")
                             print(e)
+                            PrintException()
                             ausgabe = "NAK" + "\x00"
 
                         ausgabe = ausgabe.encode()
@@ -147,6 +160,7 @@ def main():
                         except Exception as e:
                             ausgabe = "NAK" + "\x00"
                             print(e)
+                            PrintException()
                             ausgabe = ausgabe.encode()
                             conn.sendall(ausgabe)
 #--------------------------------------------------------------------------------------------------
