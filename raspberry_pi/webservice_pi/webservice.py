@@ -70,7 +70,10 @@ def bild():
 @app.route('/api/config/')
 @app.route('/api/config')
 def config():
-    return render_template('config.html')
+    f = open('/home/pi/OpenCV/raspberry_pi/config.ini', 'r')
+    content = f.read()
+    f.close()
+    return render_template('config.html', content=content)
 
 @app.route('/api/')
 @app.route('/api')
