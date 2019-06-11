@@ -155,7 +155,7 @@ def main():
                             Config.createConfig(camera, data[3])
                             ausgabe = "ACK" + "\x00"
 
-                            ausgabe += ausgabe.encode()
+                            ausgabe = ausgabe.encode()
                             conn.sendall(ausgabe)
                         except Exception as e:
                             ausgabe = "NAK" + "\x00"
