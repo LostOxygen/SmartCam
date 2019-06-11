@@ -45,6 +45,7 @@ class Config:
 
         contours, hierarchy = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         print("test5")
+        print(contours)
         for cnt in contours:
             print("test6")
             area = cv2.contourArea(cnt)
@@ -72,36 +73,36 @@ class Config:
 
                 umrechnung_mm_pro_pixel = round(seitenlaenge_quadrat / x_seite, 2)
 
-                if bild_num == 1:
-                    print("test4")
-                    config['CONFIG'] = {'host' : '192.168.8.xxx' ,
-                                        'port' : '65432' ,
-                                        'web_host' : '134.147.234.23x',
-                                        'web_port' : '80',
-                                        'AbstandZumObjekt1' : '15',
-                                        'AbstandZumObjekt2' : '20',
-                                        'mm_pro_pixel1' : umrechnung_mm_pro_pixel}
-                    with open('../config.ini', 'w') as configfile: #Werte in Config schreiben
-                        config.write(configfile)
-                elif bild_num == 2:
-                    print("test2")
-                    if Path('../config.ini').is_file():
-                        print('Config Datei gefunden')
-                        config.read('../config.ini')
+                #if bild_num == 1:
+                #    print("test4")
+                #    config['CONFIG'] = {'host' : '192.168.8.xxx' ,
+                #                        'port' : '65432' ,
+                #                        'web_host' : '134.147.234.23x',
+                #                        'web_port' : '80',
+                #                        'AbstandZumObjekt1' : '15',
+                #                        'AbstandZumObjekt2' : '20',
+                #                        'mm_pro_pixel1' : umrechnung_mm_pro_pixel}
+                #    with open('../config.ini', 'w') as configfile: #Werte in Config schreiben
+                #        config.write(configfile)
+                #elif bild_num == 2:
+                #    print("test2")
+                #    if Path('../config.ini').is_file():
+                #        print('Config Datei gefunden')
+                #        config.read('../config.ini')
 
-                        mm_pro_pixel1 = float(config['CONFIG']['mm_pro_pixel1']) #fragt Wert zum berechnen von Skalierungsfaktor ab
-                        AbstandZumObjekt1 = float(config['CONFIG']['AbstandZumObjekt1'])
-                        AbstandZumObjekt2 = float(config['CONFIG']['AbstandZumObjekt2'])
+                #        mm_pro_pixel1 = float(config['CONFIG']['mm_pro_pixel1']) #fragt Wert zum berechnen von Skalierungsfaktor ab
+                #        AbstandZumObjekt1 = float(config['CONFIG']['AbstandZumObjekt1'])
+                #        AbstandZumObjekt2 = float(config['CONFIG']['AbstandZumObjekt2'])
 
-                        skalierungsfaktor = round((mm_pro_pixel1 / umrechnung_mm_pro_pixel) / abs(AbstandZumObjekt1 - AbstandZumObjekt2), 2)
+                #        skalierungsfaktor = round((mm_pro_pixel1 / umrechnung_mm_pro_pixel) / abs(AbstandZumObjekt1 - AbstandZumObjekt2), 2)
 
-                        config['CONFIG'] = {'mm_pro_pixel2' : umrechnung_mm_pro_pixel,
-                                            'skalierungsfaktor_pro_cm' : skalierungsfaktor}
-                        with open('../config.ini', 'w') as configfile: #Werte in Config schreiben
-                            config.write(configfile)
-                print("test3")
-                cv2.putText(img, str(round(x_seite, 2)) + "px X_Seite" , (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
-                cv2.putText(img, str(round(y_seite, 2)) + "px Y_Seite" , (100,150), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+                #        config['CONFIG'] = {'mm_pro_pixel2' : umrechnung_mm_pro_pixel,
+                #                            'skalierungsfaktor_pro_cm' : skalierungsfaktor}
+                #        with open('../config.ini', 'w') as configfile: #Werte in Config schreiben
+                #            config.write(configfile)
+                #print("test3")
+                #cv2.putText(img, str(round(x_seite, 2)) + "px X_Seite" , (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+                #cv2.putText(img, str(round(y_seite, 2)) + "px Y_Seite" , (100,150), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
 
         if bild_num == 1:
             print("speichert quadrat1.jpg")
