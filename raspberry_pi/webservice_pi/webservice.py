@@ -57,7 +57,6 @@ def live(): #Kamerastream in HTML einbetten
 @app.route('/api/bild/')
 @app.route('/api/bild')
 def bild():
-    #camera = Camera()
     d = datetime.now()
     imgYear = "%04d" % (d.year)
     imgMonth = "%02d" % (d.month)
@@ -66,8 +65,7 @@ def bild():
     imgMins = "%02d" % (d.minute)
     fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
     make_picture(camera, fileName)
-    #del camera
-    return send_from_directory(directory="images", filename=fileName)
+    return send_from_directory(directory="../bilder", filename=fileName)
 
 @app.route('/api/config/')
 @app.route('/api/config')
