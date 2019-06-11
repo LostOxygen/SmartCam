@@ -102,9 +102,9 @@ class Config:
 
         print("test1")
         print(repr(bild_num))
-        if bild_num == 1:
+        if bild_num == '1':
             print("speichert quadrat1.jpg in /home/pi/OpenCV/raspberry_pi/bilder/")
             cv2.imwrite("../bilder/quadrat1.jpg", img) #speichert ein Bild
-        elif bild_num == 2:
+        elif bild_num == '2':
             print("speichert quadrat2.jpg in /home/pi/OpenCV/raspberry_pi/bilder/")
             cv2.imwrite("../bilder/quadrat2.jpg", img)
