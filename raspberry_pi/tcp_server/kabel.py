@@ -101,10 +101,10 @@ class Kabel():
         print("Distanz_Y: " + str(dist_y))
         print("umgerechnet: " + str(round(umrechnung_pixel_mm * dist_y)) + "mm")
 
-        if bild_num == 1:
+        if bild_num == "1":
             print("Speichert kabel1.jpg")
             cv2.imwrite("../bilder/kabel1.jpg", img) #speichert ein Bild
-        elif bild_num == 2:
+        elif bild_num == "2":
             print("Speichert kabel2.jpg")
             cv2.imwrite("../bilder/kabel2.jpg", img)
 
