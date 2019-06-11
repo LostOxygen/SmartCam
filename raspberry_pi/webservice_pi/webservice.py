@@ -69,7 +69,7 @@ def bild():
 
 @app.route('/api/config/')
 @app.route('/api/config')
-def offset():
+def config():
     return render_template('config.html')
 
 @app.route('/api/')
