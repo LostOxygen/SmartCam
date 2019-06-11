@@ -44,16 +44,16 @@ class Config:
         blur = cv2.Canny(blur, 30, 120)
 
         contours, hierarchy = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
+        print("test5")
         for cnt in contours:
-
+            print("test6")
             area = cv2.contourArea(cnt)
 
             approx = cv2.approxPolyDP(cnt, 0.02*cv2.arcLength(cnt, True), True)
-
+            print("test7")
             x_values = [] #Listen für x und y werte um die passenden rauszusuchen
             y_values = []
-            print("test1")
+            print("test8")
             for i in approx:
                 print("test2")
                 x_values.append(i[0][0])
