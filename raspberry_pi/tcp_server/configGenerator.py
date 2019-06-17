@@ -47,17 +47,19 @@ class Config:
 
         for cnt in contours:
             area = cv2.contourArea(cnt)
-            approx = cv2.approxPolyDP(cnt, 0.02*cv2.arcLength(cnt, True), True)
-
-            x_values = [] #Listen für x und y werte um die passenden rauszusuchen
-            y_values = []
-
-            for i in approx:
-
-                x_values.append(i[0][0])
-                y_values.append(i[0][1])
 
             if area > 400:
+
+                approx = cv2.approxPolyDP(cnt, 0.02*cv2.arcLength(cnt, True), True)
+
+                x_values = [] #Listen für x und y werte um die passenden rauszusuchen
+                y_values = []
+
+                for i in approx:
+
+                    x_values.append(i[0][0])
+                    y_values.append(i[0][1])
+
 
                 cv2.drawContours(img, [approx] ,0,(0,0,255),3)
                 cv2.circle(img, (min(x_values), min(y_values)), 2, (255,255,0), 2) #oben links
