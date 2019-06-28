@@ -45,7 +45,7 @@ class Config:
         blur = cv2.Canny(blur, 30, 120)
 
         contours, hierarchy = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        print(contours)
+        #print(contours)
         for cnt in contours:
             area = cv2.contourArea(cnt)
 
@@ -72,8 +72,8 @@ class Config:
                 y_seite = math.sqrt((min(x_values) - min(x_values))**2 + (min(y_values) - max(y_values))**2)
 
                 umrechnung_mm_pro_pixel = round(seitenlaenge_quadrat / x_seite, 2)
-
-                if bild_num == 1:
+                print("Quadrat erfolgreich erkannt")
+                if str(bild_num) == "1":
                     config['CONFIG'] = {'host' : '192.168.8.xxx' ,
                                         'port' : '65432' ,
                                         'web_host' : '134.147.234.23x',
@@ -83,7 +83,7 @@ class Config:
                     with open('../config.ini', 'w') as configfile: #Werte in Config schreiben
                         config.write(configfile)
 
-                elif bild_num == 2:
+                elif str(bild_num) == "2":
                     if Path('../config.ini').is_file():
                         print('Config Datei gefunden')
                         config.read('../config.ini')
