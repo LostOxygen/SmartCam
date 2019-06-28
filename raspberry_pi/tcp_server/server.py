@@ -71,7 +71,7 @@ def main():
     #strip.begin()
     print("Hostet Server auf: " + HOST + " auf Port: " + str(PORT))
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock: #AF_INET = Inet Adress Family (IPv4), SOCK_STREAM = socket type (TCP)
-        sock.bind((HOST,PORT))
+        sock.bind(('0.0.0.0',PORT))
         sock.listen()
         while True:
             conn, addr = sock.accept()
