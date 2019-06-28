@@ -33,7 +33,7 @@ class Config:
         qualityLevel = 0.03 #je höher desto genauer
         minDistance = 10 #mindeste Distanz zwischen Punkten
 
-        img = camera.get_frame_cv() #lädt frame zum erkennen
+        img = camera.get_picture() #lädt frame zum erkennen
 
         if img is None:
             print("Fehler bei Laden des frames!" + "!\n")
