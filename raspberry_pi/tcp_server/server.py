@@ -152,8 +152,8 @@ def main():
                         ausgabe = "Server wird konfiguriert!" + "\x00"
                         ausgabe = ausgabe.encode()
                         try:
-                            hoehe = int(data[3] + data[4] + data[5])
-                            Config.createConfig(camera, data[6], hoehe)
+                            hoehe = int(data[4] + data[5] + data[6])
+                            Config.createConfig(camera, data[3], hoehe)
                             ausgabe = "ACK" + "\x00"
 
                             ausgabe = ausgabe.encode()
