@@ -49,7 +49,7 @@ class Config:
         #print(contours)
 
         for cnt in contours:
-            print(str(cnt[0]) + "," + str(cnt[1]))
+            print(str(cnt[0][0]) + "," + str(cnt[0][1]))
             area = cv2.contourArea(cnt)
 
             if area > 400:
