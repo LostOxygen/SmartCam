@@ -48,7 +48,7 @@ class Config:
         contours, hierarchy = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         #print(contours)
 
-        numpy.savetxt("../bilder/contours.csv", contours, delimiter=",") #speichret konturen als csv
+        np.savetxt("../bilder/contours.csv", contours, delimiter=",") #speichret konturen als csv
 
         for cnt in contours:
             area = cv2.contourArea(cnt)
