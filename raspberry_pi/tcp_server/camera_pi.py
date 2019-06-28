@@ -55,7 +55,7 @@ class Camera(object):
                 stream.seek(0)
                 stream.truncate()
                 break
-
+            return self.frame
 
     @classmethod
     def _thread(cls):
