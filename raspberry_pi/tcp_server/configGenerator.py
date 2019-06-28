@@ -53,11 +53,10 @@ class Config:
 
                 approx = cv2.approxPolyDP(cnt, 0.02*cv2.arcLength(cnt, True), True)
 
-                x_values = [] #Listen für x und y werte um die passenden rauszusuchen
-                y_values = []
-
                 for i in approx:
 
+                    x_values = [] #Listen für x und y werte um die passenden rauszusuchen
+                    y_values = []
                     x_values.append(i[0][0])
                     y_values.append(i[0][1])
 
