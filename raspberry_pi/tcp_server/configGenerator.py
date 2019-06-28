@@ -54,24 +54,39 @@ class Config:
 
                 approx = cv2.approxPolyDP(cnt, 0.02*cv2.arcLength(cnt, True), True)
 
+                x_values = [] #Listen für x und y werte um die passenden rauszusuchen
+                y_values = []
+
                 for i in approx:
 
-                    x_values = [] #Listen für x und y werte um die passenden rauszusuchen
-                    y_values = []
                     x_values.append(i[0][0])
                     y_values.append(i[0][1])
 
+                upperLeft = (min(x_values), min(y_values))
+                upperRight = (max(x_values), min(y_values))
+                lowerLeft = (min(x_values), max(y_values))
+                lowerRight = (max(x_values), max(y_values))
+
+                edge_x1 = math.sqrt((upperLeft[0] - upperRight[0])**2 + (upperLeft[1] + upperRight[1])**2)
+                edge_x2 = math.sqrt((lowerLeft[0] - lowerRight[0])**2 + (lowerLeft[1] + lowerRight[1])**2)
+                edge_y1 = math.sqrt((upperLeft[0] - lowerLeft[0])**2 + (upperLeft[1] + lowerLeft[1])**2)
+                edge_y2 = math.sqrt((upperRight[0] - lowerRight[0])**2 + (upperRight[1] + lowerRight[1])**2)
+
 
                 cv2.drawContours(img, [approx] ,0,(0,0,255),3)
-                cv2.circle(img, (min(x_values), min(y_values)), 2, (255,255,0), 2) #oben links
-                cv2.circle(img, (max(x_values), min(y_values)), 2, (255,255,0), 2) #oben rechts
-                cv2.circle(img, (min(x_values), max(y_values)), 2, (255,255,0), 2) #unten links
-                cv2.circle(img, (max(x_values), max(y_values)), 2, (255,255,0), 2) #unten rechts
+                cv2.circle(img, upperLeft, 2, (255,255,0), 2) #oben links
+                cv2.circle(img, upperRight, 2, (255,255,0), 2) #oben rechts
+                cv2.circle(img, lowerLeft, 2, (255,255,0), 2) #unten links
+                cv2.circle(img, lowerRight, 2, (255,255,0), 2) #unten rechts
 
-                x_seite = math.sqrt((min(x_values) - max(x_values))**2 + (min(y_values) - min(y_values))**2)
-                y_seite = math.sqrt((min(x_values) - min(x_values))**2 + (min(y_values) - max(y_values))**2)
+                edge_x1_mm = round(seitenlaenge_quadrat / edge_x1, 2)
+                edge_x2_mm = round(seitenlaenge_quadrat / edge_x2, 2)
+                edge_y1_mm = round(seitenlaenge_quadrat / edge_y1, 2)
+                edge_y2_mm = round(seitenlaenge_quadrat / edge_y2, 2)
 
-                umrechnung_mm_pro_pixel = round(seitenlaenge_quadrat / x_seite, 2)
+                mittelwert = round((edge_x1_mm + edge_x2_mm + edge_y1_mm + edge_y2_mm) / 4, 2)
+                umrechnung_mm_pro_pixel = mittelwert
+
                 print("Quadrat erfolgreich erkannt")
                 if str(bild_num) == "1":
                     config['CONFIG'] = {'host' : '192.168.8.xxx' ,
@@ -96,7 +111,7 @@ class Config:
 
                         config['CONFIG'] = {'mm_pro_pixel2' : umrechnung_mm_pro_pixel,
                                             'AbstandZumObjekt2' : hoehe,
-                                            'skalierungsfaktor_pro_cm' : skalierungsfaktor}
+                                            'skalierungsfaktor_pro_mm' : skalierungsfaktor}
                         with open('../config.ini', 'w') as configfile: #Werte in Config schreiben
                             config.write(configfile)
 
