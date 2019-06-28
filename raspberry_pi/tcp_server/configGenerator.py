@@ -11,6 +11,7 @@ import configparser
 import time
 from PIL import Image
 import io
+from pathlib import Path
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 from datetime import datetime
