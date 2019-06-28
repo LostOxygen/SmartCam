@@ -91,8 +91,8 @@ class Kabel():
         cv2.line(img, mittelpunkt, (min_xy[0],mittelpunkt[1]), (255,255,0), 2)
         cv2.line(img, mittelpunkt, min_xy, (255,255,0), 2)
         #erzeugt Text mit Pixelangabe
-        cv2.putText(img, str(round(dist_z, 2)) + "px Z (Laenge)" , (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
-        cv2.putText(img, str(round(dist_y, 2)) + "px Y (Hoehe Diff.)" , (100,150), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+        cv2.putText(img, "dz = " + str(round(dist_z, 2)) + "" , (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+        cv2.putText(img, "dy = " + str(round(dist_y, 2)) + "" , (100,150), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
 
         #### Timestamp ####
         d = datetime.now()
@@ -102,8 +102,9 @@ class Kabel():
         imgHour = "%02d" % (d.hour)
         imgMins = "%02d" % (d.minute)
         #Todo Sekunde programmieren
+        timestamp = "" + str(imgDate) + "." + str(imgMonth) + "." + str(imgYear) + " - " + str(imgHour) + ":" + str(imgMins)
         timestamp = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins)
-        cv2.putText(img, timestamp, (100,50), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+        cv2.putText(img, "time = " + timestamp, (100,50), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
         ####
 
         #Konturen zeichnen

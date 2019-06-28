@@ -108,6 +108,18 @@ class Kreis():
             cv2.circle(frame, kkreis_xy, kkreis_r,(0,255,0),2) #ausgewählter Kreisen
             cv2.circle(frame, kkreis_xy, 2,(0,255,0),2) #Mittelpunkt des Kreises
 
+            #### Timestamp ####
+            d = datetime.now()
+            imgYear = "%04d" % (d.year)
+            imgMonth = "%02d" % (d.month)
+            imgDate = "%02d" % (d.day)
+            imgHour = "%02d" % (d.hour)
+            imgMins = "%02d" % (d.minute)
+            #Todo Sekunde programmieren
+            timestamp = "" + str(imgDate) + "." + str(imgMonth) + "." + str(imgYear) + " - " + str(imgHour) + ":" + str(imgMins)
+            cv2.putText(frame, "time = " + timestamp, (100,50), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+            ####
+
             if circles is not None: #Damit nur eine Linie gezeichnet wird, wenn er Kreise findet
                 cv2.line(frame,mittelpunkt,kkreis_xy,(255,255,255),5) #Linie zwischen Mittelpunkt und ausgewähltem Kreis
                 cv2.putText(frame, str(round(kdistanz, 2)) , kkreis_xy, cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 2, cv2.LINE_AA, 0)
