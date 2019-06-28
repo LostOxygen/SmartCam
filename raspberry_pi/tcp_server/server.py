@@ -100,8 +100,7 @@ def main():
 #--------------------------------------------------------------------------------------------------
                     if data[0] == 'K' and data[1] == 'O': #Get Kabeloffset
                         try:
-                            hoehe = int(data[2] + data[3] + data[4])
-                            offset = Kabel.kabel(camera, data[5], hoehe)
+                            offset = Kabel.kabel(camera, data[2])
                             ausgabe = "KO" + "X" + str(offset[0]) + "Y" + str(offset[1]) + "\x00"
                         except Exception as e:
                             print("Fehler beim Offset erstellen!")
@@ -153,7 +152,8 @@ def main():
                         ausgabe = "Server wird konfiguriert!" + "\x00"
                         ausgabe = ausgabe.encode()
                         try:
-                            Config.createConfig(camera, data[3])
+                            hoehe = int(data[3] + data[4] + data[5])
+                            Config.createConfig(camera, data[6], hoehe)
                             ausgabe = "ACK" + "\x00"
 
                             ausgabe = ausgabe.encode()
