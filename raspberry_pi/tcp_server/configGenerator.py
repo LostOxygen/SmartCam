@@ -16,7 +16,7 @@ from picamera import PiCamera
 
 # ----------------------------------- Main Code -----------------------
 class Config:
-    def createConfig(camera, bild_num):
+    def createConfig(camera, bild_num, hoehe):
         #Variablen
         fenster_name = "OpenCV QuadratConfig"
         seitenlaenge_quadrat = 70 #in mm und standardwert
