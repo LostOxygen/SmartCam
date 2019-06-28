@@ -17,6 +17,7 @@ import io
 import linecache
 import requests
 import configparser
+import traceback
 from pathlib import Path
 import pprint #Debug
 
@@ -50,6 +51,7 @@ def PrintException():
     linecache.checkcache(filename)
     line = linecache.getline(filename, lineno, f.f_globals)
     print('Exception in ({}, Line: {} "{}"): {}'.format(filename, lineno, line.strip(), exc_obj))
+
 
 # ------------ Main Code ---------------
 
@@ -162,9 +164,17 @@ def main():
                         except Exception as e:
                             ausgabe = "NAK" + "\x00"
                             print(e)
+                            print("PrintException: ")
                             PrintException()
+                            print("traceback.format_exc:")
+                            print(traceback.format_exc())
+                            print("traceback print stack:")
+                            traceback.print_stack()
+                            print("traceback print tb __traceback__")
+                            traceback.print_tb(e.__traceback__)
                             ausgabe = ausgabe.encode()
                             conn.sendall(ausgabe)
+
 #--------------------------------------------------------------------------------------------------
                     if data[0] == 'E' and data[1] == 'X': #Exit und sendet EX als Exitcode
                         ausgabe = "EX" + "\x00"
