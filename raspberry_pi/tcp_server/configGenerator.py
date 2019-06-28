@@ -45,7 +45,7 @@ class Config:
         blur = cv2.Canny(blur, 30, 120)
 
         contours, hierarchy = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
+        print(contours)
         for cnt in contours:
             area = cv2.contourArea(cnt)
 

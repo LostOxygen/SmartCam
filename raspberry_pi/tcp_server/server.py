@@ -154,6 +154,7 @@ def main():
                         try:
                             hoehe = int(data[4] + data[5] + data[6])
                             Config.createConfig(camera, data[3], hoehe)
+                            time.sleep(1)
                             ausgabe = "ACK" + "\x00"
 
                             ausgabe = ausgabe.encode()
