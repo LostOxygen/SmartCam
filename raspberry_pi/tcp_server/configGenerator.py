@@ -114,7 +114,7 @@ class Config:
                         config['CONFIG'] = {'mm_pro_pixel2' : umrechnung_mm_pro_pixel,
                                             'AbstandZumObjekt2' : hoehe,
                                             'skalierungsfaktor_pro_mm' : skalierungsfaktor}
-                        with open('../config.ini', 'w') as configfile: #Werte in Config schreiben
+                        with open('../config.ini', 'a') as configfile: #Werte in Config schreiben
                             config.write(configfile)
 
                 cv2.putText(img, "edge_x1 = " + str(edge_x1), (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
