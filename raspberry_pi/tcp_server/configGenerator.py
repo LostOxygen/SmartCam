@@ -67,10 +67,10 @@ class Config:
                 lowerLeft = (min(x_values), max(y_values))
                 lowerRight = (max(x_values), max(y_values))
 
-                edge_x1 = math.sqrt((upperLeft[0] - upperRight[0])**2 + (upperLeft[1] + upperRight[1])**2)
-                edge_x2 = math.sqrt((lowerLeft[0] - lowerRight[0])**2 + (lowerLeft[1] + lowerRight[1])**2)
-                edge_y1 = math.sqrt((upperLeft[0] - lowerLeft[0])**2 + (upperLeft[1] + lowerLeft[1])**2)
-                edge_y2 = math.sqrt((upperRight[0] - lowerRight[0])**2 + (upperRight[1] + lowerRight[1])**2)
+                edge_x1 = math.sqrt((upperLeft[0] - upperRight[0])**2 + (upperLeft[1] - upperRight[1])**2)
+                edge_x2 = math.sqrt((lowerLeft[0] - lowerRight[0])**2 + (lowerLeft[1] - lowerRight[1])**2)
+                edge_y1 = math.sqrt((upperLeft[0] - lowerLeft[0])**2 + (upperLeft[1] - lowerLeft[1])**2)
+                edge_y2 = math.sqrt((upperRight[0] - lowerRight[0])**2 + (upperRight[1] - lowerRight[1])**2)
 
 
                 cv2.drawContours(img, [approx] ,0,(0,0,255),3)
