@@ -65,3 +65,23 @@ class Camera(object):
                 if time.time() - cls.last_access > 10:
                     break
         cls.thread = None
+
+    def get_picture():
+        with picamera.PiCamera() as camera:
+            # camera setup
+            camera.resolution = (1920, 1088)
+            stream = PiRGBArray(camera, size=(1920, 1088)) #Benutzt ein PiRGBArray
+            camera.hflip = True
+            camera.vflip = True
+
+            #stream = io.BytesIO()
+            for frame in camera.capture_continuous(stream, 'bgr', use_video_port=True):
+                cls.frame_cv = frame.array #numpy Array für Bildverarbeitung
+                # store frame
+                stream.seek(0)
+                cls.frame = stream.read()
+
+                # reset stream for next frame
+                stream.seek(0)
+                stream.truncate()
+                break
