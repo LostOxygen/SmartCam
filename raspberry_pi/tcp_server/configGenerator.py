@@ -48,8 +48,6 @@ class Config:
         contours, hierarchy = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         #print(contours)
 
-        np.savetxt("../bilder/contours.csv", contours, delimiter=",") #speichret konturen als csv
-
         for cnt in contours:
             area = cv2.contourArea(cnt)
 
@@ -135,9 +133,11 @@ class Config:
         ####
 
         if str(bild_num) == "1":
+            np.savetxt("../bilder/contours1.csv", contours) #speichret konturen als csv
             print("speichert quadrat1.jpg in /home/pi/OpenCV/raspberry_pi/bilder/")
             cv2.imwrite("../bilder/quadrat1.jpg", img) #speichert ein Bild
         elif str(bild_num) == "2":
+            np.savetxt("../bilder/contours2.csv", contours) #speichret konturen als csv
             print("speichert quadrat2.jpg in /home/pi/OpenCV/raspberry_pi/bilder/")
             cv2.imwrite("../bilder/quadrat2.jpg", img)
         else:
