@@ -36,7 +36,7 @@ class Camera(object):
         self.initialize()
         return self.frame_cv
 
-    def get_picture():
+    def get_picture(self):
         with picamera.PiCamera() as camera:
             # camera setup
             camera.resolution = (1920, 1088)
@@ -46,10 +46,10 @@ class Camera(object):
 
             #stream = io.BytesIO()
             for frame in camera.capture_continuous(stream, 'bgr', use_video_port=True):
-                cls.frame_cv = frame.array #numpy Array für Bildverarbeitung
+                self.frame_cv = frame.array #numpy Array für Bildverarbeitung
                 # store frame
                 stream.seek(0)
-                cls.frame = stream.read()
+                self.frame = stream.read()
 
                 # reset stream for next frame
                 stream.seek(0)
