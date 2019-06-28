@@ -133,11 +133,11 @@ class Config:
         ####
 
         if str(bild_num) == "1":
-            np.savetxt("../bilder/contours1.csv", contours) #speichret konturen als csv
+            #np.savetxt("../bilder/contours1.csv", contours) #speichret konturen als csv
             print("speichert quadrat1.jpg in /home/pi/OpenCV/raspberry_pi/bilder/")
             cv2.imwrite("../bilder/quadrat1.jpg", img) #speichert ein Bild
         elif str(bild_num) == "2":
-            np.savetxt("../bilder/contours2.csv", contours) #speichret konturen als csv
+            #np.savetxt("../bilder/contours2.csv", contours) #speichret konturen als csv
             print("speichert quadrat2.jpg in /home/pi/OpenCV/raspberry_pi/bilder/")
             cv2.imwrite("../bilder/quadrat2.jpg", img)
         else:
