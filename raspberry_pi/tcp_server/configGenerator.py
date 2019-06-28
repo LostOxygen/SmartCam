@@ -102,6 +102,18 @@ class Config:
                 cv2.putText(img, str(round(x_seite, 2)) + "px X_Seite" , (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
                 cv2.putText(img, str(round(y_seite, 2)) + "px Y_Seite" , (100,150), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
 
+                #### Timestamp ####
+                d = datetime.now()
+                imgYear = "%04d" % (d.year)
+                imgMonth = "%02d" % (d.month)
+                imgDate = "%02d" % (d.day)
+                imgHour = "%02d" % (d.hour)
+                imgMins = "%02d" % (d.minute)
+                #Todo Sekunde programmieren
+                timestamp = "" + str(imgDate) + "." + str(imgMonth) + "." + str(imgYear) + " " + str(imgHour) + ":" + str(imgMins)
+                cv2.putText(frame, "time = " + timestamp, (100,50), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+                ####
+
         if bild_num == '1':
             print("speichert quadrat1.jpg in /home/pi/OpenCV/raspberry_pi/bilder/")
             cv2.imwrite("../bilder/quadrat1.jpg", img) #speichert ein Bild
