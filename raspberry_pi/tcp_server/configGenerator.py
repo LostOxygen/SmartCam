@@ -107,7 +107,7 @@ class Config:
                         AbstandZumObjekt1 = float(config['CONFIG']['AbstandZumObjekt1'])
                         AbstandZumObjekt2 = float(hoehe)
 
-                        skalierungsfaktor = round((mm_pro_pixel1 / umrechnung_mm_pro_pixel) / abs(AbstandZumObjekt1 - AbstandZumObjekt2), 2)
+                        skalierungsfaktor = round((mm_pro_pixel1 / umrechnung_mm_pro_pixel) / abs(AbstandZumObjekt1 - AbstandZumObjekt2), 9)
 
                         config['CONFIG'] = {'mm_pro_pixel2' : umrechnung_mm_pro_pixel,
                                             'AbstandZumObjekt2' : hoehe,
