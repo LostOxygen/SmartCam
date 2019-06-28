@@ -103,7 +103,6 @@ class Kabel():
         imgMins = "%02d" % (d.minute)
         #Todo Sekunde programmieren
         timestamp = "" + str(imgDate) + "." + str(imgMonth) + "." + str(imgYear) + " - " + str(imgHour) + ":" + str(imgMins)
-        timestamp = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins)
         cv2.putText(img, "time = " + timestamp, (100,50), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
         ####
 
