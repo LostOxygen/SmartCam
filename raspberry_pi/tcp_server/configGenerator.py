@@ -47,6 +47,9 @@ class Config:
 
         contours, hierarchy = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         #print(contours)
+
+        numpy.savetxt("../bilder/contours.csv", contours, delimiter=",") #speichret konturen als csv
+
         for cnt in contours:
             area = cv2.contourArea(cnt)
 
@@ -71,7 +74,6 @@ class Config:
                 edge_x2 = math.sqrt((lowerLeft[0] - lowerRight[0])**2 + (lowerLeft[1] - lowerRight[1])**2)
                 edge_y1 = math.sqrt((upperLeft[0] - lowerLeft[0])**2 + (upperLeft[1] - lowerLeft[1])**2)
                 edge_y2 = math.sqrt((upperRight[0] - lowerRight[0])**2 + (upperRight[1] - lowerRight[1])**2)
-
 
                 cv2.drawContours(img, [approx] ,0,(0,0,255),3)
                 cv2.circle(img, upperLeft, 2, (255,255,0), 2) #oben links
