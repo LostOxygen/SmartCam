@@ -77,11 +77,11 @@ class Config:
                                         'port' : '65432' ,
                                         'web_host' : '134.147.234.23x',
                                         'web_port' : '80',
-                                        'AbstandZumObjekt1' : '15',
-                                        'AbstandZumObjekt2' : '20',
+                                        'AbstandZumObjekt1' : hoehe,
                                         'mm_pro_pixel1' : umrechnung_mm_pro_pixel}
                     with open('../config.ini', 'w') as configfile: #Werte in Config schreiben
                         config.write(configfile)
+
                 elif bild_num == 2:
                     if Path('../config.ini').is_file():
                         print('Config Datei gefunden')
@@ -89,11 +89,12 @@ class Config:
 
                         mm_pro_pixel1 = float(config['CONFIG']['mm_pro_pixel1']) #fragt Wert zum berechnen von Skalierungsfaktor ab
                         AbstandZumObjekt1 = float(config['CONFIG']['AbstandZumObjekt1'])
-                        AbstandZumObjekt2 = float(config['CONFIG']['AbstandZumObjekt2'])
+                        AbstandZumObjekt2 = float(hoehe)
 
                         skalierungsfaktor = round((mm_pro_pixel1 / umrechnung_mm_pro_pixel) / abs(AbstandZumObjekt1 - AbstandZumObjekt2), 2)
 
                         config['CONFIG'] = {'mm_pro_pixel2' : umrechnung_mm_pro_pixel,
+                                            'AbstandZumObjekt2' : hoehe,
                                             'skalierungsfaktor_pro_cm' : skalierungsfaktor}
                         with open('../config.ini', 'w') as configfile: #Werte in Config schreiben
                             config.write(configfile)
