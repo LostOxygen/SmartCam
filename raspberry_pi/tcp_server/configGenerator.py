@@ -79,12 +79,12 @@ class Config:
                 cv2.circle(img, lowerLeft, 2, (255,255,0), 2) #unten links
                 cv2.circle(img, lowerRight, 2, (255,255,0), 2) #unten rechts
 
-                edge_x1_mm = round(seitenlaenge_quadrat / edge_x1, 2)
-                edge_x2_mm = round(seitenlaenge_quadrat / edge_x2, 2)
-                edge_y1_mm = round(seitenlaenge_quadrat / edge_y1, 2)
-                edge_y2_mm = round(seitenlaenge_quadrat / edge_y2, 2)
+                edge_x1_mm = (seitenlaenge_quadrat / edge_x1)
+                edge_x2_mm = (seitenlaenge_quadrat / edge_x2)
+                edge_y1_mm = (seitenlaenge_quadrat / edge_y1)
+                edge_y2_mm = (seitenlaenge_quadrat / edge_y2)
 
-                mittelwert = round((edge_x1_mm + edge_x2_mm + edge_y1_mm + edge_y2_mm) / 4, 2)
+                mittelwert = (edge_x1_mm + edge_x2_mm + edge_y1_mm + edge_y2_mm) / 4
                 umrechnung_mm_pro_pixel = mittelwert
 
                 print("Quadrat erfolgreich erkannt")
