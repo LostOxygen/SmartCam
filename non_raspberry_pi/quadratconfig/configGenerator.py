@@ -11,6 +11,7 @@ import configparser
 import time
 from PIL import Image
 import io
+from csv import *
 
 #Variablen
 fenster_name = "OpenCV Quadraterkennung"
@@ -28,12 +29,10 @@ qualityLevel = 0.03 #je höher desto genauer
 minDistance = 10 #mindeste Distanz zwischen Punkten
 
 # ----------------------------------- Main Code -----------------------
-def main(argv):
+def main():
     cam = cv2.VideoCapture(0);
     while cam.isOpened():
         ret, img = cam.read()
-        filename = argv[0]
-        #img = cv2.imread(filename, cv2.IMREAD_COLOR)
 
         if img is None:
             print("Fehler bei Laden des frames!" + "!\n")
@@ -46,13 +45,21 @@ def main(argv):
         #ausschnitt = blur[oben_links[1] : unten_rechts[1], oben_links[0] : unten_rechts[0]]
 
         contours, hierarchy = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        #print(contours)
+        f = open("/home/jonathan/Schreibtisch/test2.csv", 'w')
+        wr = writer(f)
+        print(contours[0])
+        wr.writerows(contours[0])
         for cnt in contours:
             area = cv2.contourArea(cnt)
             #rect = cv2.minAreaRect(contours[0])
 
             if area > 400:
                 approx = cv2.approxPolyDP(cnt, 0.02*cv2.arcLength(cnt, True), True)
+
+                f = open("/home/jonathan/Schreibtisch/test.csv", 'w')
+                wr = writer(f)
+                print(approx)
+                wr.writerows(approx)
 
                 x_values = [] #Listen für x und y werte um die passenden rauszusuchen
                 y_values = []
@@ -71,7 +78,7 @@ def main(argv):
                 y_seite = math.sqrt((min(x_values) - min(x_values))**2 + (min(y_values) - max(y_values))**2)
 
                 umrechnung_mm_pro_pixel = round(seitenlaenge_quadrat / x_seite, 2)
-                print(umrechnung_mm_pro_pixel)
+                #print(umrechnung_mm_pro_pixel)
 
                 cv2.putText(img, str(round(x_seite,2)) + "px X_Seite" + " in mm: ", (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
                 cv2.putText(img, str(round(y_seite,2)) + "px Y_Seite" , (100,150), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
@@ -87,4 +94,4 @@ def main(argv):
     cv2.destroyAllWindows()
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    main()
