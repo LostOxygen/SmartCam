@@ -42,34 +42,12 @@ exit = False
 camera = Camera() #erstellt Global eine Kamera
 lichtwert = (0,0,0)
 config_test = True #zum Abfragen der Config
-# ------------ Debug Funktionen --------
-def PrintException():
-    exc_type, exc_obj, tb = sys.exc_info()
-    f = tb.tb_frame
-    lineno = tb.tb_lineno
-    filename = f.f_code.co_filename
-    linecache.checkcache(filename)
-    line = linecache.getline(filename, lineno, f.f_globals)
-    print('Exception in ({}, Line: {} "{}"): {}'.format(filename, lineno, line.strip(), exc_obj))
-
-
-# ------------ Main Code ---------------
-
-def make_picture(camera, fileName): #Funktion zum Bild erstellen
-    if camera.get_frame is not None:
-        ret, jpeg = cv2.imencode('.jpg', camera.get_frame_cv()) #dekodiert das RAW Image zu JPEG
-        img2 = Image.open(io.BytesIO(jpeg.tobytes())) #konvertiert jpeg zu einem Byte Objekt um es mit BytesIO zu handhaben
-        img2.save("/home/pi/Desktop/OpenCV/raspberry_pi/bilder/" + fileName) #speichert es als fileName ab
-        return True
-    else:
-        print("Kamera Frame ist None")
-        return False
 
 #---------------------------- Beginn Server ------------------------------------------------------
 def main():
     print("Befehle: \n EX : beendet Server und Verbindung \n GO : liefert Offset zurueck \n CFGx : konfiguriert die Kreiserkennung \n IM : erstellt ein einfaches Bild \n CV : erstellt ein Bild mit erkannten Kreisen \n FX123: setzt LED-Ring auf Farbwert 123,123,123 \n KOx: liefert Kabeloffset zurück \n")
     #strip.begin()
-    print("Hostet Server auf: " + HOST + " auf Port: " + str(PORT))
+    print("Hostet Server auf: " + get_ip("wlan0") + " auf Port: " + str(PORT))
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock: #AF_INET = Inet Adress Family (IPv4), SOCK_STREAM = socket type (TCP)
         sock.bind(('0.0.0.0',PORT))
         sock.listen()
@@ -208,6 +186,38 @@ def main():
 
 #------------------------------ Ende Server   -----------------------------------------------------
 
+# ------------ Debug Funktionen --------
+def PrintException():
+    exc_type, exc_obj, tb = sys.exc_info()
+    f = tb.tb_frame
+    lineno = tb.tb_lineno
+    filename = f.f_code.co_filename
+    linecache.checkcache(filename)
+    line = linecache.getline(filename, lineno, f.f_globals)
+    print('Exception in ({}, Line: {} "{}"): {}'.format(filename, lineno, line.strip(), exc_obj))
+
+
+# ------------ Main Code ---------------
+
+def make_picture(camera, fileName): #Funktion zum Bild erstellen
+    if camera.get_frame is not None:
+        ret, jpeg = cv2.imencode('.jpg', camera.get_frame_cv()) #dekodiert das RAW Image zu JPEG
+        img2 = Image.open(io.BytesIO(jpeg.tobytes())) #konvertiert jpeg zu einem Byte Objekt um es mit BytesIO zu handhaben
+        img2.save("/home/pi/Desktop/OpenCV/raspberry_pi/bilder/" + fileName) #speichert es als fileName ab
+        return True
+    else:
+        print("Kamera Frame ist None")
+        return False
+
+# ----------------------------------- get IP -----------------------
+    def get_ip(interface):
+        ip_addr = "Not connected"
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        try:
+            ip_addr = socket.inet_ntoa(fcntl.ioctl(s.fileno(), 0x8915, struct.pack('256s', interface[:15]))[20:24])
+        finally:
+            return ip_addr
+
 
 if __name__ == '__main__':
 # ----------- Pfade überprüfen ----------------------------------------
@@ -232,5 +242,4 @@ if __name__ == '__main__':
         HOST = config['CONFIG']['host']
         PORT = int(config['CONFIG']['port'])
 # ---------------------------------------------------------------------
-
     main()
