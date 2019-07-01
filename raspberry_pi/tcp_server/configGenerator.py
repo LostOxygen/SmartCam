@@ -15,7 +15,6 @@ from pathlib import Path
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 from datetime import datetime
-import pandas as pd
 import socket
 import fcntl
 import struct
