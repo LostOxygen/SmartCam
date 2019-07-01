@@ -131,7 +131,7 @@ class Config:
                 with open('../config.ini', 'w') as configfile: #Werte in Config schreiben
                     config.write(configfile)
             else:
-                print("Config Datei nicht gefunden)
+                print("Config Datei nicht gefunden")
 # ----------------------------------- Timestamp -----------------------
     def getTimestamp():
         d = datetime.now()
