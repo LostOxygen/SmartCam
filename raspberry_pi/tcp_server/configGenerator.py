@@ -47,6 +47,7 @@ class Config:
         blur = cv2.Canny(blur, 30, 120)
 
         contours, hierarchy = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        createCSV(contours[0], "contours")
 
         for cnt in contours:
             area = cv2.contourArea(cnt)
@@ -54,6 +55,7 @@ class Config:
             if area > 400:
 
                 approx = cv2.approxPolyDP(cnt, 0.02*cv2.arcLength(cnt, True), True)
+                createCSV(approx, "approx")
 
                 x_values = [] #Listen für x und y werte um die passenden rauszusuchen
                 y_values = []
@@ -121,7 +123,7 @@ class Config:
                                         'mm_per_pixel1' : temp_pixel1,
                                         'distanceToObject2' : distanceToObject2,
                                         'scalingFactor' : scalingFactor}
-                
+
                 config['edges'] = {'edge_x1' : edges[0],
                                    'edge_x2' : edges[1],
                                    'edge_y1' : edge[2],
@@ -181,3 +183,10 @@ class Config:
             ip_addr = socket.inet_ntoa(fcntl.ioctl(s.fileno(), 0x8915, struct.pack('256s', interface[:15]))[20:24])
         finally:
             return ip_addr
+
+# ----------------------------------- save as CSV -----------------------
+    def createCSV(array, name):
+        path = "../bilder/" + name + ".csv"
+        f = open(path, 'w')
+        wr = writer(f)
+        wr.writerows(array)
