@@ -16,6 +16,9 @@ from picamera.array import PiRGBArray
 from picamera import PiCamera
 from datetime import datetime
 import pandas as pd
+import socket
+import fcntl
+import struct
 
 # ----------------------------------- Main Code -----------------------
 class Config:
@@ -70,49 +73,63 @@ class Config:
                 edge_y1 = math.sqrt((upperLeft[0] - lowerLeft[0])**2 + (upperLeft[1] - lowerLeft[1])**2)
                 edge_y2 = math.sqrt((upperRight[0] - lowerRight[0])**2 + (upperRight[1] - lowerRight[1])**2)
 
-                edge_x1_mm = (edgelength / edge_x1)
+                edge_x1_mm = (edgelength / edge_x1) #conversion in mm per pixel
                 edge_x2_mm = (edgelength / edge_x2)
                 edge_y1_mm = (edgelength / edge_y1)
                 edge_y2_mm = (edgelength / edge_y2)
 
-                mittelwert = (edge_x1_mm + edge_x2_mm + edge_y1_mm + edge_y2_mm) / 4
-                umrechnung_mm_pro_pixel = mittelwert
+                mean = (edge_x1_mm + edge_x2_mm + edge_y1_mm + edge_y2_mm) / 4
+                conversion_mm_per_pixel = mean
 
-                writeConfig(img_order, height, umrechnung_mm_pro_pixel) #writes the .ini file
+                edges = (edge_x1, edge_x2, edge_y1, edge_y2)
+                writeConfig(img_order, height, conversion_mm_per_pixel,edges) #writes the .ini file
 
                 img = visualization(img, approx) #writes text and draws the rectangel into the img
 
         saveImg(img_order, img) #saves img at the end
 
 # ----------------------------------- Config -----------------------
-    def writeConfig(img_order, height, umrechnung_mm_pro_pixel):
+    def writeConfig(img_order, height, conversion_mm_per_pixel, edges):
         if str(img_order) == "1":
-            config['CONFIG'] = {'host' : '192.168.8.xxx' ,
-                                'port' : '65432' ,
-                                'web_host' : '134.147.234.23x',
-                                'web_port' : '80',
-                                'AbstandZumObjekt1' : height,
-                                'mm_pro_pixel1' : umrechnung_mm_pro_pixel}
-            with open('../config.ini', 'w') as configfile: #Werte in Config schreiben
+            config['tcp'] = {'host' : get_ip("wlan0"),
+                             'port' : '65432'}
+            config['web'] = {'web_host' : get_ip("eth0"),
+                             'web_port' : '80'}
+            config['conversion'] = {'distanceToObject1' : height,
+                                    'mm_per_pixel1' : conversion_mm_per_pixel}
+            config['edges'] = {'edge_x1' : edges[0],
+                               'edge_x2' : edges[1],
+                               'edge_y1' : edge[2],
+                               'edge_y2' : edge[3]}
+            with open('../config.ini', 'w') as configfile: #writes config
                 config.write(configfile)
 
         elif str(img_order) == "2":
             if Path('../config.ini').is_file():
-                print('Config Datei gefunden')
                 config.read('../config.ini')
 
-                mm_pro_pixel1 = float(config['CONFIG']['mm_pro_pixel1']) #fragt Wert zum berechnen von Skalierungsfaktor ab
-                AbstandZumObjekt1 = float(config['CONFIG']['AbstandZumObjekt1'])
-                AbstandZumObjekt2 = float(height)
+                temp_dist1 = float(config['conversion']['distanceToObject1'])
+                temp_pixel1 = float(config['conversion']['mm_per_pixel1'])
 
-                skalierungsfaktor = round((mm_pro_pixel1 / umrechnung_mm_pro_pixel) / abs(AbstandZumObjekt1 - AbstandZumObjekt2), 9)
+                mm_pro_pixel1 = float(config['CONFIG']['mm_pro_pixel1']) #fragt Wert zum berechnen von scalingFactor ab
+                distanceToObject1 = temp_dist1
+                distanceToObject2 = float(height)
 
-                config[''] = {'mm_pro_pixel2' : umrechnung_mm_pro_pixel,
-                                    'AbstandZumObjekt2' : height,
-                                    'skalierungsfaktor_pro_mm' : skalierungsfaktor}
-                with open('../config.ini', 'a') as configfile: #Werte in Config schreiben
+                scalingFactor = round((mm_pro_pixel1 / conversion_mm_per_pixel) / abs(distanceToObject1 - distanceToObject2), 9)
+
+                config['conversion'] = {'distanceToObject1' : temp_dist1,
+                                        'mm_per_pixel1' : temp_pixel1,
+                                        'distanceToObject2' : distanceToObject2,
+                                        'scalingFactor' : scalingFactor}
+                
+                config['edges'] = {'edge_x1' : edges[0],
+                                   'edge_x2' : edges[1],
+                                   'edge_y1' : edge[2],
+                                   'edge_y2' : edge[3]}
+                with open('../config.ini', 'w') as configfile: #Werte in Config schreiben
                     config.write(configfile)
-
+            else:
+                print("Config Datei nicht gefunden)
 # ----------------------------------- Timestamp -----------------------
     def getTimestamp():
         d = datetime.now()
@@ -155,3 +172,12 @@ class Config:
             cv2.imwrite("../bilder/quadrat2.jpg", img)
         else:
             print("Wert: " + str(img_order))
+
+# ----------------------------------- get IP -----------------------
+    def get_ip(interface):
+        ip_addr = "Not connected"
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        try:
+            ip_addr = socket.inet_ntoa(fcntl.ioctl(s.fileno(), 0x8915, struct.pack('256s', interface[:15]))[20:24])
+        finally:
+            return ip_addr
