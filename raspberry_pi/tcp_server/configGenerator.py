@@ -94,7 +94,8 @@ class Config:
                 conversion_mm_per_pixel = mean
 
                 edges = (edge_x1, edge_x2, edge_y1, edge_y2)
-                Config.writeConfig(img_order, height, conversion_mm_per_pixel,edges) #writes the .ini file
+                print(str((img_order, height, conversion_mm_per_pixel, edges)))
+                Config.writeConfig(img_order, height, conversion_mm_per_pixel, edges) #writes the .ini file
 
                 img = visualization(img, approx) #writes text and draws the rectangel into the img
 
@@ -102,6 +103,7 @@ class Config:
 
 # ----------------------------------- Config -----------------------
     def writeConfig(img_order, height, conversion_mm_per_pixel, edges):
+        print("inner writeConfig")
         if str(img_order) == "1":
             config['tcp'] = {'host' : get_ip("wlan0"),
                              'port' : '65432'}
