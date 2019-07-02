@@ -237,8 +237,8 @@ def generateRawConfig():
 
 if __name__ == '__main__':
 # ----------- Pfade überprüfen ----------------------------------------
-    if os.path.isdir('home/pi/OpenCV/raspberry_pi/bilder'):
-        pass
+    if os.path.isdir('../bilder'):
+        print("bilder Verzeichnis gefunden!")
     else:
         os.system('mkdir /home/pi/OpenCV/raspberry_pi/bilder')
 
