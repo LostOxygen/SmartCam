@@ -46,7 +46,7 @@ class Config:
         blur = cv2.Canny(blur, 30, 120)
 
         contours, hierarchy = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        self.createCSV(contours[0], "contours")
+        Config.createCSV(contours[0], "contours")
 
         for cnt in contours:
             area = cv2.contourArea(cnt)
@@ -54,7 +54,7 @@ class Config:
             if area > 400:
 
                 approx = cv2.approxPolyDP(cnt, 0.02*cv2.arcLength(cnt, True), True)
-                self.createCSV(approx, "approx")
+                Config.createCSV(approx, "approx")
 
                 x_values = [] #Listen für x und y werte um die passenden rauszusuchen
                 y_values = []
@@ -83,11 +83,11 @@ class Config:
                 conversion_mm_per_pixel = mean
 
                 edges = (edge_x1, edge_x2, edge_y1, edge_y2)
-                self.writeConfig(img_order, height, conversion_mm_per_pixel,edges) #writes the .ini file
+                Config.writeConfig(img_order, height, conversion_mm_per_pixel,edges) #writes the .ini file
 
                 img = visualization(img, approx) #writes text and draws the rectangel into the img
 
-        self.saveImg(img_order, img) #saves img at the end
+        Config.saveImg(img_order, img) #saves img at the end
 
 # ----------------------------------- Config -----------------------
     def writeConfig(img_order, height, conversion_mm_per_pixel, edges):
