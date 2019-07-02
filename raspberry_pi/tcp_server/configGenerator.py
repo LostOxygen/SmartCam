@@ -97,7 +97,7 @@ class Config:
             config['web'] = {'web_host' : get_ip("eth0"),
                              'web_port' : '80'}
             config['conversion'] = {'distanceToObject1' : height,
-                                    'mm_per_pixel1' : conversion_mm_per_pixel
+                                    'mm_per_pixel1' : conversion_mm_per_pixel,
                                     'distanceToObject2' : 0,
                                     'scalingFactor' : 1}
             config['edges1'] = {'edge_x1' : edges[0],
@@ -131,7 +131,7 @@ class Config:
                     config.write(configfile)
             else:
                 print("Config Datei nicht gefunden")
-                
+
 # ----------------------------------- Timestamp -----------------------
     def getTimestamp():
         d = datetime.now()
