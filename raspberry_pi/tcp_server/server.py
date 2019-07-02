@@ -218,6 +218,21 @@ def make_picture(camera, fileName): #Funktion zum Bild erstellen
         finally:
             return ip_addr
 
+# -------------------------------- generate raw config -----------------------
+def generateRawConfig():
+    config['tcp'] = {'host' : get_ip("wlan0"),
+                     'port' : '65432'}
+    config['web'] = {'web_host' : get_ip("eth0"),
+                     'web_port' : '80'}
+    config['conversion'] = {'distanceToObject1' : 1,
+                            'mm_per_pixel1' : 1,
+                            'distanceToObject2' : 1,
+                            'scalingFactor' : 1}
+    with open('../config.ini', 'w') as configfile: #writes config
+        config.write(configfile)
+
+        
+
 
 if __name__ == '__main__':
 # ----------- Pfade überprüfen ----------------------------------------
@@ -235,11 +250,12 @@ if __name__ == '__main__':
         config_test = True
 
     else:
-        print('Config konnte nicht gefunden werden. Bitte erst mit configGenerator.py eine Config generieren lassen und dann den Server neustarten!')
+        print('Config konnte nicht gefunden werden. Es wird eine leere Config generiert.')
+        generateRawConfig()
         config_test = False
 
     if config_test:
-        HOST = config['CONFIG']['host']
-        PORT = int(config['CONFIG']['port'])
+        HOST = config['tcp']['host']
+        PORT = int(config['tcp']['port'])
 # ---------------------------------------------------------------------
     main()
