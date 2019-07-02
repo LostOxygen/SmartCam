@@ -130,7 +130,7 @@ if __name__ == '__main__':
         config_test = False
 
     if config_test:
-        HOST = config['CONFIG']['web_host']
-        PORT = int(config['CONFIG']['web_port'])
+        HOST = config['web']['web_host']
+        PORT = int(config['web']['web_port'])
 
     app.run(host=HOST, port=PORT, debug=True, threaded=True)

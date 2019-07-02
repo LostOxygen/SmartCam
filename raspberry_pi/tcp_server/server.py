@@ -220,12 +220,14 @@ def get_ip(interface):
 
 # -------------------------------- generate raw config -----------------------
 def generateRawConfig():
+    print("leere config wird generiert!")
     config['tcp'] = {'host' : '0.0.0.0',
                      'port' : '65432'}
     config['web'] = {'web_host' : '0.0.0.0',
                      'web_port' : '80'}
     config['conversion'] = {'distanceToObject1' : 1,
                             'mm_per_pixel1' : 1,
+                            'mm_per_pixel2' : 1,
                             'distanceToObject2' : 1,
                             'scalingFactor' : 1}
     with open('../config.ini', 'w') as configfile: #writes config

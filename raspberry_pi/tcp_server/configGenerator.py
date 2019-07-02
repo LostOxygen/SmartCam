@@ -132,6 +132,7 @@ class Config:
 
                 config.set('conversion', 'distanceToObject2', distanceToObject2) #updating the values
                 config.set('conversion', 'scalingFactor', scalingFactor)
+                config.set('conversion', 'mm_per_pixel2', conversion_mm_per_pixel)
 
                 config['edges2'] = {'edge_x1' : edges[0],
                                    'edge_x2' : edges[1],
