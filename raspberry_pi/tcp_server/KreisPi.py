@@ -53,7 +53,7 @@ class Kreis():
             print('Config konnte nicht gefunden werden. Bitte erst mit configGenerator.py eine Config generieren lassen!')
             config_test = False
 
-        durchmesser_pixel = float(config['CONFIG']['mm_pro_pixel1']) #fragt Wert aus Config File ab
+        durchmesser_pixel = float(config['conversion']['mm_per_pixel1']) #fragt Wert aus Config File ab
 
         if durchmesser_pixel == 0:
             durchmesser_pixel = 1
