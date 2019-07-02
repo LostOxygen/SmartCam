@@ -170,13 +170,13 @@ class Config:
         cv2.putText(img, "edge_x2 = " + str(edge_x2), (100,200), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
         cv2.putText(img, "edge_y2 = " + str(edge_y2), (100,250), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
 
-        timestamp = Config.getTimestamp()
-        cv2.putText(img, "time = " + timestamp, (100,50), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
-
         return img
 
 # ----------------------------------- Save Img -----------------------
     def saveImg(img_order, img):
+
+        timestamp = Config.getTimestamp()
+        cv2.putText(img, "time = " + timestamp, (100,50), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
 
         if str(img_order) == "1":
             #np.savetxt("../bilder/contours1.csv", contours) #speichret konturen als csv

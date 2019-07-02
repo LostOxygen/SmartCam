@@ -115,10 +115,10 @@ class Kabel():
         print("umgerechnet: " + str(round(umrechnung_pixel_mm * dist_y)) + "mm")
 
         if str(bild_num) == "1":
-            print("Speichert kabel1.jpg in /home/pi/OpenCV/raspberry_pi/bilder/")
+            print("Speichert kabel1.jpg in /home/pi/RoboSchalt/raspberry_pi/bilder/")
             cv2.imwrite("../bilder/kabel1.jpg", img) #speichert ein Bild
         elif str(bild_num) == "2":
-            print("Speichert kabel2.jpg in /home/pi/OpenCV/raspberry_pi/bilder/")
+            print("Speichert kabel2.jpg in /home/pi/RoboSchalt/raspberry_pi/bilder/")
             cv2.imwrite("../bilder/kabel2.jpg", img)
 
         offset = (abs(mittelpunkt[0]), abs(mittelpunkt[1] - min_xy[1]))
