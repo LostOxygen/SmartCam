@@ -248,11 +248,9 @@ if __name__ == '__main__':
     if test.is_file():
         print('Config Datei gefunden')
         config.read('../config.ini')
-
     else:
         print('Config konnte nicht gefunden werden. Es wird eine leere Config generiert.')
         generateRawConfig()
-
 
     HOST = config['tcp']['host']
     PORT = int(config['tcp']['port'])
