@@ -57,7 +57,7 @@ class Config:
         for cnt in contours:
             area = cv2.contourArea(cnt)
 
-            if area > 400:
+            if area > 0: #an die geforderte Größe anpassen
 
                 approx = cv2.approxPolyDP(cnt, 0.02*cv2.arcLength(cnt, True), True)
 
@@ -94,7 +94,7 @@ class Config:
                 conversion_mm_per_pixel = mean
 
                 edges = (edge_x1, edge_x2, edge_y1, edge_y2)
-                print(str((img_order, height, conversion_mm_per_pixel, edges)))
+
                 Config.writeConfig(img_order, height, conversion_mm_per_pixel, edges) #writes the .ini file
 
                 img = visualization(img, approx) #writes text and draws the rectangel into the img
@@ -103,7 +103,6 @@ class Config:
 
 # ----------------------------------- Config -----------------------
     def writeConfig(img_order, height, conversion_mm_per_pixel, edges):
-        print("inner writeConfig")
         if str(img_order) == "1":
             config['tcp'] = {'host' : get_ip("wlan0"),
                              'port' : '65432'}
@@ -118,11 +117,7 @@ class Config:
                                'edge_y1' : edge[2],
                                'edge_y2' : edge[3]}
             with open('../config.ini', 'w') as configfile: #writes config
-                print("speichere Config File")
-                try:
-                    print(configfile)
-                finally:
-                    config.write(configfile)
+                config.write(configfile)
 
         elif str(img_order) == "2":
             if Path('../config.ini').is_file():
