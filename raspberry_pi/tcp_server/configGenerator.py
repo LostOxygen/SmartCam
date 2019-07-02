@@ -97,8 +97,10 @@ class Config:
             config['web'] = {'web_host' : get_ip("eth0"),
                              'web_port' : '80'}
             config['conversion'] = {'distanceToObject1' : height,
-                                    'mm_per_pixel1' : conversion_mm_per_pixel}
-            config['edges'] = {'edge_x1' : edges[0],
+                                    'mm_per_pixel1' : conversion_mm_per_pixel
+                                    'distanceToObject2' : 0,
+                                    'scalingFactor' : 1}
+            config['edges1'] = {'edge_x1' : edges[0],
                                'edge_x2' : edges[1],
                                'edge_y1' : edge[2],
                                'edge_y2' : edge[3]}
@@ -110,27 +112,26 @@ class Config:
                 config.read('../config.ini')
 
                 temp_dist1 = float(config['conversion']['distanceToObject1'])
-                temp_pixel1 = float(config['conversion']['mm_per_pixel1'])
+                mm_per_pixel1 = float(config['conversion']['mm_per_pixel1'])
 
-                mm_pro_pixel1 = float(config['CONFIG']['mm_pro_pixel1']) #fragt Wert zum berechnen von scalingFactor ab
                 distanceToObject1 = temp_dist1
                 distanceToObject2 = float(height)
 
-                scalingFactor = round((mm_pro_pixel1 / conversion_mm_per_pixel) / abs(distanceToObject1 - distanceToObject2), 9)
+                scalingFactor = round((mm_per_pixel1 / conversion_mm_per_pixel) / abs(distanceToObject1 - distanceToObject2), 9)
 
-                config['conversion'] = {'distanceToObject1' : temp_dist1,
-                                        'mm_per_pixel1' : temp_pixel1,
-                                        'distanceToObject2' : distanceToObject2,
-                                        'scalingFactor' : scalingFactor}
+                config.set('conversion', 'distanceToObject2', distanceToObject2) #updating the values
+                config.set('conversion', 'scalingFactor', scalingFactor)
 
-                config['edges'] = {'edge_x1' : edges[0],
+                config['edges2'] = {'edge_x1' : edges[0],
                                    'edge_x2' : edges[1],
                                    'edge_y1' : edge[2],
                                    'edge_y2' : edge[3]}
-                with open('../config.ini', 'w') as configfile: #Werte in Config schreiben
+
+                with open('../config.ini', 'wb') as configfile: #Writeback values into config
                     config.write(configfile)
             else:
                 print("Config Datei nicht gefunden")
+                
 # ----------------------------------- Timestamp -----------------------
     def getTimestamp():
         d = datetime.now()
