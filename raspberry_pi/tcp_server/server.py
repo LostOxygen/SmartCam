@@ -220,9 +220,9 @@ def make_picture(camera, fileName): #Funktion zum Bild erstellen
 
 # -------------------------------- generate raw config -----------------------
 def generateRawConfig():
-    config['tcp'] = {'host' : get_ip("wlan0"),
+    config['tcp'] = {'host' : '0.0.0.0',
                      'port' : '65432'}
-    config['web'] = {'web_host' : get_ip("eth0"),
+    config['web'] = {'web_host' : '0.0.0.0',
                      'web_port' : '80'}
     config['conversion'] = {'distanceToObject1' : 1,
                             'mm_per_pixel1' : 1,
@@ -231,7 +231,6 @@ def generateRawConfig():
     with open('../config.ini', 'w') as configfile: #writes config
         config.write(configfile)
 
-        
 
 
 if __name__ == '__main__':
@@ -247,15 +246,13 @@ if __name__ == '__main__':
     if test.is_file():
         print('Config Datei gefunden')
         config.read('../config.ini')
-        config_test = True
 
     else:
         print('Config konnte nicht gefunden werden. Es wird eine leere Config generiert.')
         generateRawConfig()
-        config_test = False
 
-    if config_test:
-        HOST = config['tcp']['host']
-        PORT = int(config['tcp']['port'])
+
+    HOST = config['tcp']['host']
+    PORT = int(config['tcp']['port'])
 # ---------------------------------------------------------------------
     main()
