@@ -210,13 +210,13 @@ def make_picture(camera, fileName): #Funktion zum Bild erstellen
         return False
 
 # ----------------------------------- get IP -----------------------
-    def get_ip(interface):
-        ip_addr = "Not connected"
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        try:
-            ip_addr = socket.inet_ntoa(fcntl.ioctl(s.fileno(), 0x8915, struct.pack('256s', interface[:15]))[20:24])
-        finally:
-            return ip_addr
+def get_ip(interface):
+    ip_addr = "Not connected"
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        ip_addr = socket.inet_ntoa(fcntl.ioctl(s.fileno(), 0x8915, struct.pack('256s', interface[:15]))[20:24])
+    finally:
+        return ip_addr
 
 # -------------------------------- generate raw config -----------------------
 def generateRawConfig():
