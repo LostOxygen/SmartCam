@@ -172,7 +172,7 @@ class Config:
 # ----------------------------------- Save Img -----------------------
     def saveImg(img_order, img):
 
-        timestamp = getTimestamp()
+        timestamp = Config.getTimestamp()
         cv2.putText(img, "time = " + timestamp, (100,50), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
 
         if str(img_order) == "1":
