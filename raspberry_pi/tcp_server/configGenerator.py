@@ -116,7 +116,11 @@ class Config:
                                'edge_y1' : edge[2],
                                'edge_y2' : edge[3]}
             with open('../config.ini', 'w') as configfile: #writes config
-                config.write(configfile)
+                print("speichere Config File")
+                try:
+                    print(configfile)
+                finally:
+                    config.write(configfile)
 
         elif str(img_order) == "2":
             if Path('../config.ini').is_file():
