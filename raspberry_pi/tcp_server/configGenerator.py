@@ -197,6 +197,6 @@ class Config:
 # ----------------------------------- save as CSV -----------------------
     def createCSV(array, name):
         path = "../bilder/" + name + ".csv"
-        f = open(path, 'w')
+        f = open(path, 'w+')
         wr = writer(f)
         wr.writerows(array)
