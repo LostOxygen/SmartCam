@@ -18,6 +18,7 @@ from datetime import datetime
 import socket
 import fcntl
 import struct
+import csv
 
 # ----------------------------------- Main Code -----------------------
 class Config:
@@ -198,5 +199,5 @@ class Config:
     def createCSV(array, name):
         path = "../bilder/" + name + ".csv"
         f = open(path, 'w+')
-        wr = writer(f)
+        wr = csv.writer(f)
         wr.writerows(array)
