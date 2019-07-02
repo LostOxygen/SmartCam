@@ -46,7 +46,12 @@ class Config:
         blur = cv2.Canny(blur, 30, 120)
 
         contours, hierarchy = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        Config.createCSV(contours[0], "contours")
+
+        try:
+            Config.createCSV(contours[0], "contours")
+        except IndexError as e:
+            print("Nicht genug Konturen gefunden.")
+            print(e)
 
         for cnt in contours:
             area = cv2.contourArea(cnt)
@@ -54,7 +59,12 @@ class Config:
             if area > 400:
 
                 approx = cv2.approxPolyDP(cnt, 0.02*cv2.arcLength(cnt, True), True)
-                Config.createCSV(approx, "approx")
+
+                try:
+                    Config.createCSV(approx, "approx")
+                except IndexError as e:
+                    print("Nicht genug Konturen gefunden.")
+                    print(e)
 
                 x_values = [] #Listen für x und y werte um die passenden rauszusuchen
                 y_values = []
