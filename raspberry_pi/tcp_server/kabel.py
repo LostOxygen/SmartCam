@@ -84,6 +84,9 @@ class Kabel():
         dist_z = math.sqrt((mittelpunkt[0] - min_xy[1])**2 + (mittelpunkt[1] - mittelpunkt[1])**2)
 
     #----------- optische Ausgabe --------------------------
+        #Konturen zeichnen
+        cv2.drawContours(img, contours, -1, (0,255,0), 3)
+
         cv2.circle(img, min_xy, 2, (0,255,0), 2) #zeichnet punkt ganz links
         cv2.line(img, min_xy, (min_xy[0], mittelpunkt[1]), (255,255,0), 2) #zeichnet linie von punkt nach oben
         #zeichnet Mittelpunkt und Linie nach links
@@ -94,7 +97,6 @@ class Kabel():
         cv2.putText(img, "dz = " + str(round(dist_z, 2)) + "" , (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
         cv2.putText(img, "dy = " + str(round(dist_y, 2)) + "" , (100,150), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
 
-        #### Timestamp ####
         d = datetime.now()
         imgYear = "%04d" % (d.year)
         imgMonth = "%02d" % (d.month)
@@ -102,8 +104,6 @@ class Kabel():
         imgHour = "%02d" % (d.hour)
         imgMins = "%02d" % (d.minute)
 
-        #Konturen zeichnen
-        cv2.drawContours(img, contours, -1, (0,255,0), 3)
         #Todo Sekunde programmieren
         timestamp = "" + str(imgDate) + "." + str(imgMonth) + "." + str(imgYear) + " " + str(imgHour) + ":" + str(imgMins)
         cv2.putText(img, "time = " + timestamp, (100,50), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
