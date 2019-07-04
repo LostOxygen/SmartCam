@@ -53,7 +53,7 @@ def main():
             area = cv2.contourArea(cnt)
             #rect = cv2.minAreaRect(contours[0])
 
-            if area > 400:
+            if area > 0:
                 approx = cv2.approxPolyDP(cnt, 0.02*cv2.arcLength(cnt, True), True)
 
                 f = open("/home/jonathan/Schreibtisch/test.csv", 'w')
@@ -77,7 +77,7 @@ def main():
                 x_seite = math.sqrt((min(x_values) - max(x_values))**2 + (min(y_values) - min(y_values))**2)
                 y_seite = math.sqrt((min(x_values) - min(x_values))**2 + (min(y_values) - max(y_values))**2)
 
-                umrechnung_mm_pro_pixel = round(seitenlaenge_quadrat / x_seite, 2)
+                #umrechnung_mm_pro_pixel = round(seitenlaenge_quadrat / x_seite, 2)
                 #print(umrechnung_mm_pro_pixel)
 
                 cv2.putText(img, str(round(x_seite,2)) + "px X_Seite" + " in mm: ", (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
