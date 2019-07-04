@@ -50,7 +50,7 @@ class Config:
         try:
             Config.createCSV(contours[0], "contours")
         except IndexError as e:
-            print("Nicht genug Konturen gefunden.")
+            print("Nicht genug Konturen für <contours> gefunden.")
             print(e)
 
         for cnt in contours:
@@ -62,7 +62,7 @@ class Config:
             try:
                 Config.createCSV(approx, "approx")
             except IndexError as e:
-                print("Nicht genug Konturen gefunden.")
+                print("Nicht genug Konturen für <approx> gefunden.")
                 print(e)
 
             x_values = [] #Listen für x und y werte um die passenden rauszusuchen
@@ -110,9 +110,9 @@ class Config:
 
         if str(img_order) == "1":
             print("ist in IF1")
-            configpar['tcp'] = {'host' : Config.get_ip("wlan0"),
+            configpar['tcp'] = {'host' : '192.168.8.6x',
                              'port' : '65432'}
-            configpar['web'] = {'web_host' : Config.get_ip("eth0"),
+            configpar['web'] = {'web_host' : '134.147.234.23x',
                              'web_port' : '80'}
             configpar['conversion'] = {'distanceToObject1' : height,
                                     'mm_per_pixel1' : conversion_mm_per_pixel,
