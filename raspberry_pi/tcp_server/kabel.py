@@ -101,13 +101,13 @@ class Kabel():
         imgDate = "%02d" % (d.day)
         imgHour = "%02d" % (d.hour)
         imgMins = "%02d" % (d.minute)
+
+        #Konturen zeichnen
+        cv2.drawContours(img, contours, -1, (0,255,0), 3)
         #Todo Sekunde programmieren
         timestamp = "" + str(imgDate) + "." + str(imgMonth) + "." + str(imgYear) + " " + str(imgHour) + ":" + str(imgMins)
         cv2.putText(img, "time = " + timestamp, (100,50), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
         ####
-
-        #Konturen zeichnen
-        cv2.drawContours(img, contours, -1, (0,255,0), 3)
     #-------------------------------------------------------
         #Umrechnung per Config in mm
         print(bild_num)
