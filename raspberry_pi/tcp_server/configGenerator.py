@@ -30,7 +30,6 @@ class Config:
         kernel = np.ones((5, 5), np.uint8)
         gauss_faktor = 0
         gauss_matrix = (7,7)
-        configpar = configparser.ConfigParser()
         maxCorners = 300 #Anzahl zu erkennenden Kanten
         qualityLevel = 0.03 #je höher desto genauer
         minDistance = 10 #mindeste Distanz zwischen Punkten
@@ -107,7 +106,8 @@ class Config:
 
 # ----------------------------------- Config -----------------------
     def writeConfig(img_order, height, conversion_mm_per_pixel, edges):
-        print(str(img_order))
+        configpar = configparser.ConfigParser()
+
         if str(img_order) == "1":
             print("ist in IF1")
             configpar['tcp'] = {'host' : Config.get_ip("wlan0"),
