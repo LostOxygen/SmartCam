@@ -103,7 +103,9 @@ class Config:
 
 # ----------------------------------- Config -----------------------
     def writeConfig(img_order, height, conversion_mm_per_pixel, edges):
+        print(str(img_order))
         if str(img_order) == "1":
+            print("ist in IF1")
             config['tcp'] = {'host' : get_ip("wlan0"),
                              'port' : '65432'}
             config['web'] = {'web_host' : get_ip("eth0"),
@@ -117,6 +119,7 @@ class Config:
                                'edge_y1' : edge[2],
                                'edge_y2' : edge[3]}
             with open('../config.ini', 'w') as configfile: #writes config
+                print("schreibt config 1")
                 config.write(configfile)
 
         elif str(img_order) == "2":
