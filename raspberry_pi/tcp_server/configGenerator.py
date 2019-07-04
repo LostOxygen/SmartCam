@@ -85,15 +85,20 @@ class Config:
                 edge_y1 = math.sqrt((upperLeft[0] - lowerLeft[0])**2 + (upperLeft[1] - lowerLeft[1])**2)
                 edge_y2 = math.sqrt((upperRight[0] - lowerRight[0])**2 + (upperRight[1] - lowerRight[1])**2)
 
-                edge_x1_mm = (edgelength / edge_x1) #conversion in mm per pixel
-                edge_x2_mm = (edgelength / edge_x2)
-                edge_y1_mm = (edgelength / edge_y1)
-                edge_y2_mm = (edgelength / edge_y2)
+                try:
+                    edge_x1_mm = (edgelength / edge_x1) #conversion in mm per pixel
+                    edge_x2_mm = (edgelength / edge_x2)
+                    edge_y1_mm = (edgelength / edge_y1)
+                    edge_y2_mm = (edgelength / edge_y2)
 
-                mean = (edge_x1_mm + edge_x2_mm + edge_y1_mm + edge_y2_mm) / 4
-                conversion_mm_per_pixel = mean
+                    mean = (edge_x1_mm + edge_x2_mm + edge_y1_mm + edge_y2_mm) / 4
+                    conversion_mm_per_pixel = mean
 
-                edges = (edge_x1, edge_x2, edge_y1, edge_y2)
+                    edges = (edge_x1, edge_x2, edge_y1, edge_y2)
+                except:
+                    print("Fehler: womöglich wurden keine Kanten gefunden .. ")
+                    conversion_mm_per_pixel = 1
+                    edges = (1, 1, 1, 1)
 
                 Config.writeConfig(img_order, height, conversion_mm_per_pixel, edges) #writes the .ini file
 
@@ -106,9 +111,9 @@ class Config:
         print(str(img_order))
         if str(img_order) == "1":
             print("ist in IF1")
-            config['tcp'] = {'host' : get_ip("wlan0"),
+            config['tcp'] = {'host' : Config.get_ip("wlan0"),
                              'port' : '65432'}
-            config['web'] = {'web_host' : get_ip("eth0"),
+            config['web'] = {'web_host' : Config.get_ip("eth0"),
                              'web_port' : '80'}
             config['conversion'] = {'distanceToObject1' : height,
                                     'mm_per_pixel1' : conversion_mm_per_pixel,
