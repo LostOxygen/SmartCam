@@ -100,7 +100,7 @@ class Config:
 
             Config.writeConfig(img_order, height, conversion_mm_per_pixel, edges) #writes the .ini file
 
-            img = Config.visualization(img, approx, upperLeft, upperRight, lowerLeft, lowerRight) #writes text and draws the rectangel into the img
+            img = Config.visualization(img, approx, (upperLeft, upperRight, lowerLeft, lowerRight), edges) #writes text and draws the rectangel into the img
 
         Config.saveImg(img_order, img) #saves img at the end
 
@@ -165,17 +165,17 @@ class Config:
         return timestamp
 
 # ----------------------------------- Visual -----------------------
-    def visualization(img, approx, upperLeft, upperRight, lowerLeft, lowerRight):
+    def visualization(img, approx, points, edges):
         cv2.drawContours(img, [approx] ,0,(0,0,255),3)
-        cv2.circle(img, upperLeft, 2, (255,255,0), 2) #oben links
-        cv2.circle(img, upperRight, 2, (255,255,0), 2) #oben rechts
-        cv2.circle(img, lowerLeft, 2, (255,255,0), 2) #unten links
-        cv2.circle(img, lowerRight, 2, (255,255,0), 2) #unten rechts
+        cv2.circle(img, points[0], 2, (255,255,0), 2) #oben links
+        cv2.circle(img, points[1], 2, (255,255,0), 2) #oben rechts
+        cv2.circle(img, points[2], 2, (255,255,0), 2) #unten links
+        cv2.circle(img, points[3], 2, (255,255,0), 2) #unten rechts
 
-        cv2.putText(img, "edge_x1 = " + str(edge_x1), (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
-        cv2.putText(img, "edge_y1 = " + str(edge_y1) , (100,150), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
-        cv2.putText(img, "edge_x2 = " + str(edge_x2), (100,200), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
-        cv2.putText(img, "edge_y2 = " + str(edge_y2), (100,250), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+        cv2.putText(img, "edge_x1 = " + str(edges[0]), (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+        cv2.putText(img, "edge_y1 = " + str(edges[1]) , (100,150), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+        cv2.putText(img, "edge_x2 = " + str(edges[2], (100,200), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+        cv2.putText(img, "edge_y2 = " + str(edges[3]), (100,250), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
 
         return img
 
