@@ -100,7 +100,7 @@ class Config:
 
             Config.writeConfig(img_order, height, conversion_mm_per_pixel, edges) #writes the .ini file
 
-            img = Config.visualization(img, approx) #writes text and draws the rectangel into the img
+            img = Config.visualization(img, approx, upperLeft, upperRight, lowerLeft, lowerRight) #writes text and draws the rectangel into the img
 
         Config.saveImg(img_order, img) #saves img at the end
 
@@ -165,7 +165,7 @@ class Config:
         return timestamp
 
 # ----------------------------------- Visual -----------------------
-    def visualization(img, approx):
+    def visualization(img, approx, upperLeft, upperRight, lowerLeft, lowerRight):
         cv2.drawContours(img, [approx] ,0,(0,0,255),3)
         cv2.circle(img, upperLeft, 2, (255,255,0), 2) #oben links
         cv2.circle(img, upperRight, 2, (255,255,0), 2) #oben rechts
