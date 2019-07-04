@@ -120,8 +120,8 @@ class Config:
                                     'scalingFactor' : 1}
             configpar['edges1'] = {'edge_x1' : edges[0],
                                'edge_x2' : edges[1],
-                               'edge_y1' : edge[2],
-                               'edge_y2' : edge[3]}
+                               'edge_y1' : edges[2],
+                               'edge_y2' : edges[3]}
             with open('../config.ini', 'w') as configfile: #writes config
                 print("schreibt config 1")
                 configpar.write(configfile)
@@ -144,8 +144,8 @@ class Config:
 
                 configpar['edges2'] = {'edge_x1' : edges[0],
                                    'edge_x2' : edges[1],
-                                   'edge_y1' : edge[2],
-                                   'edge_y2' : edge[3]}
+                                   'edge_y1' : edges[2],
+                                   'edge_y2' : edges[3]}
 
                 with open('../config.ini', 'wb') as configfile: #Writeback values into config
                     configpar.write(configfile)
