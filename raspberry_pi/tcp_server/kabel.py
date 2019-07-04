@@ -110,7 +110,6 @@ class Kabel():
         ####
     #-------------------------------------------------------
         #Umrechnung per Config in mm
-        print(bild_num)
         print("Distanz_Y: " + str(dist_y))
         print("umgerechnet: " + str(round(umrechnung_pixel_mm * dist_y)) + "mm")
 
