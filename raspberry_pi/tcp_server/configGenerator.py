@@ -57,53 +57,55 @@ class Config:
         for cnt in contours:
             area = cv2.contourArea(cnt)
 
-            if area > 0: #an die geforderte Größe anpassen
+            #if area > 0: #an die geforderte Größe anpassen
 
-                approx = cv2.approxPolyDP(cnt, 0.02*cv2.arcLength(cnt, True), True)
+            approx = cv2.approxPolyDP(cnt, 0.02*cv2.arcLength(cnt, True), True)
 
-                try:
-                    Config.createCSV(approx, "approx")
-                except IndexError as e:
-                    print("Nicht genug Konturen gefunden.")
-                    print(e)
+            try:
+                Config.createCSV(approx, "approx")
+            except IndexError as e:
+                print("Nicht genug Konturen gefunden.")
+                print(e)
 
-                x_values = [] #Listen für x und y werte um die passenden rauszusuchen
-                y_values = []
+            x_values = [] #Listen für x und y werte um die passenden rauszusuchen
+            y_values = []
 
-                for i in approx:
+            for i in approx:
 
-                    x_values.append(i[0][0])
-                    y_values.append(i[0][1])
+                x_values.append(i[0][0])
+                y_values.append(i[0][1])
 
-                upperLeft = (min(x_values), min(y_values))
-                upperRight = (max(x_values), min(y_values))
-                lowerLeft = (min(x_values), max(y_values))
-                lowerRight = (max(x_values), max(y_values))
+            upperLeft = (min(x_values), min(y_values))
+            upperRight = (max(x_values), min(y_values))
+            lowerLeft = (min(x_values), max(y_values))
+            lowerRight = (max(x_values), max(y_values))
 
-                edge_x1 = math.sqrt((upperLeft[0] - upperRight[0])**2 + (upperLeft[1] - upperRight[1])**2)
-                edge_x2 = math.sqrt((lowerLeft[0] - lowerRight[0])**2 + (lowerLeft[1] - lowerRight[1])**2)
-                edge_y1 = math.sqrt((upperLeft[0] - lowerLeft[0])**2 + (upperLeft[1] - lowerLeft[1])**2)
-                edge_y2 = math.sqrt((upperRight[0] - lowerRight[0])**2 + (upperRight[1] - lowerRight[1])**2)
+            edge_x1 = math.sqrt((upperLeft[0] - upperRight[0])**2 + (upperLeft[1] - upperRight[1])**2)
+            edge_x2 = math.sqrt((lowerLeft[0] - lowerRight[0])**2 + (lowerLeft[1] - lowerRight[1])**2)
+            edge_y1 = math.sqrt((upperLeft[0] - lowerLeft[0])**2 + (upperLeft[1] - lowerLeft[1])**2)
+            edge_y2 = math.sqrt((upperRight[0] - lowerRight[0])**2 + (upperRight[1] - lowerRight[1])**2)
 
-                try:
-                    edge_x1_mm = (edgelength / edge_x1) #conversion in mm per pixel
-                    edge_x2_mm = (edgelength / edge_x2)
-                    edge_y1_mm = (edgelength / edge_y1)
-                    edge_y2_mm = (edgelength / edge_y2)
+            try:
+                edge_x1_mm = (edgelength / edge_x1) #conversion in mm per pixel
+                edge_x2_mm = (edgelength / edge_x2)
+                edge_y1_mm = (edgelength / edge_y1)
+                edge_y2_mm = (edgelength / edge_y2)
 
-                    mean = (edge_x1_mm + edge_x2_mm + edge_y1_mm + edge_y2_mm) / 4
-                    conversion_mm_per_pixel = mean
+                mean = (edge_x1_mm + edge_x2_mm + edge_y1_mm + edge_y2_mm) / 4
+                conversion_mm_per_pixel = mean
 
-                    edges = (edge_x1, edge_x2, edge_y1, edge_y2)
-                except:
-                    print("Fehler: womöglich wurden keine Kanten gefunden .. ")
-                    conversion_mm_per_pixel = 1
-                    edges = (1, 1, 1, 1)
+                edges = (edge_x1, edge_x2, edge_y1, edge_y2)
+            except:
+                print("Fehler: womöglich wurden keine Kanten gefunden .. ")
+                conversion_mm_per_pixel = 1
+                edges = (1, 1, 1, 1)
 
-                Config.writeConfig(img_order, height, conversion_mm_per_pixel, edges) #writes the .ini file
+            print(str(img_order) + " und nun Config")
+            Config.writeConfig(img_order, height, conversion_mm_per_pixel, edges) #writes the .ini file
 
-                img = visualization(img, approx) #writes text and draws the rectangel into the img
-
+            print("visualization")
+            img = visualization(img, approx) #writes text and draws the rectangel into the img
+                
         Config.saveImg(img_order, img) #saves img at the end
 
 # ----------------------------------- Config -----------------------
