@@ -187,11 +187,11 @@ class Config:
 
         if str(img_order) == "1":
             #np.savetxt("../bilder/contours1.csv", contours) #speichret konturen als csv
-            print("speichert quadrat1.jpg in /home/pi/OpenCV/raspberry_pi/bilder/")
+            print("speichert quadrat1.jpg in /home/pi/RoboSchalt/raspberry_pi/bilder/")
             cv2.imwrite("../bilder/quadrat1.jpg", img) #speichert ein Bild
         elif str(img_order) == "2":
             #np.savetxt("../bilder/contours2.csv", contours) #speichret konturen als csv
-            print("speichert quadrat2.jpg in /home/pi/OpenCV/raspberry_pi/bilder/")
+            print("speichert quadrat2.jpg in /home/pi/RoboSchalt/raspberry_pi/bilder/")
             cv2.imwrite("../bilder/quadrat2.jpg", img)
         else:
             print("Wert: " + str(img_order))
