@@ -30,7 +30,7 @@ class Config:
         kernel = np.ones((5, 5), np.uint8)
         gauss_faktor = 0
         gauss_matrix = (7,7)
-        configparser = configparser.ConfigParser()
+        configpar = configparser.ConfigParser()
         maxCorners = 300 #Anzahl zu erkennenden Kanten
         qualityLevel = 0.03 #je höher desto genauer
         minDistance = 10 #mindeste Distanz zwischen Punkten
@@ -110,45 +110,45 @@ class Config:
         print(str(img_order))
         if str(img_order) == "1":
             print("ist in IF1")
-            configparser['tcp'] = {'host' : Config.get_ip("wlan0"),
+            configpar['tcp'] = {'host' : Config.get_ip("wlan0"),
                              'port' : '65432'}
-            configparser['web'] = {'web_host' : Config.get_ip("eth0"),
+            configpar['web'] = {'web_host' : Config.get_ip("eth0"),
                              'web_port' : '80'}
-            configparser['conversion'] = {'distanceToObject1' : height,
+            configpar['conversion'] = {'distanceToObject1' : height,
                                     'mm_per_pixel1' : conversion_mm_per_pixel,
                                     'distanceToObject2' : 0,
                                     'scalingFactor' : 1}
-            configparser['edges1'] = {'edge_x1' : edges[0],
+            configpar['edges1'] = {'edge_x1' : edges[0],
                                'edge_x2' : edges[1],
                                'edge_y1' : edge[2],
                                'edge_y2' : edge[3]}
             with open('../config.ini', 'w') as configfile: #writes config
                 print("schreibt config 1")
-                configparser.write(configfile)
+                configpar.write(configfile)
 
         elif str(img_order) == "2":
             if Path('../config.ini').is_file():
-                configparser.read('../config.ini')
+                configpar.read('../config.ini')
 
-                temp_dist1 = float(configparser['conversion']['distanceToObject1'])
-                mm_per_pixel1 = float(configparser['conversion']['mm_per_pixel1'])
+                temp_dist1 = float(configpar['conversion']['distanceToObject1'])
+                mm_per_pixel1 = float(configpar['conversion']['mm_per_pixel1'])
 
                 distanceToObject1 = temp_dist1
                 distanceToObject2 = float(height)
 
                 scalingFactor = round((mm_per_pixel1 / conversion_mm_per_pixel) / abs(distanceToObject1 - distanceToObject2), 9)
 
-                configparser.set('conversion', 'distanceToObject2', distanceToObject2) #updating the values
-                configparser.set('conversion', 'scalingFactor', scalingFactor)
-                configparser.set('conversion', 'mm_per_pixel2', conversion_mm_per_pixel)
+                configpar.set('conversion', 'distanceToObject2', distanceToObject2) #updating the values
+                configpar.set('conversion', 'scalingFactor', scalingFactor)
+                configpar.set('conversion', 'mm_per_pixel2', conversion_mm_per_pixel)
 
-                configparser['edges2'] = {'edge_x1' : edges[0],
+                configpar['edges2'] = {'edge_x1' : edges[0],
                                    'edge_x2' : edges[1],
                                    'edge_y1' : edge[2],
                                    'edge_y2' : edge[3]}
 
                 with open('../config.ini', 'wb') as configfile: #Writeback values into config
-                    configparser.write(configfile)
+                    configpar.write(configfile)
             else:
                 print("Config Datei nicht gefunden")
 
