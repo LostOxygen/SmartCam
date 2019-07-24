@@ -69,7 +69,6 @@ class Config:
             y_values = []
 
             for i in approx:
-
                 x_values.append(i[0][0])
                 y_values.append(i[0][1])
 
