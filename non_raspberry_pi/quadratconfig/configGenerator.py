@@ -61,59 +61,33 @@ def main():
             corners = np.int0(corners)
             #corners = cv2.dilate(corners, None)
 
-            dist = [] #zum sortieren der Distanzen
+            dist = {} #zum sortieren der Distanzen
             ecken = [] #die entgültigen Ecken
-            for i in range(len(box)):
+            punktedict = {
+                "a" : (0,0),
+                "b" : (0,0),
+                "c" : (0,0),
+                "d" : (0,0)
+            }
 
-                for corner in corners:
-                    x,y = corner.ravel()
-                    cv2.circle(img, (x, y), 2, (255,255,0), 2)
+            punkte = []
+            for corner in corners:
+                x,y = corner.ravel()
+                punkte.append((x,y))
+                cv2.circle(img, (x, y), 2, (255,255,0), 2)
 
-                    dist_ = math.sqrt((box[i][0] - x)**2 + (box[i][1] - y)**2)
-                    tupel = ((x,y), dist_)
-                    dist.append(tupel)
+            punktedict["a"] = punkte[0] #erster Punkt ist Punkt a
 
-                thresh_point = ((1,1),1000)
-                for j in dist:
-                    if j[1] < thresh_point[1]:
-                        thresh_point = j
-                    ecken.append(thresh_point[0])
+            dist_ab = math.sqrt((punkte[0][0] -  punkte[1][0])**2 + (punkte[0][1] - punkte[1][1])**2)
+            dist_ac = math.sqrt((punkte[0][0] -  punkte[2][0])**2 + (punkte[0][1] - punkte[2][1])**2)
+            dist_ad = math.sqrt((punkte[0][0] -  punkte[3][0])**2 + (punkte[0][1] - punkte[3][1])**2)
 
-            cv2.line(img, ecken[0], ecken[1],(255,255,255),5)
-            cv2.line(img, ecken[1], ecken[2],(255,255,255),5)
-            cv2.line(img, ecken[2], ecken[3],(255,255,255),5)
-            cv2.line(img, ecken[3], ecken[0],(255,255,255),5)
+            dist["ab"] = ((punkte[1][0], punkte[1][1]), dist_ab)
+            dist["ac"] = ((punkte[2][0], punkte[2][1]), dist_ac)
+            dist["ad"] = ((punkte[3][0], punkte[3][1]), dist_ad)
 
 
-
-
-
-                #img[corners > 0.01 * corners.max()] = [0, 0, 255]
-
-                #x_values = [] #Listen für x und y werte um die passenden rauszusuchen
-                #y_values = []
-
-                #for i in approx:
-                #    x_values.append(i[0][0])
-                #    y_values.append(i[0][1])
-
-                #cv2.line(img, ecken[0], ecken[1],(255,255,255),5)
-                #cv2.line(img, ecken[1], ecken[2],(255,255,255),5)
-                #cv2.line(img, ecken[2], ecken[3],(255,255,255),5)
-                #cv2.line(img, ecken[3], ecken[0],(255,255,255),5)
-
-                #cv2.drawContours(img, [approx], -1, (0,0,255), 3)
-                #cv2.circle(img, ecken[0], 2, (255,255,0), 2) #oben links
-                #cv2.circle(img, ecken[1], 2, (255,255,0), 2) #oben rechts
-                #cv2.circle(img, ecken[2], 2, (255,255,0), 2) #unten links
-                #cv2.circle(img, ecken[3], 2, (255,255,0), 2) #unten rechts
-                #print(approx)
-
-                #x_seite = math.sqrt((min(x_values) - max(x_values))**2 + (min(y_values) - min(y_values))**2)
-                #y_seite = math.sqrt((min(x_values) - min(x_values))**2 + (min(y_values) - max(y_values))**2)
-
-                #cv2.putText(img, str(round(x_seite,2)) + "px X_Seite" + " in mm: ", (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
-                #cv2.putText(img, str(round(y_seite,2)) + "px Y_Seite" , (100,150), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+            print(min(dist["ab"][1], dist["ac"][1], dist["ad"][1]))
 
         cv2.namedWindow(fenster_name, 1)
         cv2.imshow(fenster_name, img)

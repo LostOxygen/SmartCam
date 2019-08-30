@@ -108,7 +108,6 @@ class Config:
         configpar = configparser.ConfigParser()
 
         if str(img_order) == "1":
-            print("ist in IF1")
             configpar['tcp'] = {'host' : '192.168.8.6x',
                              'port' : '65432'}
             configpar['web'] = {'web_host' : '134.147.234.23x',
@@ -122,7 +121,6 @@ class Config:
                                'edge_y1' : edges[2],
                                'edge_y2' : edges[3]}
             with open('../config.ini', 'w') as configfile: #writes config
-                print("schreibt config 1")
                 configpar.write(configfile)
 
         elif str(img_order) == "2":
