@@ -65,6 +65,8 @@ def main():
             corners = np.int0(corners)
             #corners = cv2.dilate(corners, None)
 
+
+#------------------- Quadrat aufspannen ----------------------
             dist = [] #zum sortieren der Distanzen
             ecken = [] #die entgültigen Ecken
             punktedict = {
@@ -107,6 +109,7 @@ def main():
             cv2.line(img, dist[2][0], dist[1][0], (255,255,0), 2)
 
             print(dist[0])
+#----------------- Quadrat aufspannen ------------
 
         cv2.namedWindow(fenster_name, 1)
         cv2.imshow(fenster_name, img)
