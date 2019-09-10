@@ -15,10 +15,8 @@ def main():
     #img1 = borders(img1)
     #img2 = borders(img2)
 
-    # Initiate SIFT detector
     sift = cv2.xfeatures2d.SIFT_create()
 
-    # find the keypoints and descriptors with SIFT
     kp1, des1 = sift.detectAndCompute(img1,None)
     kp2, des2 = sift.detectAndCompute(img2,None)
 
@@ -30,7 +28,6 @@ def main():
 
     matches = flann.knnMatch(des1,des2,k=2)
 
-    # store all the good matches as per Lowe's ratio test.
     good = []
     for m,n in matches:
         if m.distance < 0.7*n.distance:
