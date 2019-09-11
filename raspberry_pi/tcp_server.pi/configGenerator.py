@@ -83,13 +83,9 @@ class Config:
                 cv2.circle(img, (x, y), 2, (255,255,0), 2)
 
             punktedict["a"] = punkte[0] #erster Punkt ist Punkt a
-            cv2.putText(img, "A" , punktedict["a"], cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
             punktedict["b"] = punkte[1] #erster Punkt ist Punkt a
-            cv2.putText(img, "B" , punktedict["b"], cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
             punktedict["c"] = punkte[2] #erster Punkt ist Punkt a
-            cv2.putText(img, "C" , punktedict["c"], cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
             punktedict["d"] = punkte[3] #erster Punkt ist Punkt a
-            cv2.putText(img, "D" , punktedict["d"], cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
 
             dist_ab = math.sqrt((punkte[0][0] -  punkte[1][0])**2 + (punkte[0][1] - punkte[1][1])**2)
             dist_ac = math.sqrt((punkte[0][0] -  punkte[2][0])**2 + (punkte[0][1] - punkte[2][1])**2)
@@ -132,7 +128,7 @@ class Config:
 
             Config.writeConfig(img_order, height, conversion_mm_per_pixel, edges) #writes the .ini file
 
-            img = Config.visualization(img, (upperLeft, upperRight, lowerLeft, lowerRight), edges) #writes text and draws the rectangel into the img
+            img = Config.visualization(img, punktedict, edges) #writes text and draws the rectangel into the img
 
         Config.saveImg(img_order, img) #saves img at the end
 
@@ -195,12 +191,11 @@ class Config:
         return timestamp
 
 # ----------------------------------- Visual -----------------------
-    def visualization(img, points, edges):
-        #cv2.drawContours(img, [approx] ,0,(0,0,255),3)
-        cv2.circle(img, points[0], 2, (255,255,0), 2) #oben links
-        cv2.circle(img, points[1], 2, (255,255,0), 2) #oben rechts
-        cv2.circle(img, points[2], 2, (255,255,0), 2) #unten links
-        cv2.circle(img, points[3], 2, (255,255,0), 2) #unten rechts
+    def visualization(img, punktedict, edges):
+        cv2.putText(img, "A" , punktedict["a"], cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+        cv2.putText(img, "B" , punktedict["b"], cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+        cv2.putText(img, "C" , punktedict["c"], cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+        cv2.putText(img, "D" , punktedict["d"], cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
 
         cv2.putText(img, "edge_x1 = " + str(edges[0]), (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
         cv2.putText(img, "edge_y1 = " + str(edges[1]) , (100,150), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
