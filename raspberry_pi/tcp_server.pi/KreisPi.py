@@ -68,7 +68,7 @@ class Kreis():
         unten_rechts = (middle[0] + 450 , middle[1] + 450)
         print(str(oben_links))
         print(str(unten_rechts))
-        
+
 
         umrechnung_pixel_mm = kreis_durchmesser_mm / durchmesser_pixel #Rechnet mm pro Pixel aus
 
@@ -80,7 +80,7 @@ class Kreis():
             #blurren
             blur = cv2.medianBlur(gray, 5)
             #zeichnet Rechteckt
-            rechteck = cv2.rectangle(frame, oben_links, unten_rechts, (100,50,200), 5)
+            rechteck = cv2.rectangle(frame, (int(oben_links[0]), int(oben_links[1])), (int(unten_rechts[0]), int(unten_rechts[1])), (100,50,200), 5)
             cv2.putText(frame, str(oben_links) , oben_links, cv2.FONT_HERSHEY_PLAIN, 1, (255,255,255), 1, cv2.LINE_AA, 0)
             cv2.putText(frame, str(unten_rechts) , unten_rechts, cv2.FONT_HERSHEY_PLAIN, 1, (255,255,255), 1, cv2.LINE_AA, 0)
             cv2.putText(frame, str((oben_links[0], unten_rechts[1])) , (oben_links[0], unten_rechts[1]), cv2.FONT_HERSHEY_PLAIN, 1, (255,255,255), 1, cv2.LINE_AA, 0)
