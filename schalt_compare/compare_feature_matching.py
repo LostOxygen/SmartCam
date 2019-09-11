@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
-img_rgb = cv2.imread('pic2.png')
+img_rgb = cv2.imread('pic1.png')
 img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
 template = cv2.imread('kante.png', 0)
 w, h = template.shape[::-1]

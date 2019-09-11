@@ -2,15 +2,15 @@ import numpy as np
 import cv2
 from matplotlib import pyplot as plt
 
-MIN_MATCH_COUNT = 100
+MIN_MATCH_COUNT = 35
 gauss_faktor = 0
 gauss_matrix = (7,7)
 min_threshold = 0
 max_threshold = 50
 
 def main():
-    img1 = cv2.imread('pic1.png',0) # queryImage
-    img2 = cv2.imread('pic2.png',0) # trainImage
+    img1 = cv2.imread('pic1.png', 0) # queryImage
+    img2 = cv2.imread('pic2.png', 0) # trainImage
 
     #img1 = borders(img1)
     #img2 = borders(img2)
@@ -31,7 +31,10 @@ def main():
     good = []
     for m,n in matches:
         if m.distance < 0.7*n.distance:
+            print(m)
             good.append(m)
+
+    print(len(good))
 
     if len(good)>MIN_MATCH_COUNT:
         src_pts = np.float32([ kp1[m.queryIdx].pt for m in good ]).reshape(-1,1,2)
@@ -42,6 +45,7 @@ def main():
 
         h,w = img1.shape
         pts = np.float32([ [0,0],[0,h-1],[w-1,h-1],[w-1,0] ]).reshape(-1,1,2)
+        print(pts)
         dst = cv2.perspectiveTransform(pts,M)
 
         img2 = cv2.polylines(img2,[np.int32(dst)],True,255,3, cv2.LINE_AA)
@@ -54,7 +58,7 @@ def main():
                        singlePointColor = None,
                        matchesMask = matchesMask, # draw only inliers
                        flags = 2)
-
+    print(matchesMask)
     img3 = cv2.drawMatches(img1,kp1,img2,kp2,good,None,**draw_params)
 
     plt.imshow(img3, 'gray'),plt.show()
