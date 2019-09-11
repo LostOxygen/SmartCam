@@ -61,6 +61,7 @@ def main():
     print(matchesMask)
     img3 = cv2.drawMatches(img1,kp1,img2,kp2,good,None,**draw_params)
 
+    cv2.imwrite("../bilder/compare_homography", img3) #speichert ein Bild
     plt.imshow(img3, 'gray'),plt.show()
 
 def borders(gray):
