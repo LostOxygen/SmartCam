@@ -200,10 +200,10 @@ class Config:
                                'edge_y2' : edges[3]}
             configpar['image'] = {'width' : image_info[1],
                                   'height' : image_info[0]}
-            configpar['points'] = {'minX' : MinMaxValues[0],
-                                   'maxX' : MinMaxValues[1],
-                                   'minY' : MinMaxValues[2],
-                                   'maxY' : MinMaxValues[3]}
+            configpar['points'] = {'min_x' : MinMaxValues[0],
+                                   'min_y' : MinMaxValues[1],
+                                   'max_x' : MinMaxValues[2],
+                                   'max_y' : MinMaxValues[3]}
 
             with open('../config.ini', 'w') as configfile: #writes config
                 configpar.write(configfile)
