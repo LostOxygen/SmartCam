@@ -83,6 +83,9 @@ class Kreis():
             blur = cv2.medianBlur(gray, 5)
             #zeichnet Rechteckt
             rechteck = cv2.rectangle(frame, oben_links, unten_rechts, (100,50,200), 5)
+
+            rechteck = cv2.rectangle(frame, (460,144), (1360,1044), (100,0,0), 5)
+
             cv2.putText(frame, str(oben_links) , oben_links, cv2.FONT_HERSHEY_PLAIN, 1, (255,255,255), 1, cv2.LINE_AA, 0)
             cv2.putText(frame, str(unten_rechts) , unten_rechts, cv2.FONT_HERSHEY_PLAIN, 1, (255,255,255), 1, cv2.LINE_AA, 0)
             cv2.putText(frame, str((oben_links[0], unten_rechts[1])) , (oben_links[0], unten_rechts[1]), cv2.FONT_HERSHEY_PLAIN, 1, (255,255,255), 1, cv2.LINE_AA, 0)
