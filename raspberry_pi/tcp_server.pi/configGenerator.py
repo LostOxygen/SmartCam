@@ -173,9 +173,9 @@ class Config:
             #    conversion_mm_per_pixel = 1
             #    edges = (1, 1, 1, 1)
 
-            Config.writeConfig(img_order, height, conversion_mm_per_pixel, edges) #writes the .ini file
+            Config.writeConfig(img_order, height, conversion_mm_per_pixel, edges, image_info) #writes the .ini file
 
-            img = Config.visualization(img, points, edges, image_info) #writes text and draws the rectangel into the img
+            img = Config.visualization(img, points, edges) #writes text and draws the rectangel into the img
 
         Config.saveImg(img_order, img) #saves img at the end
 
