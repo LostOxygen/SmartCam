@@ -51,6 +51,7 @@ def main():
     #strip.begin()
     print("Hostet Server auf: " + get_ip("wlan0") + " auf Port: " + str(PORT))
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock: #AF_INET = Inet Adress Family (IPv4), SOCK_STREAM = socket type (TCP)
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         sock.bind((HOST, PORT))
         sock.listen()
         while True:
