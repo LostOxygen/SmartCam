@@ -64,8 +64,8 @@ class Kreis():
 
         middle = (lowerRight[0] - upperLeft[0], lowerRight[1] - upperLeft[1])
 
-        oben_links = (middle[0] - 450 , middle[1] - 450)
-        unten_rechts = (middle[0] + 450 , middle[1] + 450)
+        oben_links = (int(middle[0] - 450) , int(middle[1] - 450))
+        unten_rechts = (int(middle[0] + 450) , int(middle[1] + 450))
         print(str(oben_links))
         print(str(unten_rechts))
 
