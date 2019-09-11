@@ -87,7 +87,7 @@ class Config:
             edge_y1 = math.sqrt((upperLeft[0] - lowerLeft[0])**2 + (upperLeft[1] - lowerLeft[1])**2)
             edge_y2 = math.sqrt((upperRight[0] - lowerRight[0])**2 + (upperRight[1] - lowerRight[1])**2)
 
-            print(edge_x1, edge_x2, edge_y1, _)
+            print(edge_x1, edge_x2, edge_y1, edge_y2)
 
             try:
                 edge_x1_mm = (edgelength / edge_x1) #conversion in mm per pixel
