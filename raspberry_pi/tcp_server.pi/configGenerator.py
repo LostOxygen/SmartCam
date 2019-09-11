@@ -48,6 +48,7 @@ class Config:
         blur = cv2.bilateralFilter(blur, 11, 17, 17)
         blur = cv2.Canny(blur, 30, 120)
 
+        image_info = blur.shape
         contours, hierarchy = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
         try:
@@ -85,6 +86,8 @@ class Config:
             edge_x2 = math.sqrt((lowerLeft[0] - lowerRight[0])**2 + (lowerLeft[1] - lowerRight[1])**2)
             edge_y1 = math.sqrt((upperLeft[0] - lowerLeft[0])**2 + (upperLeft[1] - lowerLeft[1])**2)
             edge_y2 = math.sqrt((upperRight[0] - lowerRight[0])**2 + (upperRight[1] - lowerRight[1])**2)
+
+            print(edge_x1, edge_x2, edge_y1, _)
 
             try:
                 edge_x1_mm = (edgelength / edge_x1) #conversion in mm per pixel
@@ -170,7 +173,7 @@ class Config:
 
             Config.writeConfig(img_order, height, conversion_mm_per_pixel, edges) #writes the .ini file
 
-            img = Config.visualization(img, points, edges) #writes text and draws the rectangel into the img
+            img = Config.visualization(img, points, edges, image_info) #writes text and draws the rectangel into the img
 
         Config.saveImg(img_order, img) #saves img at the end
 
@@ -191,6 +194,9 @@ class Config:
                                'edge_x2' : edges[1],
                                'edge_y1' : edges[2],
                                'edge_y2' : edges[3]}
+            configpar['image'] = {'width' : image_info[0],
+                                  'height' : image_info[1]}
+
             with open('../config.ini', 'w') as configfile: #writes config
                 configpar.write(configfile)
 
