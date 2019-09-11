@@ -107,16 +107,21 @@ class Config:
 
             try:
                 #conversion erstellen
-                #edge_x1_mm = (edgelength / edge_x1) #conversion in mm per pixel
-                #edge_x2_mm = (edgelength / edge_x2)
-                #edge_y1_mm = (edgelength / edge_y1)
-                #edge_y2_mm = (edgelength / edge_y2)
+                edge_x1 = dist[0][1]
+                edge_x2 = dist[1][1]
+                edge_y1 = dist[0][1]
+                edge_y2 = dist[1][1]
 
-                #mean = (edge_x1_mm + edge_x2_mm + edge_y1_mm + edge_y2_mm) / 4
-                #conversion_mm_per_pixel = mean
+                edge_x1_mm = (edgelength / edge_x1) #conversion in mm per pixel
+                edge_x2_mm = (edgelength / edge_x2)
+                edge_y1_mm = (edgelength / edge_y1)
+                edge_y2_mm = (edgelength / edge_y2)
 
-                #edges = (edge_x1, edge_x2, edge_y1, edge_y2)
-                
+                mean = (edge_x1_mm + edge_x2_mm + edge_y1_mm + edge_y2_mm) / 4
+                conversion_mm_per_pixel = mean
+
+                edges = (edge_x1, edge_x2, edge_y1, edge_y2)
+
             except:
                 print("Fehler: womöglich wurden keine Kanten gefunden .. ")
                 conversion_mm_per_pixel = 1
