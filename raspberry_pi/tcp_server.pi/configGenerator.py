@@ -22,6 +22,9 @@ import csv
 
 # ----------------------------------- Main Code -----------------------
 class Config:
+    def sorting(elem):
+        return elem[1]
+    
     def createConfig(camera, img_order, height):
         #Variablen
         edgelength = 70 #in mm und standardwert
