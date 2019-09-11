@@ -79,6 +79,7 @@ class Config:
             upperRight = (max(x_values), min(y_values))
             lowerLeft = (min(x_values), max(y_values))
             lowerRight = (max(x_values), max(y_values))
+            points = (upperLeft, upperRight, lowerLeft, lowerRight)
 
             edge_x1 = math.sqrt((upperLeft[0] - upperRight[0])**2 + (upperLeft[1] - upperRight[1])**2)
             edge_x2 = math.sqrt((lowerLeft[0] - lowerRight[0])**2 + (lowerLeft[1] - lowerRight[1])**2)
@@ -233,6 +234,11 @@ class Config:
 
 # ----------------------------------- Visual -----------------------
     def visualization(img, points, edges):
+        #cv2.drawContours(img, [approx] ,0,(0,0,255),3)
+        cv2.circle(img, points[0], 2, (255,255,0), 2) #oben links
+        cv2.circle(img, points[1], 2, (255,255,0), 2) #oben rechts
+        cv2.circle(img, points[2], 2, (255,255,0), 2) #unten links
+        cv2.circle(img, points[3], 2, (255,255,0), 2) #unten rechts
         #cv2.putText(img, "A" , punktedict["a"], cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
         #cv2.putText(img, "B" , punktedict["b"], cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
         #cv2.putText(img, "C" , punktedict["c"], cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
