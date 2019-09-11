@@ -25,7 +25,7 @@ class Config:
     def sorting(elem):
         return elem[1]
 
-    def createConfig(camera, img_order, height, self):
+    def createConfig(camera, img_order, height):
         #Variablen
         edgelength = 70 #in mm und standardwert
         min_threshold = 0
@@ -99,7 +99,7 @@ class Config:
             dist.append(((punkte[2][0], punkte[2][1]), dist_ac))
             dist.append(((punkte[3][0], punkte[3][1]), dist_ad))
 
-            dist.sort(key=self.sorting) #sortieren
+            dist.sort(key=lambda elem: elem[1]) #sortieren
 
             #von A zu den beiden nächsten Punkten zeichnen
             cv2.line(img, punktedict["a"], dist[0][0], (255,255,0), 2)
