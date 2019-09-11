@@ -28,7 +28,7 @@ class Kreis():
         min_threshold = 0
         max_threshold = 100
         oben_links = (460,144)
-        unten_rechts = (1360,944)
+        unten_rechts = (1360,1044)
         fenster_name = "OpenCV"
         gauss_faktor = 0
         gauss_matrix = (7,7)
@@ -58,6 +58,14 @@ class Kreis():
         if durchmesser_pixel == 0:
             durchmesser_pixel = 1
             print("kreis_durchmesser_pixel war 0 und wurde auf 1 gesetzt")
+
+        upperLeft = (float(config['points']['min_x']), float(config['points']['min_y']))
+        lowerRight = (float(config['points']['max_x']), float(config['points']['max_y']))
+
+        middle = (lowerRight[0] - upperLeft[0], lowerRight[1] - upperLeft[1])
+
+        oben_links = (middle[0] - 450 , middle[1] - 450)
+        unten_rechts = (middle[0] + 450 , middle[1] + 450)
 
         umrechnung_pixel_mm = kreis_durchmesser_mm / durchmesser_pixel #Rechnet mm pro Pixel aus
 
@@ -118,7 +126,6 @@ class Kreis():
             #Todo Sekunde programmieren
             timestamp = "" + str(imgDate) + "." + str(imgMonth) + "." + str(imgYear) + " " + str(imgHour) + ":" + str(imgMins)
             cv2.putText(frame, "time = " + timestamp, (100,50), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
-            ####
 
             if circles is not None: #Damit nur eine Linie gezeichnet wird, wenn er Kreise findet
                 cv2.line(frame,mittelpunkt,kkreis_xy,(255,255,255),5) #Linie zwischen Mittelpunkt und ausgewähltem Kreis

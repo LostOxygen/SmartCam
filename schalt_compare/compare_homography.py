@@ -54,9 +54,9 @@ def main():
         #print ("Not enough matches are found " + str(len(good), str(MIN_MATCH_COUNT)))
         matchesMask = None
 
-    draw_params = dict(matchColor = (0,255,0), # draw matches in green color
+    draw_params = dict(matchColor = (0,255,0),
                        singlePointColor = None,
-                       matchesMask = matchesMask, # draw only inliers
+                       matchesMask = matchesMask,
                        flags = 2)
     print(matchesMask)
     img3 = cv2.drawMatches(img1,kp1,img2,kp2,good,None,**draw_params)
