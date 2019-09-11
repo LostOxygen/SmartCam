@@ -23,8 +23,30 @@ import requests
 import struct
 
 class Gripper:
-	def __init__(self):
+	def __init__(self, port):
 		self._baseuri = 'http://192.168.8.240'
+		self._port = port
+
+	def ack(self):
+		self.send_request(0x01, 0, 0)
+
+	def close(self, force=0):
+		self.send_request(0x04, force, 0)
+
+	def open(self, force=0):
+		self.send_request(0x03, force, 0)
+
+	def move_abs(self, pos, force=0):
+		self.send_request(0x05, force, pos)
+
+	def move_rel(self, dist):
+		self.send_request(0x06, force, dist)
+
+	def reference(self):
+		self.send_request(0x02, 0, 0)
+
+	def measure(self):
+		self.send_request(0x07, 0, 0)
 
 	def _build_value(self, exec, cmd, force, pos):
 		# force: 0 = 100%, 1 = 75%, 2 = 50%, 3 = 25%
@@ -34,25 +56,10 @@ class Gripper:
 		return value
 
 	def send_request(self, cmd, force, pos):
+		adr = "iolinkmaster/port[%d]/iolinkdevice/pdout/setdata" % (self._port)
 		value = self._build_value(0, cmd, force, pos)
-		r = requests.post(self._baseuri, json={"code":"request", "cid":4711, "adr":"iolinkmaster/port[1]/iolinkdevice/pdout/setdata", "data":{"newvalue":value}})
+		r = requests.post(self._baseuri, json={"code":"request", "cid":4711, "adr":adr, "data":{"newvalue":value}})
 		value = self._build_value(1, cmd, force, pos)
-		r = requests.post(self._baseuri, json={"code":"request", "cid":4711, "adr":"iolinkmaster/port[1]/iolinkdevice/pdout/setdata", "data":{"newvalue":value}})
-		
-
-# 8 bit Befehlt
-# 0x00 (Werkstückträgernummer)
-# 0x00 (Greifkraft)
-# 0x00 RFU
-# 4 Byte Zielposition
-
-# quittieren
-#r = requests.post('http://192.168.8.240', json={"code":"request", "cid":4711, "adr":"iolinkmaster/port[1]/iolinkdevice/pdout/setdata", "data":{"newvalue":"0100000000000000"}})
-#r = requests.post('http://192.168.8.240', json={"code":"request", "cid":4711, "adr":"iolinkmaster/port[1]/iolinkdevice/pdout/setdata", "data":{"newvalue":"8100000000000000"}})
-
-
-# greifen
-#r = requests.post('http://192.168.8.240', json={"code":"request", "cid":4711, "adr":"iolinkmaster/port[1]/iolinkdevice/pdout/setdata", "data":{"newvalue":"0400000000000000"}})
-#r = requests.post('http://192.168.8.240', json={"code":"request", "cid":4711, "adr":"iolinkmaster/port[1]/iolinkdevice/pdout/setdata", "data":{"newvalue":"8400000000000000"}})
-
-
+		r = requests.post(self._baseuri, json={"code":"request", "cid":4711, "adr":adr, "data":{"newvalue":value}})
+		#r = requests.post(self._baseuri, json={"code":"request", "cid":4711, "adr":"iolinkmaster/port[1]/iolinkdevice/pdout/setdata", "data":{"newvalue":value}})
+	
