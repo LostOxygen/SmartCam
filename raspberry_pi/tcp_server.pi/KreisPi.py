@@ -66,6 +66,9 @@ class Kreis():
 
         oben_links = (middle[0] - 450 , middle[1] - 450)
         unten_rechts = (middle[0] + 450 , middle[1] + 450)
+        print(str(oben_links))
+        print(str(unten_rechts))
+        
 
         umrechnung_pixel_mm = kreis_durchmesser_mm / durchmesser_pixel #Rechnet mm pro Pixel aus
 
