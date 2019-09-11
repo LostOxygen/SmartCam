@@ -81,6 +81,8 @@ class Config:
             upperRight = (max(x_values), min(y_values))
             lowerLeft = (min(x_values), max(y_values))
             lowerRight = (max(x_values), max(y_values))
+
+            MinMaxValues = (min(x_values), min(y_values), max(x_values), max(y_values))
             points = (upperLeft, upperRight, lowerLeft, lowerRight)
 
             edge_x1 = math.sqrt((upperLeft[0] - upperRight[0])**2 + (upperLeft[1] - upperRight[1])**2)
@@ -173,14 +175,14 @@ class Config:
             #    conversion_mm_per_pixel = 1
             #    edges = (1, 1, 1, 1)
 
-            Config.writeConfig(img_order, height, conversion_mm_per_pixel, edges, image_info) #writes the .ini file
+            Config.writeConfig(img_order, height, conversion_mm_per_pixel, edges, image_info, MinMaxValues) #writes the .ini file
 
             img = Config.visualization(img, points, edges) #writes text and draws the rectangel into the img
 
         Config.saveImg(img_order, img) #saves img at the end
 
 # ----------------------------------- Config -----------------------
-    def writeConfig(img_order, height, conversion_mm_per_pixel, edges, image_info):
+    def writeConfig(img_order, height, conversion_mm_per_pixel, edges, image_info, MinMaxValues):
         configpar = configparser.ConfigParser()
 
         if str(img_order) == "1":
@@ -196,8 +198,12 @@ class Config:
                                'edge_x2' : edges[1],
                                'edge_y1' : edges[2],
                                'edge_y2' : edges[3]}
-            configpar['image'] = {'width' : image_info[0],
-                                  'height' : image_info[1]}
+            configpar['image'] = {'width' : image_info[1],
+                                  'height' : image_info[0]}
+            configpar['points'] = {'minX' : MinMaxValues[0],
+                                   'maxX' : MinMaxValues[1],
+                                   'minY' : MinMaxValues[2],
+                                   'maxY' : MinMaxValues[3]}
 
             with open('../config.ini', 'w') as configfile: #writes config
                 configpar.write(configfile)
