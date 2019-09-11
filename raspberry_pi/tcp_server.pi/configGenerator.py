@@ -24,7 +24,7 @@ import csv
 class Config:
     def sorting(elem):
         return elem[1]
-    
+
     def createConfig(camera, img_order, height):
         #Variablen
         edgelength = 70 #in mm und standardwert
@@ -99,7 +99,7 @@ class Config:
             dist.append(((punkte[2][0], punkte[2][1]), dist_ac))
             dist.append(((punkte[3][0], punkte[3][1]), dist_ad))
 
-            dist.sort(key=sorting) #sortieren
+            dist.sort(key=self.sorting) #sortieren
 
             #von A zu den beiden nächsten Punkten zeichnen
             cv2.line(img, punktedict["a"], dist[0][0], (255,255,0), 2)
@@ -132,7 +132,7 @@ class Config:
 
             Config.writeConfig(img_order, height, conversion_mm_per_pixel, edges) #writes the .ini file
 
-            img = Config.visualization(img, approx, (upperLeft, upperRight, lowerLeft, lowerRight), edges) #writes text and draws the rectangel into the img
+            img = Config.visualization(img, (upperLeft, upperRight, lowerLeft, lowerRight), edges) #writes text and draws the rectangel into the img
 
         Config.saveImg(img_order, img) #saves img at the end
 
@@ -195,8 +195,8 @@ class Config:
         return timestamp
 
 # ----------------------------------- Visual -----------------------
-    def visualization(img, approx, points, edges):
-        cv2.drawContours(img, [approx] ,0,(0,0,255),3)
+    def visualization(img, points, edges):
+        #cv2.drawContours(img, [approx] ,0,(0,0,255),3)
         cv2.circle(img, points[0], 2, (255,255,0), 2) #oben links
         cv2.circle(img, points[1], 2, (255,255,0), 2) #oben rechts
         cv2.circle(img, points[2], 2, (255,255,0), 2) #unten links
