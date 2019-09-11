@@ -49,7 +49,7 @@ class Config:
         blur = cv2.Canny(blur, 30, 120)
 
         h,w = blur.shape
-        print("h = " + h + " w = " + w)
+        print("h = " + str(h) + " w = " + str(w))
         contours, hierarchy = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
         try:
@@ -188,7 +188,7 @@ class Config:
                              'port' : '65432'}
             configpar['web'] = {'web_host' : '134.147.234.232',
                              'web_port' : '80'}
-            configpar['conversion'] = {'distanceToObject1' : str(height),
+            configpar['conversion'] = {'distanceToObject1' : height,
                                     'mm_per_pixel1' : conversion_mm_per_pixel,
                                     'distanceToObject2' : 0,
                                     'scalingFactor' : 1}
