@@ -48,8 +48,8 @@ class Config:
         blur = cv2.bilateralFilter(blur, 11, 17, 17)
         blur = cv2.Canny(blur, 30, 120)
 
-        h,w = blur.shape
-        print("h = " + str(h) + " w = " + str(w))
+        image_info = blur.shape
+
         contours, hierarchy = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
         try:
@@ -175,12 +175,12 @@ class Config:
 
             Config.writeConfig(img_order, height, conversion_mm_per_pixel, edges) #writes the .ini file
 
-            img = Config.visualization(img, points, edges, (h, w)) #writes text and draws the rectangel into the img
+            img = Config.visualization(img, points, edges, image_info #writes text and draws the rectangel into the img
 
         Config.saveImg(img_order, img) #saves img at the end
 
 # ----------------------------------- Config -----------------------
-    def writeConfig(img_order, height, conversion_mm_per_pixel, edges):
+    def writeConfig(img_order, height, conversion_mm_per_pixel, edges, image_info):
         configpar = configparser.ConfigParser()
 
         if str(img_order) == "1":
