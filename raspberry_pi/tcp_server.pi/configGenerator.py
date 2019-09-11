@@ -25,7 +25,7 @@ class Config:
     def sorting(elem):
         return elem[1]
 
-    def createConfig(self, camera, img_order, height):
+    def createConfig(camera, img_order, height, self):
         #Variablen
         edgelength = 70 #in mm und standardwert
         min_threshold = 0
