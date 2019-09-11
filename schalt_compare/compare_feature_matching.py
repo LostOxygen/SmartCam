@@ -13,4 +13,5 @@ loc = np.where( res >= threshold)
 for pt in zip(*loc[::-1]):
     cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (255,0,0), 2)
 
+cv2.imwrite("../bilder/compare_feature_matching", img_rgb) #speichert ein Bild
 plt.imshow(img_rgb, 'gray'),plt.show()
