@@ -93,9 +93,9 @@ class Kabel():
         blur = cv2.Canny(blur, 30, 120)
 
         contours, hierarchy = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) #Konturen suchen
-        contours = imutils.grab_contours(contours)
-        cnts = max(contours, key=cv2.contourArea)
-        extLeft = tuple(conts[conts[:, :, 0].argmin()][0])
+        #contours = imutils.grab_contours(contours)
+        #cnts = max(contours, key=cv2.contourArea)
+        #extLeft = tuple(conts[conts[:, :, 0].argmin()][0])
 
         corners = cv2.goodFeaturesToTrack(gray, maxCorners, qualityLevel, minDistance)
         #corners = np.int0(corners)
@@ -107,10 +107,10 @@ class Kabel():
                 if x <= 1100: #zeichnet nur Relevante Punkte
                     cv2.circle(img, (x,y), 2, (0,0,255), 2)
                 if x < min_xy[0]: #guckt nach kleinstem x wert
-                    if x < extLeft[0]:
-                        min_xy = (extLeft[0], extLeft[1])
-                    else:
-                        min_xy = (x,y)
+                    #if x < extLeft[0]:
+                    #    min_xy = (extLeft[0], extLeft[1])
+                    #else:
+                    min_xy = (x,y)
 
         #berechnet Distanz von Höhe und Länge des Kabels
         dist_y = math.sqrt((min_xy[0] - min_xy[0])**2 + (min_xy[1] - mittelpunkt[1])**2)
