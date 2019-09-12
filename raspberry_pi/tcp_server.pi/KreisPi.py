@@ -83,7 +83,7 @@ class Kreis():
             blur = cv2.medianBlur(gray, 5)
             #zeichnet Rechteckt
             rechteck = cv2.rectangle(frame, oben_links, unten_rechts, (100,50,200), 5)
-            #rechteck = cv2.rectangle(frame, (460,144), (1360,1044), (100,0,0), 5)
+
             cv2.putText(frame, str(oben_links) , oben_links, cv2.FONT_HERSHEY_PLAIN, 1, (255,255,255), 1, cv2.LINE_AA, 0)
             cv2.putText(frame, str(unten_rechts) , unten_rechts, cv2.FONT_HERSHEY_PLAIN, 1, (255,255,255), 1, cv2.LINE_AA, 0)
             cv2.putText(frame, str((oben_links[0], unten_rechts[1])) , (oben_links[0], unten_rechts[1]), cv2.FONT_HERSHEY_PLAIN, 1, (255,255,255), 1, cv2.LINE_AA, 0)
@@ -136,7 +136,7 @@ class Kreis():
             if circles is not None: #Damit nur eine Linie gezeichnet wird, wenn er Kreise findet
                 cv2.line(frame,mittelpunkt,kkreis_xy,(255,255,255),5) #Linie zwischen Mittelpunkt und ausgewähltem Kreis
                 cv2.putText(frame, str(round(kdistanz, 2)) , kkreis_xy, cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 2, cv2.LINE_AA, 0)
-                cv2.putText(frame, 'geschaetzte Distanz (in CM): ' + str(round((kdistanz*umrechnung_pixel_mm)/10,2)), (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 2, cv2.LINE_AA, 0)
+                cv2.putText(frame, 'geschaetzte Distanz (in mm): ' + str(round((kdistanz*umrechnung_pixel_mm)/10,2)), (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 2, cv2.LINE_AA, 0)
 
                 offset = (abs(mittelpunkt[0] - kkreis_xy[0]) , abs(mittelpunkt[1] - kkreis_xy[1]))
 
