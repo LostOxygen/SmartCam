@@ -93,8 +93,8 @@ class Kabel():
         blur = cv2.Canny(blur, 30, 120)
 
         contours, hierarchy = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) #Konturen suchen
-        cnts = imutils.grab_contours(cnts)
-        conts = max(cnts, key=cv2.contourArea)
+        contours = imutils.grab_contours(contours)
+        cnts = max(contours, key=cv2.contourArea)
         extLeft = tuple(conts[conts[:, :, 0].argmin()][0])
 
         corners = cv2.goodFeaturesToTrack(gray, maxCorners, qualityLevel, minDistance)
