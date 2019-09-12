@@ -7,6 +7,7 @@ import os
 import numpy as np
 import argparse
 import math
+import imutils
 import configparser
 from pathlib import Path
 from pprint import pprint #Nur für Debug benötigt
@@ -90,9 +91,11 @@ class Kabel():
         blur = cv2.GaussianBlur(gray, (7,7), 1)
         blur = cv2.bilateralFilter(blur, 11, 17, 17)
         blur = cv2.Canny(blur, 30, 120)
-        #ausschnitt = blur[oben_links[1] : unten_rechts[1], oben_links[0] : unten_rechts[0]]
-        #ret, thresh = cv2.threshold(blur, threshold_val, threshold_max, cv2.THRESH_BINARY) #Thresholds generieren
+
         contours, hierarchy = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) #Konturen suchen
+        cnts = imutils.grab_contours(cnts)
+        conts = max(cnts, key=cv2.contourArea)
+        extLeft = tuple(conts[conts[:, :, 0].argmin()][0])
 
         corners = cv2.goodFeaturesToTrack(gray, maxCorners, qualityLevel, minDistance)
         #corners = np.int0(corners)
@@ -104,7 +107,10 @@ class Kabel():
                 if x <= 1100: #zeichnet nur Relevante Punkte
                     cv2.circle(img, (x,y), 2, (0,0,255), 2)
                 if x < min_xy[0]: #guckt nach kleinstem x wert
-                    min_xy = (x,y)
+                    if x < extLeft[0]:
+                        min_xy = (extLeft[0], extLeft[1])
+                    else:
+                        min_xy = (x,y)
 
         #berechnet Distanz von Höhe und Länge des Kabels
         dist_y = math.sqrt((min_xy[0] - min_xy[0])**2 + (min_xy[1] - mittelpunkt[1])**2)
