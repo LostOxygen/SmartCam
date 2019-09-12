@@ -263,10 +263,10 @@ class Config:
         #cv2.putText(img, "C" , punktedict["c"], cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
         #cv2.putText(img, "D" , punktedict["d"], cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
 
-        cv2.putText(img, "edge_x1 = " + str(edges[0]), (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
-        cv2.putText(img, "edge_y1 = " + str(edges[1]) , (100,150), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
-        cv2.putText(img, "edge_x2 = " + str(edges[2]), (100,200), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
-        cv2.putText(img, "edge_y2 = " + str(edges[3]), (100,250), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+        #cv2.putText(img, "edge_x1 = " + str(edges[0]), (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+        #cv2.putText(img, "edge_y1 = " + str(edges[1]) , (100,150), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+        #cv2.putText(img, "edge_x2 = " + str(edges[2]), (100,200), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+        #cv2.putText(img, "edge_y2 = " + str(edges[3]), (100,250), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
 
         return img
 
