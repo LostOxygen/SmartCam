@@ -147,7 +147,7 @@ class Kreis():
 
                 #cv2.putText(frame, str(round(kdistanz, 2)) , kkreis_xy, cv2.FONT_HERSHEY_PLAIN, 2, (0,0,0), 2, cv2.LINE_AA, 0)
 
-                cv2.putText(frame, timestamp + " | " + str(offset[0]) + " mm " + " | " + str(offset[1]) + " mm " + " | " + str(round((kdistanz*umrechnung_pixel_mm),2)) + " mm ", (20,1040), cv2.FONT_HERSHEY_PLAIN, 2, (0,0,0), 2, cv2.LINE_AA, 0)
+                cv2.putText(frame, timestamp + " | " + str(offset[0]) + " mm " + " | " + str(offset[1]) + " mm " + " | " + str(round((kdistanz*umrechnung_pixel_mm),2)) + " mm ", (20,1060), cv2.FONT_HERSHEY_PLAIN, 2, (0,0,0), 2, cv2.LINE_AA, 0)
 
             else:
                 offset = (999999,999999)
