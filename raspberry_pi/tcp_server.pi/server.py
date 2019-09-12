@@ -238,7 +238,8 @@ def make_picture(camera, datum): #Funktion zum Bild erstellen
     time.sleep(0.1)
     camera.capture(rawCapture, format="bgr")
     frame = rawCapture.array
-    h, w = frame.shape
+    print(frame.shape)
+    h, w, _ = frame.shape
 
     cv2.putText(frame, "+", ((h/2), (w/2)), cv2.FONT_HERSHEY_PLAIN, 4, (0,0,0), 3, cv2.LINE_AA, 0)
 
