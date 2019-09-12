@@ -186,12 +186,24 @@ def main():
 #--------------------------------------------------------------------------------------------------
                     if data[0] == 'G' and data[1] == 'A' and data[2] == '0':
                         g1.close()
+                        ausgabe = "ACK"
+                        ausgabe = ausgabe.encode()
+                        conn.sendall(ausgabe)
                     if data[0] == 'G' and data[1] == 'A' and data[2] == '1':
                         g1.open()
+                        ausgabe = "ACK"
+                        ausgabe = ausgabe.encode()
+                        conn.sendall(ausgabe)
                     if data[0] == 'G' and data[1] == 'B' and data[2] == '0':
                         g2.close()
+                        ausgabe = "ACK"
+                        ausgabe = ausgabe.encode()
+                        conn.sendall(ausgabe)
                     if data[0] == 'G' and data[1] == 'B' and data[2] == '1':
                         g2.open()
+                        ausgabe = "ACK"
+                        ausgabe = ausgabe.encode()
+                        conn.sendall(ausgabe)
 
 #------------------------------ Ende Server   -----------------------------------------------------
 
