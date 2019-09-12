@@ -76,6 +76,7 @@ class Kabel():
         # rotate image with the new bounds and translated rotation matrix
         img = cv2.warpAffine(img, rotation_mat, (bound_w, bound_h))
 
+        height, width = img.shape[:2]
         mittelpunkt = (int(width/2), int(height/2))
         oben_links = (mittelpunkt[0]-300, mittelpunkt[1]-300)
         unten_rechts = (mittelpunkt[0]+300, mittelpunkt[1]+300)
