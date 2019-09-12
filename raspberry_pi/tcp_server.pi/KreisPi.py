@@ -138,17 +138,16 @@ class Kreis():
             imgMins = "%02d" % (d.minute)
             #Todo Sekunde programmieren
             timestamp = "" + str(imgDate) + "." + str(imgMonth) + "." + str(imgYear) + " " + str(imgHour) + ":" + str(imgMins)
-            cv2.putText(frame, timestamp, (100,50), cv2.FONT_HERSHEY_PLAIN, 2, (0,0,0), 1, cv2.LINE_AA, 0)
 
             if circles is not None: #Damit nur eine Linie gezeichnet wird, wenn er Kreise findet
                 offset = (mittelpunkt[0] - kkreis_xy[0] , mittelpunkt[1] - kkreis_xy[1])
                 offset = (round((offset[0]*umrechnung_pixel_mm),2), round((offset[1]*umrechnung_pixel_mm),2))
 
                 cv2.line(frame,mittelpunkt,kkreis_xy,(255,255,255),5) #Linie zwischen Mittelpunkt und ausgewähltem Kreis
+
                 cv2.putText(frame, str(round(kdistanz, 2)) , kkreis_xy, cv2.FONT_HERSHEY_PLAIN, 2, (0,0,0), 2, cv2.LINE_AA, 0)
-                cv2.putText(frame, str(round((kdistanz*umrechnung_pixel_mm),2)) + " mm", (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 2, cv2.LINE_AA, 0)
-                cv2.putText(frame, str(offset[0]) + " mm", (100,125), cv2.FONT_HERSHEY_PLAIN, 2, (0,0,0), 2, cv2.LINE_AA, 0)
-                cv2.putText(frame, str(offset[1]) + " mm", (100,150), cv2.FONT_HERSHEY_PLAIN, 2, (0,0,0), 2, cv2.LINE_AA, 0)
+
+                cv2.putText(frame, timestamp + " | " + str(offset[0]) + " mm " + " | " + str(offset[1]) + " mm " + " | " + str(round((kdistanz*umrechnung_pixel_mm),2)) + " mm ", (20,1040), cv2.FONT_HERSHEY_PLAIN, 2, (0,0,0), 2, cv2.LINE_AA, 0)
 
             else:
                 offset = (999999,999999)
