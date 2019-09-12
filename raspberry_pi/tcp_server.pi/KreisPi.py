@@ -79,8 +79,11 @@ class Kreis():
         # ----------------------------------- Main Code -----------------------
         if config_test:
             #frame = camera.get_frame_cv()
-            camera.open()
-            ret, frame = camera.read()
+            rawCapture = PiRGBArray(camera)
+            time.sleep(0.1)
+            camera.capture(rawCapture, format="bgr")
+            frame = rawCapture.array
+
             # in Graubild umwandeln
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             #blurren
@@ -151,8 +154,6 @@ class Kreis():
                 offset = (999999,999999)
 
             image_frame = frame
-
-        camera.release()
 
         if picture:
             if image_frame is not None:

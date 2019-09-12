@@ -54,8 +54,10 @@ class Kabel():
         # ----------------------------------- Main Code -----------------------
 
         #img = camera.get_frame_cv()
-        camera.open()
-        ret, img = camera.read()
+        rawCapture = PiRGBArray(camera)
+        time.sleep(0.1)
+        camera.capture(rawCapture, format="bgr")
+        img = rawCapture.array
 
         if img is None:
             print("Fehler bei Laden des frames!" + "!\n")
@@ -124,5 +126,4 @@ class Kabel():
 
         offset = (abs(mittelpunkt[0]), abs(mittelpunkt[1] - min_xy[1]))
 
-        camera.release()
         return offset

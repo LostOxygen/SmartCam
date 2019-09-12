@@ -38,8 +38,10 @@ class Config:
         minDistance = 10 #mindeste Distanz zwischen Punkten
 
         #img = camera.get_picture() #lädt frame zum erkennen
-        camera.open()
-        ret, img = camera.read()
+        rawCapture = PiRGBArray(camera)
+        time.sleep(0.1)
+        camera.capture(rawCapture, format="bgr")
+        frame = rawCapture.array
 
         if img is None:
             print("Fehler bei Laden des frames!" + "!\n")
@@ -181,7 +183,6 @@ class Config:
 
             img = Config.visualization(img, points, edges) #writes text and draws the rectangel into the img
 
-        camera.release()
         Config.saveImg(img_order, img) #saves img at the end
 
 # ----------------------------------- Config -----------------------
