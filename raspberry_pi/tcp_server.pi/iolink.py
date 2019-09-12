@@ -1,25 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf8 -*-
 
-#import socket
 import sys
-#from KreisPi import Kreis
-#from kabel import Kabel
-#from configGenerator import Config
-#from camera_pi import Camera
 import time
-#from datetime import datetime
-#import cv2
-#import os
-#import numpy as np
-#from PIL import Image
 import io
-#import linecache
 import requests
-#import configparser
-#import traceback
-#from pathlib import Path
-#import pprint #Debug
 import struct
 
 class Gripper:
@@ -62,4 +47,3 @@ class Gripper:
 		value = self._build_value(1, cmd, force, pos)
 		r = requests.post(self._baseuri, json={"code":"request", "cid":4711, "adr":adr, "data":{"newvalue":value}})
 		#r = requests.post(self._baseuri, json={"code":"request", "cid":4711, "adr":"iolinkmaster/port[1]/iolinkdevice/pdout/setdata", "data":{"newvalue":value}})
-	

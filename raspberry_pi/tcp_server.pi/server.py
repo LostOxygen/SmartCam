@@ -49,7 +49,7 @@ camera.hflip = True
 camera.vflip = True
 lichtwert = (0,0,0)
 config_test = True #zum Abfragen der Config
-g1 = iolink.Gripper(1)
+g1 = iolink.Gripper(1) #initialisierung der Greifarme
 g2 = iolink.Gripper(2)
 
 #---------------------------- Beginn Server ------------------------------------------------------

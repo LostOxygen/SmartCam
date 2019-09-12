@@ -97,9 +97,6 @@ class Kabel():
         cv2.circle(img, mittelpunkt, 2, (255,255,0), 2)
         cv2.line(img, mittelpunkt, (min_xy[0],mittelpunkt[1]), (255,255,0), 2)
         cv2.line(img, mittelpunkt, min_xy, (255,255,0), 2)
-        #erzeugt Text mit Pixelangabe
-        cv2.putText(img, "dz = " + str(round(dist_z, 2)) + "" , (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
-        cv2.putText(img, "dy = " + str(round(dist_y, 2)) + "" , (100,150), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
 
         d = datetime.now()
         imgYear = "%04d" % (d.year)
@@ -110,8 +107,7 @@ class Kabel():
 
         #Todo Sekunde programmieren
         timestamp = "" + str(imgDate) + "." + str(imgMonth) + "." + str(imgYear) + " " + str(imgHour) + ":" + str(imgMins)
-        cv2.putText(img, "time = " + timestamp, (100,50), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
-        ####
+        cv2.putText(img, timestamp + " | " + "dz = " + str(round(dist_z, 2)) + " | " + "dy = " + str(round(dist_y, 2)), (100,50), cv2.FONT_HERSHEY_PLAIN, 2, (0,0,0), 2, cv2.LINE_AA, 0)
     #-------------------------------------------------------
         #Umrechnung per Config in mm
         print("Distanz_Y: " + str(dist_y))
