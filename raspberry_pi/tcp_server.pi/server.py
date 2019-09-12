@@ -122,7 +122,7 @@ def main():
                         #Todo Sekunde programmieren
                         datum = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins)
                         try:
-                            make_picture(camera, fileName)
+                            make_picture(camera, datum)
                             ausgabe = "ACK" + "\x00"
                         except Exception as e:
                             print(e)
@@ -248,6 +248,7 @@ def make_picture(camera, datum): #Funktion zum Bild erstellen
     middle = (upperLeft[0] + 0.5*(upperRight[0]-upperLeft[0]), upperLeft[1] + 0.5*(lowerRight[1]-upperLeft[1]))
 
     cv2.putText(frame, "x", ((h/2), (w/2)), cv2.FONT_HERSHEY_PLAIN, 4, (0,0,0), 3, cv2.LINE_AA, 0)
+    cv2.putText(frame, datum, (20, 1060), cv2.FONT_HERSHEY_PLAIN, 2, (0,0,0), 2, cv2.LINE_AA, 0)
 
     cv2.imwrite("../bilder/cv_bild.jpg", frame)
 
