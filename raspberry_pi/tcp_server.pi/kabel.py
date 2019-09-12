@@ -25,8 +25,6 @@ class Kabel():
         kreis_durchmesser_mm = 7
         threshold_val = 100
         threshold_max = 300
-        oben_links = (400,150)
-        unten_rechts = (900,600)
         maxCorners = 300 #Anzahl zu erkennenden Kanten
         qualityLevel = 0.03 #je höher desto genauer
         minDistance = 10 #mindeste Distanz zwischen Punkten
@@ -59,7 +57,7 @@ class Kabel():
         img = rawCapture.array
 
         height, width = img.shape[:2] # image shape has 3 dimensions
-        mittelpunkt = (int(width/2), int(height/2)) # getRotationMatrix2D needs coordinates in reverse order (width, height) compared to shape
+        mittelpunkt = (width/2, height/2) # getRotationMatrix2D needs coordinates in reverse order (width, height) compared to shape
 
         rotation_mat = cv2.getRotationMatrix2D(mittelpunkt, -90, 1.)
 
@@ -77,6 +75,10 @@ class Kabel():
 
         # rotate image with the new bounds and translated rotation matrix
         img = cv2.warpAffine(img, rotation_mat, (bound_w, bound_h))
+
+        mittelpunkt = (int(width/2), int(height/2))
+        oben_links = (mittelpunkt[0]-300, mittelpunkt[1]-300)
+        unten_rechts = (mittelpunkt[0]+300, mittelpunkt[1]+300)
 
         if img is None:
             print("Fehler bei Laden des frames!" + "!\n")
