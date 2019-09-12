@@ -53,7 +53,8 @@ class Kabel():
 
         # ----------------------------------- Main Code -----------------------
 
-        img = camera.get_frame_cv()
+        #img = camera.get_frame_cv()
+        ret, img = camera.read()
 
         if img is None:
             print("Fehler bei Laden des frames!" + "!\n")

@@ -18,30 +18,24 @@ from pathlib import Path
 
 #-------------------- Variablen --------------------
 app = Flask(__name__)
-camera = Camera()
+#camera = Camera()
 HOST = '127.0.0.1' #Standard IP und Port
 PORT = 80
 config_test = True
 #-------------------- Sonstiges --------------------
 
-def gen(camera): #Generator für den Kamerastream
-    while True:
-        frame = camera.get_frame()
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+#def make_picture(camera, fileName):
+#    if camera.get_frame is not None:
+#        img2 = Image.open(io.BytesIO(camera.get_frame())) #lädt frame als ByteIO um es zu öffnen
+#        img2.save("../bilder/" + fileName) #speichert es als fileName ab
+#    else:
+#        return "Kamera Frame ist None"
 
-def make_picture(camera, fileName):
-    if camera.get_frame is not None:
-        img2 = Image.open(io.BytesIO(camera.get_frame())) #lädt frame als ByteIO um es zu öffnen
-        img2.save("../bilder/" + fileName) #speichert es als fileName ab
-    else:
-        return "Kamera Frame ist None"
-
-def gen_kreis(camera): #Generator für den Kreiserkennungskamerastream
-    while True:
-        frame = KreisLive.kreislive(camera.get_frame())
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+#def gen_kreis(camera): #Generator für den Kreiserkennungskamerastream
+#    while True:
+#        frame = KreisLive.kreislive(camera.get_frame())
+#        yield (b'--frame\r\n'
+#               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
 #---------------------------- Webservice Routen ----------------------
 @app.route('/index')
@@ -54,18 +48,18 @@ def index():
 def live(): #Kamerastream in HTML einbetten
     return Response(gen(camera),mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@app.route('/api/bild/')
-@app.route('/api/bild')
-def bild():
-    d = datetime.now()
-    imgYear = "%04d" % (d.year)
-    imgMonth = "%02d" % (d.month)
-    imgDate = "%02d" % (d.day)
-    imgHour = "%02d" % (d.hour)
-    imgMins = "%02d" % (d.minute)
-    fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
-    make_picture(camera, fileName)
-    return send_from_directory(directory="../bilder", filename=fileName)
+#@app.route('/api/bild/')
+#@app.route('/api/bild')
+#def bild():
+#    d = datetime.now()
+#    imgYear = "%04d" % (d.year)
+#    imgMonth = "%02d" % (d.month)
+#    imgDate = "%02d" % (d.day)
+#    imgHour = "%02d" % (d.hour)
+#    imgMins = "%02d" % (d.minute)
+#    fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
+#    make_picture(camera, fileName)
+#    return send_from_directory(directory="../bilder", filename=fileName)
 
 @app.route('/api/config/')
 @app.route('/api/config')
