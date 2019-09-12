@@ -193,7 +193,7 @@ class Config:
         cv2.circle(img, points[3], 2, (255,255,0), 2) #unten rechts
 
         timestamp = Config.getTimestamp()
-        cv2.putText(img, timestamp + " | " + str(round(conversion_mm_per_pixel, 6)) + " mm/px", (20, 1060), cv2.FONT_HERSHEY_PLAIN, 2, (0,0,0), 1, cv2.LINE_AA, 0)
+        cv2.putText(img, timestamp + " | " + str(round(conversion_mm_per_pixel, 6)) + " mm/px", (20, 1060), cv2.FONT_HERSHEY_PLAIN, 2, (0,0,0), 2, cv2.LINE_AA, 0)
 
         return img
 
