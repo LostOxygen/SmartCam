@@ -59,7 +59,7 @@ def bild():
 #    imgMins = "%02d" % (d.minute)
 #    fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
 #    make_picture(camera, fileName)
-    return send_from_directory(directory="../bilder", filename="cv_bild")
+    return send_from_directory(directory="../bilder", filename="cv_bild.jpg")
 
 @app.route('/api/config/')
 @app.route('/api/config')
