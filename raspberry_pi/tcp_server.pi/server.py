@@ -19,6 +19,8 @@ import requests
 import configparser
 import traceback
 from pathlib import Path
+from picamera.array import PiRGBArray
+from picamera import PiCamera
 import pprint #Debug
 import iolink
 
