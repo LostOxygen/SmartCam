@@ -182,7 +182,7 @@ class Config:
 
             Config.writeConfig(img_order, height, conversion_mm_per_pixel, edges, image_info, MinMaxValues) #writes the .ini file
 
-            img = Config.visualization(img, points, edges) #writes text and draws the rectangel into the img
+            img = Config.visualization(img, points, edges, conversion_mm_per_pixel) #writes text and draws the rectangel into the img
 
         Config.saveImg(img_order, img) #saves img at the end
 
@@ -252,29 +252,20 @@ class Config:
         return timestamp
 
 # ----------------------------------- Visual -----------------------
-    def visualization(img, points, edges):
+    def visualization(img, points, edges, conversion_mm_per_pixel):
         #cv2.drawContours(img, [approx] ,0,(0,0,255),3)
         cv2.circle(img, points[0], 2, (255,255,0), 2) #oben links
         cv2.circle(img, points[1], 2, (255,255,0), 2) #oben rechts
         cv2.circle(img, points[2], 2, (255,255,0), 2) #unten links
         cv2.circle(img, points[3], 2, (255,255,0), 2) #unten rechts
-        #cv2.putText(img, "A" , punktedict["a"], cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
-        #cv2.putText(img, "B" , punktedict["b"], cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
-        #cv2.putText(img, "C" , punktedict["c"], cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
-        #cv2.putText(img, "D" , punktedict["d"], cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
 
-        #cv2.putText(img, "edge_x1 = " + str(edges[0]), (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
-        #cv2.putText(img, "edge_y1 = " + str(edges[1]) , (100,150), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
-        #cv2.putText(img, "edge_x2 = " + str(edges[2]), (100,200), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
-        #cv2.putText(img, "edge_y2 = " + str(edges[3]), (100,250), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+        timestamp = Config.getTimestamp()
+        cv2.putText(img, timestamp + " | " + str(round(conversion_mm_per_pixel, 6)) + " mm/px", (20, 1060), cv2.FONT_HERSHEY_PLAIN, 2, (0,0,0), 1, cv2.LINE_AA, 0)
 
         return img
 
 # ----------------------------------- Save Img -----------------------
     def saveImg(img_order, img):
-
-        timestamp = Config.getTimestamp()
-        cv2.putText(img, "" + timestamp, (20, 1060), cv2.FONT_HERSHEY_PLAIN, 2, (0,0,0), 1, cv2.LINE_AA, 0)
 
         if str(img_order) == "1":
             #np.savetxt("../bilder/contours1.csv", contours) #speichret konturen als csv
