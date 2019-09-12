@@ -59,7 +59,7 @@ class Kabel():
         img = rawCapture.array
 
         height, width = img.shape[:2] # image shape has 3 dimensions
-        mittelpunkt = (width/2, height/2) # getRotationMatrix2D needs coordinates in reverse order (width, height) compared to shape
+        mittelpunkt = (int(width/2), int(height/2)) # getRotationMatrix2D needs coordinates in reverse order (width, height) compared to shape
 
         rotation_mat = cv2.getRotationMatrix2D(mittelpunkt, -90, 1.)
 
