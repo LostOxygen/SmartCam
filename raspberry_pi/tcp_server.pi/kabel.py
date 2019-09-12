@@ -59,6 +59,12 @@ class Kabel():
         camera.capture(rawCapture, format="bgr")
         img = rawCapture.array
 
+        (h, w) = img.shape[:2]
+        center = (w / 2, h / 2)
+
+        M = cv2.getRotationMatrix2D(center, 90, scale)  #rotationsmatrix
+        img = cv2.warpAffine(img, M, (h, w))
+
         if img is None:
             print("Fehler bei Laden des frames!" + "!\n")
             return -1
