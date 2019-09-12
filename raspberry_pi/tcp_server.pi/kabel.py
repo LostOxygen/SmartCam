@@ -93,10 +93,8 @@ class Kabel():
         blur = cv2.bilateralFilter(blur, 11, 17, 17)
         blur = cv2.Canny(blur, 30, 120)
 
-        items = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) #Konturen suchen
-        contours = items[0] if len(items) == 2 else items[1]
+        contours = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) #Konturen suchen
 
-        print(contours)
         cv2.drawContours(gray, contours, -1, (0,255,0), 3)
         cv2.imwrite("../bilder/kabel2.jpg", gray)
 
