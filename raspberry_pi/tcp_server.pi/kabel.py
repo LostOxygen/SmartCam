@@ -95,7 +95,7 @@ class Kabel():
 
         contours = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) #Konturen suchen
 
-        cv2.drawContours(gray, contours, -1, (0,255,0), 3)
+        cv2.drawContours(gray, contours[0], -1, (0,255,0), 3)
         cv2.imwrite("../bilder/kabel2.jpg", gray)
 
         contours = imutils.grab_contours(contours)
@@ -124,7 +124,7 @@ class Kabel():
 
     #----------- optische Ausgabe --------------------------
         #Konturen zeichnen
-        cv2.drawContours(img, contours, -1, (0,255,0), 3)
+        cv2.drawContours(img, contours[0], -1, (0,255,0), 3)
 
         cv2.circle(img, min_xy, 2, (0,255,0), 2) #zeichnet punkt ganz links
         cv2.line(img, min_xy, (min_xy[0], mittelpunkt[1]), (255,255,0), 2) #zeichnet linie von punkt nach oben
