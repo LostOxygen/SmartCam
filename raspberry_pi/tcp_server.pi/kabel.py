@@ -22,6 +22,7 @@ class Kabel():
     def kabel(camera, bild_num):
         #Variablen
         fenster_name = "Kabelerkenung"
+        detection_size = (500, 500)
         config_test = True
         kreis_durchmesser_mm = 7
         threshold_val = 100
@@ -78,24 +79,30 @@ class Kabel():
         img = cv2.warpAffine(img, rotation_mat, (bound_w, bound_h))
 
         height, width = img.shape[:2]
-        mittelpunkt = (int(width/2), int(height/2))
-        oben_links = (mittelpunkt[0]-300, mittelpunkt[1]-300)
-        unten_rechts = (mittelpunkt[0]+300, mittelpunkt[1]+300)
+        #mittelpunkt = (int(width/2), int(height/2))
+        oben_links = (mittelpunkt[0]- detection_size[0], mittelpunkt[1]-detection_size[1]/2)
+        unten_rechts = (mittelpunkt[0], mittelpunkt[1]+detection_size[1]/2)
 
         if img is None:
             print("Fehler bei Laden des frames!" + "!\n")
             return -1
 
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        #gray = gray[oben_links[1] : unten_rechts[1], oben_links[0] : unten_rechts[0]]
+        gray = gray[oben_links[1] : unten_rechts[1], oben_links[0] : unten_rechts[0]]
         blur = cv2.GaussianBlur(gray, (7,7), 1)
         blur = cv2.bilateralFilter(blur, 11, 17, 17)
         blur = cv2.Canny(blur, 30, 120)
 
         contours, hierarchy = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) #Konturen suchen
-        #contours = imutils.grab_contours(contours)
-        #cnts = max(contours, key=cv2.contourArea)
-        #extLeft = tuple(conts[conts[:, :, 0].argmin()][0])
+
+        print(contours)
+        cv2.drawContours(gray, contours, -1, (0,255,0), 3)
+        cv2.imwrite("../bilder/kabel2.jpg", gray)
+
+        contours = imutils.grab_contours(contours)
+
+        cnts = max(contours, key=cv2.contourArea)
+        extLeft = tuple(conts[conts[:, :, 0].argmin()][0])
 
         corners = cv2.goodFeaturesToTrack(gray, maxCorners, qualityLevel, minDistance)
         #corners = np.int0(corners)
