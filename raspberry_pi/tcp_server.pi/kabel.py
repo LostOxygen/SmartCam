@@ -101,7 +101,7 @@ class Kabel():
         contours = imutils.grab_contours(contours)
 
         cnts = max(contours, key=cv2.contourArea)
-        extLeft = tuple(conts[conts[:, :, 0].argmin()][0])
+        extLeft = tuple(cnts[cnts[:, :, 0].argmin()][0])
 
         corners = cv2.goodFeaturesToTrack(gray, maxCorners, qualityLevel, minDistance)
         #corners = np.int0(corners)
