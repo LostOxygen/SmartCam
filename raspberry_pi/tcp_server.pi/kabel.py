@@ -88,7 +88,7 @@ class Kabel():
             return -1
 
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        gray = gray[oben_links[1] : unten_rechts[1], oben_links[0] : unten_rechts[0]]
+        gray = gray[int(oben_links[1]) : int(unten_rechts[1]), int(oben_links[0]) : int(unten_rechts[0])]
         blur = cv2.GaussianBlur(gray, (7,7), 1)
         blur = cv2.bilateralFilter(blur, 11, 17, 17)
         blur = cv2.Canny(blur, 30, 120)
