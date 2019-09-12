@@ -60,7 +60,7 @@ class Kabel():
         height, width = img.shape[:2] # image shape has 3 dimensions
         mittelpunkt = (width/2, height/2) # getRotationMatrix2D needs coordinates in reverse order (width, height) compared to shape
 
-        rotation_mat = cv2.getRotationMatrix2D(mittelpunkt, -90, 1.)
+        rotation_mat = cv2.getRotationMatrix2D(mittelpunkt, 180, 1.)
 
         # rotation calculates the cos and sin, taking absolutes of those.
         abs_cos = abs(rotation_mat[0,0])
@@ -75,7 +75,7 @@ class Kabel():
         rotation_mat[1, 2] += bound_h/2 - mittelpunkt[1]
 
         # rotate image with the new bounds and translated rotation matrix
-        #img = cv2.warpAffine(img, rotation_mat, (bound_w, bound_h))
+        img = cv2.warpAffine(img, rotation_mat, (bound_w, bound_h))
 
         height, width = img.shape[:2]
         mittelpunkt = (int(width/2), int(height/2))
