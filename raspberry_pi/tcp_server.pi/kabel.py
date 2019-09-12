@@ -107,7 +107,7 @@ class Kabel():
 
         #Todo Sekunde programmieren
         timestamp = "" + str(imgDate) + "." + str(imgMonth) + "." + str(imgYear) + " " + str(imgHour) + ":" + str(imgMins)
-        cv2.putText(img, timestamp + " | " + "dz = " + str(round(dist_z, 2)) + " | " + "dy = " + str(round(dist_y, 2)), (100,50), cv2.FONT_HERSHEY_PLAIN, 2, (0,0,0), 2, cv2.LINE_AA, 0)
+        cv2.putText(img, timestamp + " | " + "dz = " + str(round(dist_z, 2)) + " | " + "dy = " + str(round(dist_y, 2)), (20,1060), cv2.FONT_HERSHEY_PLAIN, 2, (0,0,0), 2, cv2.LINE_AA, 0)
     #-------------------------------------------------------
         #Umrechnung per Config in mm
         print("Distanz_Y: " + str(dist_y))
