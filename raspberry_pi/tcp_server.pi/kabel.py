@@ -62,7 +62,7 @@ class Kabel():
         (h, w) = img.shape[:2]
         center = (w / 2, h / 2)
 
-        M = cv2.getRotationMatrix2D(center, 90, scale)  #rotationsmatrix
+        M = cv2.getRotationMatrix2D(center, 90, 1.0)  #rotationsmatrix
         img = cv2.warpAffine(img, M, (h, w))
 
         if img is None:
