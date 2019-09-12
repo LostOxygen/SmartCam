@@ -104,7 +104,14 @@ def main():
                         except Exception as e:
                             print("Fehler beim Offset erstellen!")
                             print(e)
+                            print("PrintException: ")
                             PrintException()
+                            print("traceback.format_exc:")
+                            print(traceback.format_exc())
+                            print("traceback print stack:")
+                            traceback.print_stack()
+                            print("traceback print tb __traceback__")
+                            traceback.print_tb(e.__traceback__)
                             ausgabe = "NAK" + "\x00"
 
                         ausgabe = ausgabe.encode()
