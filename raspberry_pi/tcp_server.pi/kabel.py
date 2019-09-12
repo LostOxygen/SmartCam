@@ -115,7 +115,7 @@ class Kabel():
                     if x < extLeft[0]:
                         min_xy = (int(extLeft[0]), int(extLeft[1]))
                     else:
-                    min_xy = (x,y)
+                        min_xy = (x,y)
 
         #berechnet Distanz von Höhe und Länge des Kabels
         dist_y = math.sqrt((min_xy[0] - min_xy[0])**2 + (min_xy[1] - mittelpunkt[1])**2)
