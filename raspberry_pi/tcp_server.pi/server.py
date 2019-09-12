@@ -120,7 +120,7 @@ def main():
                         imgHour = "%02d" % (d.hour)
                         imgMins = "%02d" % (d.minute)
                         #Todo Sekunde programmieren
-                        fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
+                        datum = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins)
                         try:
                             make_picture(camera, fileName)
                             ausgabe = "ACK" + "\x00"
@@ -225,16 +225,31 @@ def PrintException():
 
 
 # ------------ Main Code ---------------
-
-def make_picture(camera, fileName): #Funktion zum Bild erstellen
+def make_picture(camera, datum): #Funktion zum Bild erstellen
     rawCapture = PiRGBArray(camera)
     time.sleep(0.1)
     camera.capture(rawCapture, format="bgr")
     frame = rawCapture.array
+    h, w = frame.shape
 
-    ret, jpeg = cv2.imencode('.jpg', frame) #dekodiert das RAW Image zu JPEG
-    img2 = Image.open(io.BytesIO(jpeg.tobytes())) #konvertiert jpeg zu einem Byte Objekt um es mit BytesIO zu handhaben
-    img2.save("/home/pi/Desktop/OpenCV/raspberry_pi/bilder/" + fileName) #speichert es als fileName ab
+    cv2.putText(frame, "+", ((h/2), (w/2)), cv2.FONT_HERSHEY_PLAIN, 4, (0,0,0), 3, cv2.LINE_AA, 0)
+
+    config = configparser.ConfigParser()
+    test = Path('../config.ini')
+    if test.is_file():
+        print('Config Datei gefunden')
+        config.read('../config.ini')
+
+    upperLeft = (float(config['points']['min_x']), float(config['points']['min_y']))
+    upperRight = (float(config['points']['max_x']), float(config['points']['min_y']))
+    lowerLeft = (float(config['points']['min_x']), float(config['points']['max_y']))
+    lowerRight = (float(config['points']['max_x']), float(config['points']['max_y']))
+
+    middle = (upperLeft[0] + 0.5*(upperRight[0]-upperLeft[0]), upperLeft[1] + 0.5*(lowerRight[1]-upperLeft[1]))
+
+    cv2.putText(frame, "x", ((h/2), (w/2)), cv2.FONT_HERSHEY_PLAIN, 4, (0,0,0), 3, cv2.LINE_AA, 0)
+
+    cv2.imwrite("../bilder/cv_bild.jpg", frame)
 
 # ----------------------------------- get IP -----------------------
 def get_ip(interface):

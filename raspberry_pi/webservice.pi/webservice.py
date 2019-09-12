@@ -48,9 +48,9 @@ def index():
 def live(): #Kamerastream in HTML einbetten
     return Response(gen(camera),mimetype='multipart/x-mixed-replace; boundary=frame')
 
-#@app.route('/api/bild/')
-#@app.route('/api/bild')
-#def bild():
+@app.route('/api/bild/')
+@app.route('/api/bild')
+def bild():
 #    d = datetime.now()
 #    imgYear = "%04d" % (d.year)
 #    imgMonth = "%02d" % (d.month)
@@ -59,7 +59,7 @@ def live(): #Kamerastream in HTML einbetten
 #    imgMins = "%02d" % (d.minute)
 #    fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
 #    make_picture(camera, fileName)
-#    return send_from_directory(directory="../bilder", filename=fileName)
+    return send_from_directory(directory="../bilder", filename="cv_bild")
 
 @app.route('/api/config/')
 @app.route('/api/config')
