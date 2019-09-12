@@ -113,9 +113,9 @@ class Kabel():
                     cv2.circle(img, (x,y), 2, (0,0,255), 2)
                 if x < min_xy[0]: #guckt nach kleinstem x wert
                     if x < extLeft[0]:
-                        min_xy = (int(extLeft[0]), int(extLeft[1]))
+                        min_xy = (int(extLeft[0] + detection_size), int(extLeft[1] + detection_size))
                     else:
-                        min_xy = (x,y)
+                        min_xy = (int(x + detection_size), int(y + detection_size))
 
         #berechnet Distanz von Höhe und Länge des Kabels
         dist_y = math.sqrt((min_xy[0] - min_xy[0])**2 + (min_xy[1] - mittelpunkt[1])**2)
