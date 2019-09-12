@@ -83,10 +83,11 @@ class Kabel():
             return -1
 
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        gray = gray[oben_links[1] : unten_rechts[1], oben_links[0] : unten_rechts[0]]
         blur = cv2.GaussianBlur(gray, (7,7), 1)
         blur = cv2.bilateralFilter(blur, 11, 17, 17)
         blur = cv2.Canny(blur, 30, 120)
-        ausschnitt = blur[oben_links[1] : unten_rechts[1], oben_links[0] : unten_rechts[0]]
+        #ausschnitt = blur[oben_links[1] : unten_rechts[1], oben_links[0] : unten_rechts[0]]
         #ret, thresh = cv2.threshold(blur, threshold_val, threshold_max, cv2.THRESH_BINARY) #Thresholds generieren
         contours, hierarchy = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) #Konturen suchen
 
