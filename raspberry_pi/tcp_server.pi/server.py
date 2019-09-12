@@ -44,6 +44,7 @@ PORT = 65432 #Port auf dem gehört wird (Standard)
 exit = False
 #camera = Camera() #erstellt Global eine Kamera
 camera = PiCamera()
+camera.resolution = (1920, 1088)
 lichtwert = (0,0,0)
 config_test = True #zum Abfragen der Config
 g1 = iolink.Gripper(1)
