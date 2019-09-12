@@ -77,7 +77,7 @@ class Kabel():
         rotation_mat[1, 2] += bound_h/2 - image_center[1]
 
         # rotate image with the new bounds and translated rotation matrix
-        img = cv2.warpAffine(mat, rotation_mat, (bound_w, bound_h))
+        img = cv2.warpAffine(img, rotation_mat, (bound_w, bound_h))
 
         if img is None:
             print("Fehler bei Laden des frames!" + "!\n")
