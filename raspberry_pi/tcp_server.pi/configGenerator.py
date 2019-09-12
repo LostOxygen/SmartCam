@@ -274,7 +274,7 @@ class Config:
     def saveImg(img_order, img):
 
         timestamp = Config.getTimestamp()
-        cv2.putText(img, "time = " + timestamp, (100,50), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+        cv2.putText(img, "" + timestamp, (20, 1060), cv2.FONT_HERSHEY_PLAIN, 2, (0,0,0), 1, cv2.LINE_AA, 0)
 
         if str(img_order) == "1":
             #np.savetxt("../bilder/contours1.csv", contours) #speichret konturen als csv
