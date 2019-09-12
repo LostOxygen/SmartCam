@@ -120,9 +120,9 @@ def main():
                         imgHour = "%02d" % (d.hour)
                         imgMins = "%02d" % (d.minute)
                         #Todo Sekunde programmieren
-                        datum = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins)
+                        timestamp = "" + str(imgDate) + "." + str(imgMonth) + "." + str(imgYear) + " " + str(imgHour) + ":" + str(imgMins)
                         try:
-                            make_picture(camera, datum)
+                            make_picture(camera, timestamp)
                             ausgabe = "ACK" + "\x00"
                         except Exception as e:
                             print(e)
@@ -233,13 +233,13 @@ def PrintException():
 
 
 # ------------ Main Code ---------------
-def make_picture(camera, datum): #Funktion zum Bild erstellen
+def make_picture(camera, timestamp): #Funktion zum Bild erstellen
     rawCapture = PiRGBArray(camera)
     time.sleep(0.1)
     camera.capture(rawCapture, format="bgr")
     frame = rawCapture.array
     print(frame.shape)
-    h, w, _ = frame.shape
+    w, h, _ = frame.shape
 
     cv2.putText(frame, "+", (int(h/2), int(w/2)), cv2.FONT_HERSHEY_PLAIN, 4, (0,0,0), 3, cv2.LINE_AA, 0)
 
@@ -257,7 +257,7 @@ def make_picture(camera, datum): #Funktion zum Bild erstellen
     middle = (upperLeft[0] + 0.5*(upperRight[0]-upperLeft[0]), upperLeft[1] + 0.5*(lowerRight[1]-upperLeft[1]))
 
     cv2.putText(frame, "x", (int(middle[0]), int(middle[1])), cv2.FONT_HERSHEY_PLAIN, 4, (0,0,0), 3, cv2.LINE_AA, 0)
-    cv2.putText(frame, datum, (20, 1060), cv2.FONT_HERSHEY_PLAIN, 2, (0,0,0), 2, cv2.LINE_AA, 0)
+    cv2.putText(frame, timestamp, (20, 1060), cv2.FONT_HERSHEY_PLAIN, 2, (0,0,0), 2, cv2.LINE_AA, 0)
 
     cv2.imwrite("../bilder/cv_bild.jpg", frame)
 
