@@ -125,7 +125,7 @@ class Kabel():
         #Konturen zeichnen
         #cv2.drawContours(img, contours[0], -1, (0,255,0), 3)
 
-        cv2.circle(gray, min_xy, 2, (0,255,0), 2) #zeichnet punkt ganz links
+        cv2.circle(gray, min_xy, 2, (255, 255, 255), 2) #zeichnet punkt ganz links
         cv2.line(img, min_xy, (min_xy[0], int(mittelpunkt[1])), (255,255,0), 2) #zeichnet linie von punkt nach oben
         #zeichnet Mittelpunkt und Linie nach links
         cv2.circle(img, mittelpunkt, 2, (255,255,0), 2)
