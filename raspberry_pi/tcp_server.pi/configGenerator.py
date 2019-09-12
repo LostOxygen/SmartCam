@@ -27,7 +27,8 @@ class Config:
 
     def createConfig(camera, img_order, height):
         #Variablen
-        edgelength = 70 #in mm und standardwert
+        edgelength_x = 70.0 #in mm und standardwert
+        edgelength_y = 66.5
         min_threshold = 0
         max_threshold = 100
         kernel = np.ones((5, 5), np.uint8)
@@ -41,7 +42,7 @@ class Config:
         rawCapture = PiRGBArray(camera)
         time.sleep(0.1)
         camera.capture(rawCapture, format="bgr")
-        frame = rawCapture.array
+        img = rawCapture.array
 
         if img is None:
             print("Fehler bei Laden des frames!" + "!\n")
@@ -98,10 +99,10 @@ class Config:
             print(edge_x1, edge_x2, edge_y1, edge_y2)
 
             try:
-                edge_x1_mm = (edgelength / edge_x1) #conversion in mm per pixel
-                edge_x2_mm = (edgelength / edge_x2)
-                edge_y1_mm = (edgelength / edge_y1)
-                edge_y2_mm = (edgelength / edge_y2)
+                edge_x1_mm = (edgelength_x / edge_x1) #conversion in mm per pixel
+                edge_x2_mm = (edgelength_x / edge_x2)
+                edge_y1_mm = (edgelength_y / edge_y1)
+                edge_y2_mm = (edgelength_y / edge_y2)
 
                 mean = (edge_x1_mm + edge_x2_mm + edge_y1_mm + edge_y2_mm) / 4
                 conversion_mm_per_pixel = mean
