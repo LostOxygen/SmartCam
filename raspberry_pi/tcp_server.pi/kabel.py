@@ -114,7 +114,7 @@ class Kabel():
                 if x < min_xy[0]: #guckt nach kleinstem x wert
                     if x < extLeft[0]:
                         #min_xy = (int(extLeft[0] + detection_size[0]), int(extLeft[1] + detection_size[1]/2))
-                        min_xy =(x, y)
+                        min_xy = (x, y)
                     else:
                         min_xy = (int(x + detection_size[0]), int(y + detection_size[1]/2))
 
@@ -127,11 +127,11 @@ class Kabel():
         #cv2.drawContours(img, contours[0], -1, (0,255,0), 3)
 
         cv2.circle(gray, min_xy, 4, (255, 255, 255), 4) #zeichnet punkt ganz links
-        cv2.line(img, min_xy, (min_xy[0], int(mittelpunkt[1])), (255,255,0), 2) #zeichnet linie von punkt nach oben
+        cv2.line(img, min_xy, (min_xy[0], 250, (255,255,0), 2) #zeichnet linie von punkt nach oben
         #zeichnet Mittelpunkt und Linie nach links
         cv2.circle(img, mittelpunkt, 2, (255,255,0), 2)
-        cv2.line(img, mittelpunkt, (min_xy[0], int(mittelpunkt[1])), (255,255,0), 2)
-        cv2.line(img, mittelpunkt, min_xy, (255,255,0), 2)
+        cv2.line(img, (500,250), (min_xy[0], 250), (255,255,0), 2)
+        cv2.line(img, (500,250), min_xy, (255,255,0), 2)
 
         d = datetime.now()
         imgYear = "%04d" % (d.year)
