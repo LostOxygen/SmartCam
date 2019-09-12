@@ -59,6 +59,8 @@ class Kreis():
             durchmesser_pixel = 1
             print("kreis_durchmesser_pixel war 0 und wurde auf 1 gesetzt")
 
+        #passt bildausschnit an kalibirierung an
+
         upperLeft = (float(config['points']['min_x']), float(config['points']['min_y']))
         upperRight = (float(config['points']['max_x']), float(config['points']['min_y']))
         lowerLeft = (float(config['points']['min_x']), float(config['points']['max_y']))
@@ -131,14 +133,18 @@ class Kreis():
             imgMins = "%02d" % (d.minute)
             #Todo Sekunde programmieren
             timestamp = "" + str(imgDate) + "." + str(imgMonth) + "." + str(imgYear) + " " + str(imgHour) + ":" + str(imgMins)
-            cv2.putText(frame, "time = " + timestamp, (100,50), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
+            cv2.putText(frame, timestamp, (100,50), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 1, cv2.LINE_AA, 0)
 
             if circles is not None: #Damit nur eine Linie gezeichnet wird, wenn er Kreise findet
+                offset = (mittelpunkt[0] - kkreis_xy[0] , mittelpunkt[1] - kkreis_xy[1])
+                offset[0] = round((offset[0]*umrechnung_pixel_mm)/10,2)
+                offset[1] = round((offset[1]*umrechnung_pixel_mm)/10,2)
+
                 cv2.line(frame,mittelpunkt,kkreis_xy,(255,255,255),5) #Linie zwischen Mittelpunkt und ausgewähltem Kreis
                 cv2.putText(frame, str(round(kdistanz, 2)) , kkreis_xy, cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 2, cv2.LINE_AA, 0)
-                cv2.putText(frame, 'geschaetzte Distanz (in mm): ' + str(round((kdistanz*umrechnung_pixel_mm)/10,2)), (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 2, cv2.LINE_AA, 0)
-
-                offset = (abs(mittelpunkt[0] - kkreis_xy[0]) , abs(mittelpunkt[1] - kkreis_xy[1]))
+                cv2.putText(frame, str(round((kdistanz*umrechnung_pixel_mm)/10,2)) + " mm", (100,100), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 2, cv2.LINE_AA, 0)
+                cv2.putText(frame, str(offset[0]), (100,125), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 2, cv2.LINE_AA, 0)
+                cv2.putText(frame, str(offset[1]), (100,150), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 2, cv2.LINE_AA, 0)
 
             else:
                 offset = (999999,999999)
