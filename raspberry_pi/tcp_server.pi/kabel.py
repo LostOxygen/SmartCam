@@ -59,11 +59,25 @@ class Kabel():
         camera.capture(rawCapture, format="bgr")
         img = rawCapture.array
 
-        (h, w) = img.shape[:2]
-        center = (w / 2, h / 2)
+        height, width = img.shape[:2] # image shape has 3 dimensions
+        image_center = (width/2, height/2) # getRotationMatrix2D needs coordinates in reverse order (width, height) compared to shape
 
-        M = cv2.getRotationMatrix2D(center, -90, 1.0)  #rotationsmatrix
-        img = cv2.warpAffine(img, M, (h, w))
+        rotation_mat = cv2.getRotationMatrix2D(image_center, -90, 1.)
+
+        # rotation calculates the cos and sin, taking absolutes of those.
+        abs_cos = abs(rotation_mat[0,0])
+        abs_sin = abs(rotation_mat[0,1])
+
+        # find the new width and height bounds
+        bound_w = int(height * abs_sin + width * abs_cos)
+        bound_h = int(height * abs_cos + width * abs_sin)
+
+        # subtract old image center (bringing image back to origo) and adding the new image center coordinates
+        rotation_mat[0, 2] += bound_w/2 - image_center[0]
+        rotation_mat[1, 2] += bound_h/2 - image_center[1]
+
+        # rotate image with the new bounds and translated rotation matrix
+        img = cv2.warpAffine(mat, rotation_mat, (bound_w, bound_h))
 
         if img is None:
             print("Fehler bei Laden des frames!" + "!\n")
