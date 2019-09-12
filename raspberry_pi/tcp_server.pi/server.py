@@ -41,7 +41,7 @@ PORT = 65432 #Port auf dem gehört wird (Standard)
 # ------------ Variablen ---------------
 exit = False
 #camera = Camera() #erstellt Global eine Kamera
-camera = cv2.VideoCapture(0);
+camera = PiCamera()
 lichtwert = (0,0,0)
 config_test = True #zum Abfragen der Config
 g1 = iolink.Gripper(1)
@@ -222,15 +222,14 @@ def PrintException():
 # ------------ Main Code ---------------
 
 def make_picture(camera, fileName): #Funktion zum Bild erstellen
-    if camera.read() is not None:
-        ret, frame = camera.read()
-        ret, jpeg = cv2.imencode('.jpg', frame) #dekodiert das RAW Image zu JPEG
-        img2 = Image.open(io.BytesIO(jpeg.tobytes())) #konvertiert jpeg zu einem Byte Objekt um es mit BytesIO zu handhaben
-        img2.save("/home/pi/Desktop/OpenCV/raspberry_pi/bilder/" + fileName) #speichert es als fileName ab
-        return True
-    else:
-        print("Kamera Frame ist None")
-        return False
+    rawCapture = PiRGBArray(camera)
+    time.sleep(0.1)
+    camera.capture(rawCapture, format="bgr")
+    frame = rawCapture.array
+
+    ret, jpeg = cv2.imencode('.jpg', frame) #dekodiert das RAW Image zu JPEG
+    img2 = Image.open(io.BytesIO(jpeg.tobytes())) #konvertiert jpeg zu einem Byte Objekt um es mit BytesIO zu handhaben
+    img2.save("/home/pi/Desktop/OpenCV/raspberry_pi/bilder/" + fileName) #speichert es als fileName ab
 
 # ----------------------------------- get IP -----------------------
 def get_ip(interface):
