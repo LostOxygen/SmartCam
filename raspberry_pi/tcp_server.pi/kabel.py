@@ -110,7 +110,7 @@ class Kabel():
             for i in corners:
                 x,y = i.ravel()
                 if x <= 1100: #zeichnet nur Relevante Punkte
-                    cv2.circle(img, ((int(x + detection_size[0]), int(y + detection_size[1]/2)), 2, (0,0,255), 2)
+                    cv2.circle(img, ((int(x + detection_size[0]), int(y + detection_size[1]/2))), 2, (0,0,255), 2)
                 if x < min_xy[0]: #guckt nach kleinstem x wert
                     if x < extLeft[0]:
                         min_xy = (int(extLeft[0] + detection_size[0]), int(extLeft[1] + detection_size[1]/2))
