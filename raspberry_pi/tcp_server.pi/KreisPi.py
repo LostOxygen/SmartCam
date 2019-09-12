@@ -79,6 +79,7 @@ class Kreis():
         # ----------------------------------- Main Code -----------------------
         if config_test:
             #frame = camera.get_frame_cv()
+            camera.open()
             ret, frame = camera.read()
             # in Graubild umwandeln
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -150,6 +151,8 @@ class Kreis():
                 offset = (999999,999999)
 
             image_frame = frame
+
+        camera.release()
 
         if picture:
             if image_frame is not None:
