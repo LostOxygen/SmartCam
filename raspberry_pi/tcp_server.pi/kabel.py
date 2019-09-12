@@ -113,7 +113,7 @@ class Kabel():
                     cv2.circle(img, (x,y), 2, (0,0,255), 2)
                 if x < min_xy[0]: #guckt nach kleinstem x wert
                     if x < extLeft[0]:
-                        min_xy = (int(extLeft[0] + detection_size), int(extLeft[1] + detection_size))
+                        min_xy = (int(extLeft[0] + detection_size[0]), int(extLeft[1] + detection_size[1]/2))
                     else:
                         min_xy = (int(x + detection_size), int(y + detection_size))
 
