@@ -59,7 +59,7 @@ class Kabel():
         img = rawCapture.array
 
         height, width = img.shape[:2] # image shape has 3 dimensions
-        mittelpunkt = (width/2, height/2) # getRotationMatrix2D needs coordinates in reverse order (width, height) compared to shape
+        mittelpunkt = (int(width/2), int(height/2)) # getRotationMatrix2D needs coordinates in reverse order (width, height) compared to shape
 
         rotation_mat = cv2.getRotationMatrix2D(mittelpunkt, 180, 1.)
 
@@ -96,7 +96,6 @@ class Kabel():
         contours = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) #Konturen suchen
 
         cv2.drawContours(gray, contours[0], -1, (0,255,0), 3)
-        cv2.imwrite("../bilder/kabel2.jpg", gray)
 
         contours = imutils.grab_contours(contours)
 
@@ -113,9 +112,9 @@ class Kabel():
                 if x <= 1100: #zeichnet nur Relevante Punkte
                     cv2.circle(img, (x,y), 2, (0,0,255), 2)
                 if x < min_xy[0]: #guckt nach kleinstem x wert
-                    #if x < extLeft[0]:
-                    #    min_xy = (extLeft[0], extLeft[1])
-                    #else:
+                    if x < extLeft[0]:
+                        min_xy = (int(extLeft[0]), int(extLeft[1]))
+                    else:
                     min_xy = (x,y)
 
         #berechnet Distanz von Höhe und Länge des Kabels
@@ -124,13 +123,13 @@ class Kabel():
 
     #----------- optische Ausgabe --------------------------
         #Konturen zeichnen
-        cv2.drawContours(img, contours[0], -1, (0,255,0), 3)
+        #cv2.drawContours(img, contours[0], -1, (0,255,0), 3)
 
-        cv2.circle(img, min_xy, 2, (0,255,0), 2) #zeichnet punkt ganz links
-        cv2.line(img, min_xy, (min_xy[0], mittelpunkt[1]), (255,255,0), 2) #zeichnet linie von punkt nach oben
+        cv2.circle(gray, min_xy, 2, (0,255,0), 2) #zeichnet punkt ganz links
+        cv2.line(img, min_xy, (min_xy[0], int(mittelpunkt[1])), (255,255,0), 2) #zeichnet linie von punkt nach oben
         #zeichnet Mittelpunkt und Linie nach links
         cv2.circle(img, mittelpunkt, 2, (255,255,0), 2)
-        cv2.line(img, mittelpunkt, (min_xy[0],mittelpunkt[1]), (255,255,0), 2)
+        cv2.line(img, mittelpunkt, (min_xy[0], int(mittelpunkt[1])), (255,255,0), 2)
         cv2.line(img, mittelpunkt, min_xy, (255,255,0), 2)
 
         d = datetime.now()
@@ -157,4 +156,5 @@ class Kabel():
 
         offset = (abs(mittelpunkt[0]), abs(mittelpunkt[1] - min_xy[1]))
 
+        cv2.imwrite("../bilder/kabel2.jpg", gray)
         return offset
