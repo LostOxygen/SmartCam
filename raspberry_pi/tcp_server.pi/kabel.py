@@ -139,7 +139,7 @@ class Kabel():
         dist_y = math.sqrt((min_xy[0] - min_xy[0])**2 + (min_xy[1] - mittelpunkt[1])**2)
         dist_x = math.sqrt((mittelpunkt[0] - min_xy[1])**2 + (mittelpunkt[1] - mittelpunkt[1])**2)
         dist_y = int(dist_y * umrechnung_pixel_mm)
-        dist_x = int(dist_z * umrechnung_pixel_mm)
+        dist_x = int(dist_x * umrechnung_pixel_mm)
 
     #----------- optische Ausgabe --------------------------
         #Konturen zeichnen
