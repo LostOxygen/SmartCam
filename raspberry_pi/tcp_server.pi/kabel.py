@@ -120,8 +120,8 @@ class Kabel():
 
         min_xy = (int(mittelpunkt[0] - dist_x), int(mittelpunkt[1] - dist_y))
 
-        dist_y_mm = dist_y * umrechnung_pixel_mm
-        dist_x_mm = dist_x * umrechnung_pixel_mm
+        dist_y_mm = (dist_y * umrechnung_pixel_mm)*2
+        dist_x_mm = (dist_x * umrechnung_pixel_mm)*2
 
     #----------- optische Ausgabe --------------------------
         cv2.circle(img, min_xy, 4, (255, 255, 255), 4) #zeichnet punkt ganz links
