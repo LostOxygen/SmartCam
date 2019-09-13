@@ -80,7 +80,7 @@ class Kabel():
         height, width = img.shape[:2] # image shape has 3 dimensions
         mittelpunkt = (int(width/2), int(height/2)) # getRotationMatrix2D needs coordinates in reverse order (width, height) compared to shape
 
-        img = rotate(img, mittelpunkt)  #rotiert das Bild ggf.
+        img = Kabel.rotate(img, mittelpunkt)  #rotiert das Bild ggf.
         height, width = img.shape[:2]
 
         #mittelpunkt = (int(width/2), int(height/2))
