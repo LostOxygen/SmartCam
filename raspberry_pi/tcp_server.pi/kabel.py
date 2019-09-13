@@ -147,13 +147,14 @@ class Kabel():
         print("umgerechnet: " + str(round(dist_y_mm, 2)) + "mm")
 
         if str(bild_num) == "1":
-            print("Speichert kabel1.jpg in /home/pi/RoboSchalt/raspberry_pi/bilder/")
+            print("Speichert kabel1.jpg und kabelgrau1.jpg in /home/pi/RoboSchalt/raspberry_pi/bilder/")
+            cv2.imwrite("../bilder/kabelgrau1.jpg", gray)
             cv2.imwrite("../bilder/kabel1.jpg", img) #speichert ein Bild
         elif str(bild_num) == "2":
-            print("Speichert kabel2.jpg in /home/pi/RoboSchalt/raspberry_pi/bilder/")
+            print("Speichert kabel2.jpg und kabelgrau2.jpg in /home/pi/RoboSchalt/raspberry_pi/bilder/")
+            cv2.imwrite("../bilder/kabelgrau2.jpg", gray)
             cv2.imwrite("../bilder/kabel2.jpg", img)
 
         offset = (round(dist_x_mm, 2), round(dist_y_mm, 2))
 
-        cv2.imwrite("../bilder/kabel2.jpg", gray)
         return offset
