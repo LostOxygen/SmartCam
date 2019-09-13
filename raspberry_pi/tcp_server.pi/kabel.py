@@ -61,13 +61,11 @@ class Kabel():
             print('Config konnte nicht gefunden werden. Bitte erst mit configGenerator.py eine Config generieren lassen!')
             config_test = False
 
-        durchmesser_pixel = float(config['conversion']['mm_per_pixel1']) #fragt Wert aus Config File ab
+        umrechnung_pixel_mm = float(config['conversion']['mm_per_pixel1']) #fragt Wert aus Config File ab
 
-        if durchmesser_pixel == 0:
-            durchmesser_pixel = 1
+        if umrechnung_pixel_mm == 0:
+            umrechnung_pixel_mm = 1
             print("kreis_durchmesser_pixel war 0 und wurde auf 1 gesetzt")
-
-        umrechnung_pixel_mm = kreis_durchmesser_mm / durchmesser_pixel #Rechnet mm pro Pixel aus
 
         # ----------------------------------- Main Code -----------------------
 
@@ -126,6 +124,8 @@ class Kabel():
         #berechnet Distanz von Höhe und Länge des Kabels
         dist_y = math.sqrt((min_xy[0] - min_xy[0])**2 + (min_xy[1] - mittelpunkt[1])**2)
         dist_z = math.sqrt((mittelpunkt[0] - min_xy[1])**2 + (mittelpunkt[1] - mittelpunkt[1])**2)
+        dist_y = int(dist_y * umrechnung_pixel_mm)
+        dist_x = int(dist_x * umrechnung_pixel_mm)
 
     #----------- optische Ausgabe --------------------------
         #Konturen zeichnen
@@ -147,7 +147,7 @@ class Kabel():
 
         #Todo Sekunde programmieren
         timestamp = "" + str(imgDate) + "." + str(imgMonth) + "." + str(imgYear) + " " + str(imgHour) + ":" + str(imgMins)
-        cv2.putText(img, timestamp + " | " + "dz = " + str(round(dist_z, 2)) + " | " + "dy = " + str(round(dist_y, 2)), (20,1800), cv2.FONT_HERSHEY_PLAIN, 2, (0,0,0), 2, cv2.LINE_AA, 0)
+        cv2.putText(img, timestamp + " | " + "dz = " + str(round(dist_z, 2)) + " in mm | " + "dy = " + str(round(dist_y, 2)) + " in mm ", (20,1040), cv2.FONT_HERSHEY_PLAIN, 2, (0,0,0), 2, cv2.LINE_AA, 0)
     #-------------------------------------------------------
         #Umrechnung per Config in mm
         print("Distanz_Y: " + str(dist_y))
@@ -160,7 +160,7 @@ class Kabel():
             print("Speichert kabel2.jpg in /home/pi/RoboSchalt/raspberry_pi/bilder/")
             cv2.imwrite("../bilder/kabel2.jpg", img)
 
-        offset = (abs(mittelpunkt[0]), abs(mittelpunkt[1] - min_xy[1]))
+        offset = (mittelpunkt[0], mittelpunkt[1] - min_xy[1])
 
         cv2.imwrite("../bilder/kabel2.jpg", gray)
         return offset
