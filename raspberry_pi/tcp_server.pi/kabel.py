@@ -124,12 +124,7 @@ class Kabel():
         dist_x_mm = dist_x * umrechnung_pixel_mm
 
     #----------- optische Ausgabe --------------------------
-        #Konturen zeichnen
-        #cv2.drawContours(img, contours[0], -1, (0,255,0), 3)
-
-        cv2.circle(img, (int(mittelpunkt[0] - dx), int(mittelpunk[1] - dy)), 4, (255, 255, 0), 6) #zeichnet punkt ganz links
-
-        #cv2.circle(img, min_xy, 4, (255, 255, 255), 4) #zeichnet punkt ganz links
+        cv2.circle(img, min_xy, 4, (255, 255, 255), 4) #zeichnet punkt ganz links
         cv2.line(img, min_xy, (min_xy[0], int(height/2)), (255,255,255), 2) #zeichnet linie von punkt nach oben
         #zeichnet Mittelpunkt und Linie nach links
         cv2.circle(img, mittelpunkt, 2, (255,255,255), 2)
