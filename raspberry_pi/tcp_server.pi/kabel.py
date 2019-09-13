@@ -115,14 +115,16 @@ class Kabel():
                 x,y = i.ravel()
                 if x <= 1100: #zeichnet nur Relevante Punkte
                     cv2.circle(img, (int(x + oben_links[0]), int(y + oben_links[1])), 2, (0,0,255), 2)
-                #if x < min_xy[0]: #guckt nach kleinstem x wert
+                if x < min_xy[0]: #guckt nach kleinstem x wert
+                    min_xy = (int(x + oben_links[0]), int(y + oben_links[0]))
                 #    if x < extLeft[0]:
                 #        #min_xy = (int(extLeft[0] + detection_size[0]), int(extLeft[1] + detection_size[1]/2))
                 #        min_xy = (x, y)
                 #    else:
                 #        min_xy = (int(x + oben_links[0]), int(y + oben_links[0]))
-
+        print(min_xy)
         min_xy = (int(extLeft[0]+oben_links[0]), int(extLeft[1]+oben_links[1]))
+        print(min_xy)
 
         #berechnet Distanz von Höhe und Länge des Kabels
         dist_y = math.sqrt((min_xy[0] - min_xy[0])**2 + (min_xy[1] - mittelpunkt[1])**2)
