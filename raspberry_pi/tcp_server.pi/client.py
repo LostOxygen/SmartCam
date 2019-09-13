@@ -5,10 +5,11 @@ import sys
 import socket
 
 def main(argv):
-    if argv is None:
-            HOST = input("IP eingeben: ")
-    else:
+    try:
         HOST = argv[0]
+    except Exception as e:
+        print(e)
+        HOST = input("IP eingeben: ")
 
     PORT = 65432 #Port des Servers
 
