@@ -144,7 +144,7 @@ class Kabel():
     #-------------------------------------------------------
         #Umrechnung per Config in mm
         print("Distanz_Y: " + str(dist_y))
-        print("umgerechnet: " + str(round(dist_y_mm), 2) + "mm")
+        print("umgerechnet: " + str(round(dist_y_mm, 2)) + "mm")
 
         if str(bild_num) == "1":
             print("Speichert kabel1.jpg in /home/pi/RoboSchalt/raspberry_pi/bilder/")
