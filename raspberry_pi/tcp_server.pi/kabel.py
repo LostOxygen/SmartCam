@@ -107,8 +107,8 @@ class Kabel():
         cv2.line(gray, extLeft, (extLeft[0], 250), (255,255,255), 2) #zeichnet linie von punkt nach oben
         #zeichnet Mittelpunkt und Linie nach links
         cv2.circle(gray, (500, 250), 2, (255,255,255), 2)
-        cv2.line(gray, (500, 250)), (extLeft[0], 250), (255,255,255), 2)
-        cv2.line(gray, (500, 250)), extLeft, (255,255,255), 2)
+        cv2.line(gray, (500, 250), (extLeft[0], 250), (255,255,255), 2)
+        cv2.line(gray, (500, 250), extLeft, (255,255,255), 2)
 
         corners = cv2.goodFeaturesToTrack(gray, maxCorners, qualityLevel, minDistance)
         #corners = np.int0(corners)
