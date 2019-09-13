@@ -19,6 +19,25 @@ import io
 from datetime import datetime
 
 class Kabel():
+    def rotate(img, mittelpunkt):
+        rotation_mat = cv2.getRotationMatrix2D(mittelpunkt, 180, 1.)
+
+        # rotation calculates the cos and sin, taking absolutes of those.
+        abs_cos = abs(rotation_mat[0,0])
+        abs_sin = abs(rotation_mat[0,1])
+
+        # find the new width and height bounds
+        bound_w = int(height * abs_sin + width * abs_cos)
+        bound_h = int(height * abs_cos + width * abs_sin)
+
+        # subtract old image center (bringing image back to origo) and adding the new image center coordinates
+        rotation_mat[0, 2] += bound_w/2 - mittelpunkt[0]
+        rotation_mat[1, 2] += bound_h/2 - mittelpunkt[1]
+
+        # rotate image with the new bounds and translated rotation matrix
+        img = cv2.warpAffine(img, rotation_mat, (bound_w, bound_h))
+        return img
+
     def kabel(camera, bild_num):
         #Variablen
         fenster_name = "Kabelerkenung"
@@ -61,27 +80,12 @@ class Kabel():
         height, width = img.shape[:2] # image shape has 3 dimensions
         mittelpunkt = (int(width/2), int(height/2)) # getRotationMatrix2D needs coordinates in reverse order (width, height) compared to shape
 
-        rotation_mat = cv2.getRotationMatrix2D(mittelpunkt, 180, 1.)
-
-        # rotation calculates the cos and sin, taking absolutes of those.
-        abs_cos = abs(rotation_mat[0,0])
-        abs_sin = abs(rotation_mat[0,1])
-
-        # find the new width and height bounds
-        bound_w = int(height * abs_sin + width * abs_cos)
-        bound_h = int(height * abs_cos + width * abs_sin)
-
-        # subtract old image center (bringing image back to origo) and adding the new image center coordinates
-        rotation_mat[0, 2] += bound_w/2 - mittelpunkt[0]
-        rotation_mat[1, 2] += bound_h/2 - mittelpunkt[1]
-
-        # rotate image with the new bounds and translated rotation matrix
-        img = cv2.warpAffine(img, rotation_mat, (bound_w, bound_h))
-
+        img = rotate(img, mittelpunkt)  #rotiert das Bild ggf.
         height, width = img.shape[:2]
+
         #mittelpunkt = (int(width/2), int(height/2))
-        oben_links = (mittelpunkt[0]- detection_size[0], mittelpunkt[1]-detection_size[1]/2)
-        unten_rechts = (mittelpunkt[0], mittelpunkt[1]+detection_size[1]/2)
+        oben_links = (int(mittelpunkt[0]- detection_size[0]), int(mittelpunkt[1]-detection_size[1]/2))
+        unten_rechts = (int(mittelpunkt[0]), int(mittelpunkt[1]+detection_size[1]/2))
 
         if img is None:
             print("Fehler bei Laden des frames!" + "!\n")
@@ -110,13 +114,15 @@ class Kabel():
             for i in corners:
                 x,y = i.ravel()
                 if x <= 1100: #zeichnet nur Relevante Punkte
-                    cv2.circle(img, ((int(x + detection_size[0]), int(y + detection_size[1]/2))), 2, (0,0,255), 2)
-                if x < min_xy[0]: #guckt nach kleinstem x wert
-                    if x < extLeft[0]:
-                        #min_xy = (int(extLeft[0] + detection_size[0]), int(extLeft[1] + detection_size[1]/2))
-                        min_xy = (x, y)
-                    else:
-                        min_xy = (int(x + detection_size[0]), int(y + detection_size[1]/2))
+                    cv2.circle(img, (int(x + oben_links[0]), int(y + oben_links[1])), 2, (0,0,255), 2)
+                #if x < min_xy[0]: #guckt nach kleinstem x wert
+                #    if x < extLeft[0]:
+                #        #min_xy = (int(extLeft[0] + detection_size[0]), int(extLeft[1] + detection_size[1]/2))
+                #        min_xy = (x, y)
+                #    else:
+                #        min_xy = (int(x + oben_links[0]), int(y + oben_links[0]))
+
+        min_xy = (int(extLeft[0]+oben_links[0]), int(extLeft[1]+oben_links[1]))
 
         #berechnet Distanz von Höhe und Länge des Kabels
         dist_y = math.sqrt((min_xy[0] - min_xy[0])**2 + (min_xy[1] - mittelpunkt[1])**2)
@@ -126,12 +132,12 @@ class Kabel():
         #Konturen zeichnen
         #cv2.drawContours(img, contours[0], -1, (0,255,0), 3)
 
-        cv2.circle(gray, min_xy, 4, (255, 255, 255), 4) #zeichnet punkt ganz links
-        cv2.line(gray, min_xy, (min_xy[0], 250), (255,255,255), 2) #zeichnet linie von punkt nach oben
+        cv2.circle(img, min_xy, 4, (255, 255, 255), 4) #zeichnet punkt ganz links
+        cv2.line(img, min_xy, (min_xy[0], int(height/2)), (255,255,255), 2) #zeichnet linie von punkt nach oben
         #zeichnet Mittelpunkt und Linie nach links
-        cv2.circle(gray, (500,250), 2, (255,255,255), 2)
-        cv2.line(gray, (500,250), (min_xy[0], 250), (255,255,255), 2)
-        cv2.line(gray, (500,250), min_xy, (255,255,255), 2)
+        cv2.circle(img, mittelpunkt, 2, (255,255,255), 2)
+        cv2.line(img, mittelpunkt, (min_xy[0], int(height/2)), (255,255,255), 2)
+        cv2.line(img, mittelpunkt, min_xy, (255,255,255), 2)
 
         d = datetime.now()
         imgYear = "%04d" % (d.year)
