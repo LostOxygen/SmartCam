@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf8 -*-
 
+import sys
 import socket
 
 def main(argv):
@@ -8,7 +9,7 @@ def main(argv):
             HOST = input("IP eingeben: ")
     else:
         HOST = argv[0]
-    
+
     PORT = 65432 #Port des Servers
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
