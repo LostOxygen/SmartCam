@@ -118,7 +118,7 @@ class Kabel():
         dist_y = g_mittelpunkt[1] - extLeft[1]
         dist_x = g_mittelpunkt[0] - extLeft[0]
 
-        min_xy = (int(mittelpunkt[0] - dx), int(mittelpunk[1] - dy))
+        min_xy = (int(mittelpunkt[0] - dist_x), int(mittelpunk[1] - dist_y))
 
         dist_y_mm = dist_y * umrechnung_pixel_mm
         dist_x_mm = dist_x * umrechnung_pixel_mm
