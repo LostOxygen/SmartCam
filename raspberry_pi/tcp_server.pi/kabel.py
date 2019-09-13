@@ -153,7 +153,7 @@ class Kabel():
             print("Speichert kabel2.jpg in /home/pi/RoboSchalt/raspberry_pi/bilder/")
             cv2.imwrite("../bilder/kabel2.jpg", img)
 
-        offset = (dist_x_mm, dist_y_mm)
+        offset = (round(dist_x_mm, 2), round(dist_y_mm, 2))
 
         cv2.imwrite("../bilder/kabel2.jpg", gray)
         return offset
