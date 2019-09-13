@@ -19,7 +19,7 @@ import io
 from datetime import datetime
 
 class Kabel():
-    def rotate(img, mittelpunkt):
+    def rotate(img, mittelpunkt, width, height):
         rotation_mat = cv2.getRotationMatrix2D(mittelpunkt, 180, 1.)
 
         # rotation calculates the cos and sin, taking absolutes of those.
@@ -80,7 +80,7 @@ class Kabel():
         height, width = img.shape[:2] # image shape has 3 dimensions
         mittelpunkt = (int(width/2), int(height/2)) # getRotationMatrix2D needs coordinates in reverse order (width, height) compared to shape
 
-        img = Kabel.rotate(img, mittelpunkt)  #rotiert das Bild ggf.
+        img = Kabel.rotate(img, mittelpunkt, width, height)  #rotiert das Bild ggf.
         height, width = img.shape[:2]
 
         #mittelpunkt = (int(width/2), int(height/2))
