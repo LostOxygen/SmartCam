@@ -1,5 +1,5 @@
 [Unit]
-Description=My Sample Service
+Description=RoboSchalt TCP Server
 After=multi-user.target
 
 [Service]
