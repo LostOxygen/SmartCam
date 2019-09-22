@@ -84,6 +84,16 @@ def kabel1():
 def kabel2():
     return send_from_directory(directory="../bilder", filename="kabel2.jpg")
 
+@app.route('/api/kabelgrau1/')
+@app.route('/api/kabelgrau1')
+def kabelgrau1():
+    return send_from_directory(directory="../bilder", filename="kabelgrau1.jpg")
+
+@app.route('/api/kabelgrau2/')
+@app.route('/api/kabelgrau2')
+def kabelgrau2():
+    return send_from_directory(directory="../bilder", filename="kabelgrau2.jpg")
+
 @app.route('/api/kreis/')
 @app.route('/api/kreis')
 def kreis():
