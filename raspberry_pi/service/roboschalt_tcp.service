@@ -1,0 +1,10 @@
+[Unit]
+Description=RoboSchalt TCP Server
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/usr/bin/python3 /home/pi/RoboSchalt/raspberry_pi/tcp_server.pi/server.py > /home/pi/RoboSchalt/raspberry_pi/service/tcp.log 2>&1
+
+[Install]
+WantedBy=multi-user.target

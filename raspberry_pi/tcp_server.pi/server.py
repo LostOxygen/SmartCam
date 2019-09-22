@@ -215,6 +215,12 @@ def main():
                         ausgabe = "ACK"
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
+                    if data[0] == 'G' and data[1] == 'A' and data[2] == 'X':
+                        value = float(data[3])
+                        g1.move_abs(value)
+                        ausgabe = "ACK"
+                        ausgabe = ausgabe.encode()
+                        conn.sendall(ausgabe)
                     if data[0] == 'G' and data[1] == 'B' and data[2] == '0':
                         g2.close()
                         ausgabe = "ACK"
@@ -222,6 +228,44 @@ def main():
                         conn.sendall(ausgabe)
                     if data[0] == 'G' and data[1] == 'B' and data[2] == '1':
                         g2.open()
+                        ausgabe = "ACK"
+                        ausgabe = ausgabe.encode()
+                        conn.sendall(ausgabe)
+                    if data[0] == 'G' and data[1] == 'B' and data[2] == 'X':
+                        value = float(data[3])
+                        g2.move_abs(value)
+                        ausgabe = "ACK"
+                        ausgabe = ausgabe.encode()
+                        conn.sendall(ausgabe)
+
+                    if data[0] == "R" and data[1] == "U":
+                        if data[len(data)-1] != '\0':
+                            data += '\0'
+                        param = data[2:len(data)-1]
+                        speed_txt = ""
+                        if "S" in param:
+                            parts = param.split("S")
+                            speed = float(parts[1])
+                            if speed < 0.0:
+                                speed = 0.0
+                                print('WARN: limiting speed to 0')
+                            if speed > 1000.0:
+                                speed = 1000.0
+                                print('WARN: limiting speed to 1000')
+                            speed_txt = " " + str(speed)
+                            param = parts[0]
+                            print(parts)
+                            print(param)
+                        value = float(param)
+                        if value < -1440:
+                            value = -1440
+                            print('WARN: limiting rotation to -1000°')
+                        if value > 1440:
+                            value = 1440
+                            print('WARN: limiting rotation to 1000°')
+                        cmd = './schunk_prh.py pos ' + str(value) +  speed_txt
+                        print('>> rotation = ', value, speed_txt)
+                        os.system(cmd)
                         ausgabe = "ACK"
                         ausgabe = ausgabe.encode()
                         conn.sendall(ausgabe)
