@@ -63,6 +63,11 @@ def send_move_to(dev, id, pos):
 	#data.extend(list(struct.pack('<f', speed))
 	write_command(dev, id, 0xb0, data)
 
+def send_move_to_s(dev, id, pos, speed):
+    data = list(struct.pack('<f', pos))
+    data.extend(list(struct.pack('<f', speed)))
+    write_command(dev, id, 0xb0, data)
+
 def send_get_detailed_error(dev, id):
 	write_command(dev, id, 0x96, [])
 
@@ -138,7 +143,11 @@ elif command == "pos":
 		print("position missing")
 	else:
 		pos = float(sys.argv[2])
-		send_move_to(dev, 11, pos)
+		if len(sys.argv) == 3:
+			send_move_to(dev, 11, pos)
+		else:
+			speed = float(sys.argv[3])
+			send_move_to_s(dev, 11, pos, speed)
 
 elif command == "ref":
 	send_reference(dev, 11)
