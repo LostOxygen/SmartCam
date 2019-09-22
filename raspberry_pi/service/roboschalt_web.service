@@ -1,0 +1,10 @@
+[Unit]
+Description=RoboSchalt WebService
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/usr/bin/python3 /home/pi/RoboSchalt/raspberry_pi/webservice.pi/webservice.py > /home/pi/RoboSchalt/raspberry_pi/service/web.log 2>&1
+
+[Install]
+WantedBy=multi-user.target
