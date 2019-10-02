@@ -116,12 +116,13 @@ class Kabel():
             return -1
 
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        gray = gray[int(oben_links[1]) : int(unten_rechts[1]), int(oben_links[0]) : int(unten_rechts[0])]
+        gray = gray[int(oben_links[1]) : int(unten_rechts[1]), int(oben_links[0]) : int(unten_rechts[0])] #schneidet graubild auf relevanten Bereich zu
         blur = cv2.GaussianBlur(gray, (7,7), 1)
         blur = cv2.bilateralFilter(blur, 11, 17, 17)
         blur = cv2.Canny(blur, 30, 120)
 
         contours = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) #Konturen suchen
+        corners = cv2.goodFeaturesToTrack(gray, maxCorners, qualityLevel, minDistance)
         cv2.drawContours(gray, contours[0], -1, (0,255,0), 3)
 
         contours = imutils.grab_contours(contours)
@@ -130,12 +131,20 @@ class Kabel():
 
         g_height, g_width = gray.shape[:2]
         g_mittelpunkt = (g_width, int(g_height/2))
-
         Kabel.visualization_gray(gray, extLeft, g_height, g_mittelpunkt)
 
-        dist_y = g_mittelpunkt[1] - extLeft[1]
-        dist_x = g_mittelpunkt[0] - extLeft[0]
-        min_xy = (int(mittelpunkt[0] - dist_x), int(mittelpunkt[1] - dist_y))
+        min_xy = extLeft #temp Var zum finden von punkt ganz oben_links
+        if corners is not None:
+            for i in corners:
+                x,y = i.ravel()
+                if x <= 1100: #zeichnet nur Relevante Punkte
+                    cv2.circle(img, (x,y), 2, (0,0,255), 2)
+                if x < min_xy[0]: #guckt nach kleinstem x wert
+                    min_xy = (x,y)
+
+        dist_y = g_mittelpunkt[1] - min_xy[1]
+        dist_x = g_mittelpunkt[0] - min_xy[0]
+        min_xy = (int(mittelpunkt[0] - dist_x), int(mittelpunkt[1] - dist_y)) #rechnet min_xy auf das gesamte Bild um
         dist_y_mm = (dist_y * Kabel.umrechnung_pixel_mm)/2
         dist_x_mm = (dist_x * Kabel.umrechnung_pixel_mm)/2
 
