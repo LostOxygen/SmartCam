@@ -129,8 +129,13 @@ class Kabel():
         cv2.drawContours(gray, contours[0], -1, (0,255,0), 3)
 
         contours = imutils.grab_contours(contours)
-        cnts = max(contours, key=cv2.contourArea)
-        extLeft = tuple(cnts[cnts[:, :, 0].argmin()][0])
+        try:
+            cnts = max(contours, key=cv2.contourArea)
+            extLeft = tuple(cnts[cnts[:, :, 0].argmin()][0])
+        except Exception as e:
+            print(e)
+            print("Es konnnten keine Konturen gefunden werden!")
+            extLeft = (0,0)
 
         g_height, g_width = gray.shape[:2]
         g_mittelpunkt = (g_width, int(g_height/2))
