@@ -147,7 +147,7 @@ class Kabel():
                 x,y = i.ravel()
                 if x <= 1100: #zeichnet nur Relevante Punkte
                     cv2.circle(gray, (x,y), 2, (255, 255, 255), 2)
-                    cv2.circle(img, (int(mittelpunkt[0] - int(g_mittelpunkt[0] - x)), int(mittelpunkt[0] - int(g_mittelpunkt[1] - y))), 2, (255, 255, 255), 2) #rechnet auf ganzes Bild um und zeichnet Punkte ein
+                    cv2.circle(img, (int(mittelpunkt[0] - int(g_mittelpunkt[0] - x)), int(mittelpunkt[1] - int(g_mittelpunkt[1] - y))), 2, (255, 255, 255), 2) #rechnet auf ganzes Bild um und zeichnet Punkte ein
                 if x < min_xy[0]: #guckt nach kleinstem x wert
                     min_xy = (x,y)
 
