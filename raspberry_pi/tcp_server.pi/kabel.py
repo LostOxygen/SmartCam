@@ -28,7 +28,7 @@ class Kabel():
     qualityLevel = 0.03 #je höher desto genauer
     minDistance = 10 #mindeste Distanz zwischen Punkten
 
-    def visualization_rgb(img, min_xy, height, mittelpunkt):
+    def visualization_rgb(img, min_xy, height, mittelpunkt, dist_x_mm, dist_y_mm):
     #visualization of the rgb picture
         cv2.circle(img, min_xy, 4, (255, 255, 255), 4) #zeichnet punkt ganz links
         cv2.line(img, min_xy, (min_xy[0], int(height/2)), (255,255,255), 2) #zeichnet linie von punkt nach oben
@@ -156,7 +156,7 @@ class Kabel():
         dist_y_mm = (dist_y * Kabel.umrechnung_pixel_mm)/2
         dist_x_mm = (dist_x * Kabel.umrechnung_pixel_mm)/2
 
-        Kabel.visualization_rgb(img, min_xy, height, mittelpunkt)
+        Kabel.visualization_rgb(img, min_xy, height, mittelpunkt, dist_x_mm, dist_y_mm)
 
         Kabel.saveImg(bild_num, img, gray)
         offset = (round(dist_x_mm, 2), round(dist_y_mm, 2))
