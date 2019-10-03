@@ -48,7 +48,7 @@ class Kabel():
         print("Distanz_Y: " + str(dist_y))
         print("umgerechnet: " + str(round(dist_y_mm, 2)) + "mm")
 
-    def visualization_gray(gray, extLeft, g_heihgt, g_mittelpunkt):
+    def visualization_gray(gray, extLeft, g_height, g_mittelpunkt):
         cv2.circle(gray, extLeft, 4, (255, 255, 255), 4) #zeichnet punkt ganz links
         cv2.line(gray, extLeft, (extLeft[0], int(g_height/2)), (255,255,255), 2) #zeichnet linie von punkt nach oben
         #zeichnet Mittelpunkt und Linie nach links
