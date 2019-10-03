@@ -24,6 +24,9 @@ class Kabel():
     detection_size = (500, 500)
     config_test = True
     umrechnung_pixel_mm = 1 #to avoid errors the value is preset to 1
+    maxCorners = 300 #Anzahl zu erkennenden Kanten
+    qualityLevel = 0.03 #je höher desto genauer
+    minDistance = 10 #mindeste Distanz zwischen Punkten
 
     def visualization_rgb(img, min_xy, height, mittelpunkt):
     #visualization of the rgb picture
@@ -122,7 +125,7 @@ class Kabel():
         blur = cv2.Canny(blur, 30, 120)
 
         contours = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) #Konturen suchen
-        corners = cv2.goodFeaturesToTrack(gray, maxCorners, qualityLevel, minDistance)
+        corners = cv2.goodFeaturesToTrack(gray, Kabel.maxCorners, Kabel.qualityLevel, Kabel.minDistance)
         cv2.drawContours(gray, contours[0], -1, (0,255,0), 3)
 
         contours = imutils.grab_contours(contours)
