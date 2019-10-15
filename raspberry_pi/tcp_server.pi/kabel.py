@@ -125,7 +125,7 @@ class Kabel():
         blur = cv2.Canny(blur, 30, 120)
 
         contours = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) #Konturen suchen
-        corners = cv2.goodFeaturesToTrack(gray, Kabel.maxCorners, Kabel.qualityLevel, Kabel.minDistance)
+        #corners = cv2.goodFeaturesToTrack(gray, Kabel.maxCorners, Kabel.qualityLevel, Kabel.minDistance)
         cv2.drawContours(gray, contours[0], -1, (0,255,0), 3)
 
         contours = imutils.grab_contours(contours)
@@ -142,14 +142,14 @@ class Kabel():
         Kabel.visualization_gray(gray, extLeft, g_height, g_mittelpunkt)
 
         min_xy = extLeft #temp Var zum finden von punkt ganz oben_links
-        if corners is not None:
-            for i in corners:
-                x,y = i.ravel()
-                if x <= 1100: #zeichnet nur Relevante Punkte
-                    cv2.circle(gray, (x,y), 2, (255, 255, 255), 2)
-                    cv2.circle(img, (int(mittelpunkt[0] - int(g_mittelpunkt[0] - x)), int(mittelpunkt[1] - int(g_mittelpunkt[1] - y))), 2, (255, 255, 255), 2) #rechnet auf ganzes Bild um und zeichnet Punkte ein
-                if x < min_xy[0]: #guckt nach kleinstem x wert
-                    min_xy = (x,y)
+        #if corners is not None:
+        #    for i in corners:
+        #        x,y = i.ravel()
+        #        if x <= 1100: #zeichnet nur Relevante Punkte
+        #            cv2.circle(gray, (x,y), 2, (255, 255, 255), 2)
+        #            cv2.circle(img, (int(mittelpunkt[0] - int(g_mittelpunkt[0] - x)), int(mittelpunkt[1] - int(g_mittelpunkt[1] - y))), 2, (255, 255, 255), 2) #rechnet auf ganzes Bild um und zeichnet Punkte ein
+        #        if x < min_xy[0]: #guckt nach kleinstem x wert
+        #            min_xy = (x,y)
 
         dist_y = g_mittelpunkt[1] - min_xy[1]
         dist_x = g_mittelpunkt[0] - min_xy[0]
