@@ -2,8 +2,8 @@ import logging
 
 from .exceptions import WrongNumberOfParametersException, InvalidParametersException
 from ..part_detection import detection
-from ..cable_detection
-from ..circle_detection
+from ..cable_detection import cable
+from ..circle_detection import circle
 import .calibration
 
 '''
@@ -37,7 +37,8 @@ class getCircleOffset(AbstractCommand):
 		super().__init__(0)
 
 	def _act(self, params):
-		pass
+		logging.debug("Executing \"circle_detection\" ")
+		return circle.circleDetection.detectCircles()
 
 
 class exitServer(AbstractCommand):
@@ -61,7 +62,8 @@ class getCableOffset(AbstractCommand):
 		super().__init__(0)
 
 	def _act(self, params):
-		pass
+		logging.debug("Executing \"cable_detection\" ")
+		return cable_detection.cable.detectCable()
 
 
 class calibrate(AbstractCommand):
@@ -69,4 +71,5 @@ class calibrate(AbstractCommand):
 		super().__init__(0)
 
 	def _act(self, params):
+		logging.debug("Executing \"calibration\" ")
 		calibration.calibrate()

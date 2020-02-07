@@ -10,7 +10,7 @@ import numpy as np
 import argparse
 import math
 import imutils
-import configparser
+from ..configloader import configReader
 from pathlib import Path
 from picamera.array import PiRGBArray
 from picamera import PiCamera
@@ -20,6 +20,10 @@ import io
 from datetime import datetime
 
 class cableDetection():
+    def __init__(cls):
+        pass
+
+
     #Variablen
     fenster_name = "Cable Detection"
     detection_size = (500, 500)
@@ -29,7 +33,8 @@ class cableDetection():
     qualityLevel = 0.03 #je höher desto genauer
     minDistance = 10 #mindeste Distanz zwischen Punkten
 
-    def visualization_rgb(img, min_xy, height, mittelpunkt, dist_x_mm, dist_y_mm, dist_x, dist_y):
+    @classmethod
+    def visualization_rgb(cls, img, min_xy, height, mittelpunkt, dist_x_mm, dist_y_mm, dist_x, dist_y):
     #visualization of the rgb picture
         cv2.circle(img, min_xy, 4, (255, 255, 255), 4) #zeichnet punkt ganz links
         cv2.line(img, min_xy, (min_xy[0], int(height/2)), (255,255,255), 2) #zeichnet linie von punkt nach oben
@@ -46,10 +51,11 @@ class cableDetection():
         timestamp = "" + str(imgDate) + "." + str(imgMonth) + "." + str(imgYear) + " " + str(imgHour) + ":" + str(imgMins)
         cv2.putText(img, timestamp + " | " + str(round(dist_x_mm, 2)) + " mm | " + str(round(dist_y_mm, 2)) + " mm ", (20,1060), cv2.FONT_HERSHEY_PLAIN, 2, (0,0,0), 2, cv2.LINE_AA, 0)
 
-        logging.info("Distanz_Y: " + str(dist_y))
-        logging.info("umgerechnet: " + str(round(dist_y_mm, 2)) + "mm")
+        logging.info("distance_Y: " + str(dist_y))
+        logging.info("converted: " + str(round(dist_y_mm, 2)) + "mm")
 
-    def visualization_gray(gray, extLeft, g_height, g_mittelpunkt):
+    @classmethod
+    def visualization_gray(cls, gray, extLeft, g_height, g_mittelpunkt):
         cv2.circle(gray, extLeft, 4, (255, 255, 255), 4) #zeichnet punkt ganz links
         cv2.line(gray, extLeft, (extLeft[0], int(g_height/2)), (255,255,255), 2) #zeichnet linie von punkt nach oben
         #zeichnet Mittelpunkt und Linie nach links
@@ -57,7 +63,8 @@ class cableDetection():
         cv2.line(gray, g_mittelpunkt, (extLeft[0], int(g_height/2)), (255,255,255), 2)
         cv2.line(gray, g_mittelpunkt, extLeft, (255,255,255), 2)
 
-    def saveImg(bild_num, img, gray):
+    @classmethod
+    def saveImg(cls, bild_num, img, gray):
         if str(bild_num) == "1":
             logging.info("saved cable1.jpg and cablegray1.jpg in ../images/")
             cv2.imwrite("../images/cablegray1.jpg", gray)
@@ -67,21 +74,12 @@ class cableDetection():
             cv2.imwrite("../images/cablegray2.jpg", gray)
             cv2.imwrite("../images/cable2.jpg", img) #speichert ein Bild
 
-    def config():
-        # ----------- reads config and checks values --------------------------
-        config = configparser.ConfigParser()
-        test = Path('../config.ini')
-        if test.is_file():
-            logging.info('Found config file!')
-            config.read('../config.ini')
+    @classmethod
+    def config(cls):
+        cls.umrechnung_pixel_mm = float(configReader.returnEntry('conversion', 'mm_per_pixel1')) #fragt Wert aus Config File ab
 
-        else:
-            logging.error('Could not find any config file. Maybe you need to create a new config file with the calibration command or manual..')
-            Kabel.config_test = False
-
-        Kabel.umrechnung_pixel_mm = float(config['conversion']['mm_per_pixel1']) #fragt Wert aus Config File ab
-
-    def rotate(img, mittelpunkt, width, height):
+    @classmethod
+    def rotate(cls, img, mittelpunkt, width, height):
         rotation_mat = cv2.getRotationMatrix2D(mittelpunkt, 180, 1.)
 
         # rotation calculates the cos and sin, taking absolutes of those.
@@ -100,8 +98,13 @@ class cableDetection():
         img = cv2.warpAffine(img, rotation_mat, (bound_w, bound_h))
         return img
 
-    def kabel(camera, bild_num):
+    @classmethod
+    def cls(cls, bild_num):
         #main part which checks for wires and their angle
+        camera = PiCamera()
+        camera.resolution = (1920, 1080)
+        camera.hflip = True
+        camera.vflip = True
         rawCapture = PiRGBArray(camera)
         time.sleep(0.1)
         camera.capture(rawCapture, format="bgr")
@@ -109,11 +112,11 @@ class cableDetection():
 
         height, width = img.shape[:2] # image shape has 3 dimensions
         mittelpunkt = (int(width/2), int(height/2)) # getRotationMatrix2D needs coordinates in reverse order (width, height) compared to shape
-        img = Kabel.rotate(img, mittelpunkt, width, height)  #rotiert das Bild ggf.
+        img = cls.rotate(img, mittelpunkt, width, height)  #rotiert das Bild ggf.
         height, width = img.shape[:2]
 
-        oben_links = (int(mittelpunkt[0]- Kabel.detection_size[0]), int(mittelpunkt[1]- Kabel.detection_size[1]/2))
-        unten_rechts = (int(mittelpunkt[0]), int(mittelpunkt[1]+ Kabel.detection_size[1]/2))
+        oben_links = (int(mittelpunkt[0]- cls.detection_size[0]), int(mittelpunkt[1]- cls.detection_size[1]/2))
+        unten_rechts = (int(mittelpunkt[0]), int(mittelpunkt[1]+ cls.detection_size[1]/2))
 
         if img is None: #to prevent errors with empty images
             logging.error("Could not load frame properly..")
@@ -126,7 +129,7 @@ class cableDetection():
         blur = cv2.Canny(blur, 30, 120)
 
         contours = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) #Konturen suchen
-        #corners = cv2.goodFeaturesToTrack(gray, Kabel.maxCorners, Kabel.qualityLevel, Kabel.minDistance)
+        #corners = cv2.goodFeaturesToTrack(gray, cls.maxCorners, cls.qualityLevel, cls.minDistance)
         cv2.drawContours(gray, contours[0], -1, (0,255,0), 3)
 
         contours = imutils.grab_contours(contours)
@@ -140,7 +143,7 @@ class cableDetection():
 
         g_height, g_width = gray.shape[:2]
         g_mittelpunkt = (g_width, int(g_height/2))
-        Kabel.visualization_gray(gray, extLeft, g_height, g_mittelpunkt)
+        cls.visualization_gray(gray, extLeft, g_height, g_mittelpunkt)
 
         min_xy = extLeft #temp Var zum finden von punkt ganz oben_links
         #if corners is not None:
@@ -155,12 +158,14 @@ class cableDetection():
         dist_y = g_mittelpunkt[1] - min_xy[1]
         dist_x = g_mittelpunkt[0] - min_xy[0]
         min_xy = (int(mittelpunkt[0] - dist_x), int(mittelpunkt[1] - dist_y)) #rechnet min_xy auf das gesamte Bild um
-        dist_y_mm = (dist_y * Kabel.umrechnung_pixel_mm)/2
-        dist_x_mm = (dist_x * Kabel.umrechnung_pixel_mm)/2
+        dist_y_mm = (dist_y * cls.umrechnung_pixel_mm)/2
+        dist_x_mm = (dist_x * cls.umrechnung_pixel_mm)/2
 
-        Kabel.visualization_rgb(img, min_xy, height, mittelpunkt, dist_x_mm, dist_y_mm, dist_x, dist_y)
+        cls.visualization_rgb(img, min_xy, height, mittelpunkt, dist_x_mm, dist_y_mm, dist_x, dist_y)
 
-        Kabel.saveImg(bild_num, img, gray)
+        cls.saveImg(bild_num, img, gray)
         offset = (round(dist_x_mm, 2), round(dist_y_mm, 2))
 
+
+        del camera
         return offset
