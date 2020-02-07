@@ -36,6 +36,7 @@ def main():
 		logging.error("couldnt load ip from config file" + str(e))
 
 	server = Server(bind_ip, port)
+	logging.info("ip: " + str(bind_ip) + " port: " + str(port))
 
 	while not (server.isConnected() or stop):
 		server.accept()
