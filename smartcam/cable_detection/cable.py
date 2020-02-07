@@ -10,7 +10,7 @@ import numpy as np
 import argparse
 import math
 import imutils
-from ..configloader import configReader
+from ..configLoader import configReader
 from pathlib import Path
 from picamera.array import PiRGBArray
 from picamera import PiCamera
