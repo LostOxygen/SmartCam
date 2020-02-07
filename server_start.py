@@ -21,6 +21,9 @@ def main():
 	commandManager.addCommand("EXT", exitServer())
 	commandManager.addCommand("SFX", setLight())
 	commandManager.addCommand("CLB", calibrate())
+	commandManager.addCommand("MGR", moveGripper())
+	commandManager.addCommand("OGR", openGripper())
+	commandManager.addCommand("CGR", closeGripper())
 
 	server = Server(bind_ip=args.bind_address, port=args.port)
 
