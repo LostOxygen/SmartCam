@@ -48,7 +48,11 @@ class circleDetection():
         fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
 
         # ----------- Config einlesen und überprüfen --------------------------
-        umrechnung_pixel_mm = float(configReader.returnEntry('conversion', 'mm_per_pixel1')) #fragt Wert aus Config File ab
+        try:
+            umrechnung_pixel_mm = float(configReader.returnEntry('conversion', 'mm_per_pixel1')) #fragt Wert aus Config File ab
+        except Exception as e:
+            logging.error("could not load config entry " + str(e))
+            umrechnung_pixel_mm = 1
 
         if umrechnung_pixel_mm == 0:
             umrechnung_pixel_mm = 1

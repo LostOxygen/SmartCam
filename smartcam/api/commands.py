@@ -58,6 +58,13 @@ class setLight(AbstractCommand):
 		pass
 
 
+class makePicture(AbstractCommand):
+	def __init__(self):
+		super().__init__(0)
+
+	def _act(self, params):
+		pass
+
 class getCableOffset(AbstractCommand):
 	def __init__(self):
 		super().__init__(0)
