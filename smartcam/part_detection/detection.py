@@ -140,7 +140,7 @@ class partDetection():
         offset = (mittelpunkt[0] - gripPoint[0] , mittelpunkt[1] - gripPoint[1])
         offset = (round((offset[0]*mmPerPixel),2), round((offset[1]*mmPerPixel),2))
 
-        logging.info("Offset:", offset)
+        logging.info("Offset:" + str(offset))
         return offset
 
 
