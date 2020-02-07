@@ -1,0 +1,72 @@
+import logging
+
+from .exceptions import WrongNumberOfParametersException, InvalidParametersException
+from ..part_detection import detection
+from ..cable_detection
+from ..circle_detection
+import .calibration
+
+'''
+new Commands should match the following structure:
+
+class <NewCommandName> (AbstractCommand):
+
+	def __init__(self):
+		super().__init__( <NumberOfParameters> )
+
+	def _act(self, params):
+		#implement the command call here
+'''
+
+class AbstractCommand:
+	def __init__(self, numParams):
+		self.numParams = numParams
+
+	def execute(self, params):
+		if len(params) != self.numParams:
+			raise WrongNumberOfParametersException(len(params), self.numParams)
+
+		return self._act(params)
+
+	def _act(self, params):
+		pass
+
+
+class getCircleOffset(AbstractCommand):
+	def __init__(self):
+		super().__init__(0)
+
+	def _act(self, params):
+		pass
+
+
+class exitServer(AbstractCommand):
+	def __init__(self):
+		super().__init__(0)
+
+	def _act(self, params):
+		pass
+
+
+class setLight(AbstractCommand):
+	def __init__(self):
+		super().__init__(3)
+
+	def _act(self, params):
+		pass
+
+
+class getCableOffset(AbstractCommand):
+	def __init__(self):
+		super().__init__(0)
+
+	def _act(self, params):
+		pass
+
+
+class calibrate(AbstractCommand):
+	def __init__(self):
+		super().__init__(0)
+
+	def _act(self, params):
+		calibration.calibrate()
