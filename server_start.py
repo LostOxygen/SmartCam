@@ -11,7 +11,7 @@ def main():
 	from smartcam.configLoader import configReader
 	from smartcam.exceptions.exceptions import UnknownCommandException, WrongNumberOfParametersException, InvalidParametersException
 	from smartcam.api.commandManager import CommandManager
-	from smartcam.api.commands import exitServer, getCableOffset, getCircleOffset, setLight, calibrate, grabPoint
+	from smartcam.api.commands import exitServer, getCableOffset, getCircleOffset, setLight, calibrate, grabPoint, moveGripper, closeGripper, openGripper
 	from smartcam.api.server import Server
 
 	# Create CommandManager and register all handlers
