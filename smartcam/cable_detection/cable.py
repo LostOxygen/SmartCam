@@ -99,7 +99,7 @@ class cableDetection():
         return img
 
     @classmethod
-    def cls(cls, bild_num):
+    def detectCable(cls, bild_num=1):
         #main part which checks for wires and their angle
         camera = PiCamera()
         camera.resolution = (1920, 1080)
