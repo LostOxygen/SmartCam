@@ -8,7 +8,7 @@ import argparse
 stop = False
 
 def main():
-	from exceptions import UnknownCommandException, WrongNumberOfParametersException, InvalidParametersException
+	from smartcam.exceptions import UnknownCommandException, WrongNumberOfParametersException, InvalidParametersException
 	from smartcam.api.commandManager import CommandManager
 	from smartcam.api.commands import exitServer, getCableOffset, getCircleOffset, setLight, calibrate
 	from smartcam.api.server import Server
