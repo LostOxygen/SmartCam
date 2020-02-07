@@ -1,10 +1,11 @@
 import logging
+import importlib
 
-from exceptions import WrongNumberOfParametersException, InvalidParametersException
+from importlib.import_module("exceptions") import WrongNumberOfParametersException, InvalidParametersException
 from ..part_detection import detection
 from ..cable_detection import cable
 from ..circle_detection import circle
-import calibration
+import calibration.py
 
 '''
 new Commands should match the following structure:
