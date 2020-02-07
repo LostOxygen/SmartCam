@@ -64,7 +64,7 @@ class getCableOffset(AbstractCommand):
 
 	def _act(self, params):
 		logging.debug("Executing \"cable_detection\" ")
-		return cable_detection.cable.detectCable()
+		return cable.cableDetection.detectCable()
 
 
 class calibrate(AbstractCommand):
