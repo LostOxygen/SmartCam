@@ -5,7 +5,7 @@ from ..exceptions.exceptions import WrongNumberOfParametersException, InvalidPar
 from ..part_detection import detection
 from ..cable_detection import cable
 from ..circle_detection import circle
-from calibration import Calibration
+from .calibration import Calibration
 
 '''
 new Commands should match the following structure:
@@ -74,3 +74,12 @@ class calibrate(AbstractCommand):
 	def _act(self, params):
 		logging.debug("Executing \"calibration\" ")
 		calibration.calibrate()
+
+
+class grabPoint(AbstractCommand):
+	def __init__(self):
+		super().__init__(0)
+
+	def _act(self, params):
+		logging.debug("Executing \"part_detection\" ")
+		return detection.partDetection.detectParts()

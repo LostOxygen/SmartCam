@@ -10,13 +10,13 @@ stop = False
 def main():
 	from smartcam.exceptions.exceptions import UnknownCommandException, WrongNumberOfParametersException, InvalidParametersException
 	from smartcam.api.commandManager import CommandManager
-	from smartcam.api.commands import exitServer, getCableOffset, getCircleOffset, setLight, calibrate
+	from smartcam.api.commands import exitServer, getCableOffset, getCircleOffset, setLight, calibrate, grabPoint
 	from smartcam.api.server import Server
 
 	# Create CommandManager and register all handlers
 	commandManager = CommandManager(3)
 	commandManager.addCommand("GOO", getCircleOffset())
-	commandManager.addCommand("GRP", GrabPoint())
+	commandManager.addCommand("GRP", grabPoint())
 	commandManager.addCommand("GCO", getCableOffset())
 	commandManager.addCommand("EXT", exitServer())
 	commandManager.addCommand("SFX", setLight())
