@@ -70,7 +70,7 @@ class circleDetection():
 
         # ----------------------------------- Main Code -----------------------
         camera = PiCamera()
-        camera.resolution = (1920, 1080)
+        camera.resolution = (1920, 1088)
         camera.hflip = True
         camera.vflip = True
 
