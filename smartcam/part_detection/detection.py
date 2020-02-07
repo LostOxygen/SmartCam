@@ -50,7 +50,7 @@ class partDetection():
 # ------------------ saves the output image for debugging --------------------------------
     @classmethod
     def saveImg(cls, img):
-        filename = "testimage.jpg"
+        filename = "partDetection.jpg"
         cv2.imwrite("../images/" + filename, img)
 
 
@@ -233,7 +233,7 @@ class partDetection():
         from picamera import PiCamera
         from picamera.array import PiRGBArray
         camera = PiCamera()
-        camera.resolution = (1920, 1080)
+        camera.resolution = (1920, 1088)
         camera.hflip = True
         camera.vflip = True
 
@@ -273,12 +273,6 @@ class partDetection():
 
         cls.visuals(img, contours, box, innerBox, gripPoint, gripArea)
         cls.saveImg(img)
-
-        cv2.namedWindow(cls.windowName, 1)
-        cv2.imshow(cls.windowName, img)
-
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
 
         return offset, rotation
 
