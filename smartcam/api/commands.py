@@ -111,3 +111,5 @@ class moveGripper(AbstractCommand):
 	def _act(self, params):
 		gripper = iolink.Gripper(params[0])
 		gripper.move_abs(params[1])
+
+#
