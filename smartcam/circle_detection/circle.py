@@ -78,6 +78,9 @@ class circleDetection():
         time.sleep(0.1)
         camera.capture(rawCapture, format="bgr")
         frame = rawCapture.array
+        del camera
+        del rawCapture
+
 
         # in Graubild umwandeln
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -154,9 +157,7 @@ class circleDetection():
             if image_frame is not None:
                 cv2.imwrite("../images/" + fileName, image_frame) #speichert es als fileName ab
                 logging.info("saving image: " + fileName + " in: ../images/")
-                del camera
                 return True
         else:
             cv2.imwrite("../images/circle.jpg", frame) #speichert ein Bild
-            del camera
             return offset

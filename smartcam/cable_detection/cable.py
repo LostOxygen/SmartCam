@@ -168,6 +168,4 @@ class cableDetection():
         cls.saveImg(bild_num, img, gray)
         offset = (round(dist_x_mm, 2), round(dist_y_mm, 2))
 
-
-        del camera
         return offset
