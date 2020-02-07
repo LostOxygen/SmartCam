@@ -74,3 +74,12 @@ class calibrate(AbstractCommand):
 	def _act(self, params):
 		logging.debug("Executing \"calibration\" ")
 		calibration.calibrate()
+
+
+class grabPoint(AbstractCommand):
+	def __init__(self):
+		super().__init__(0)
+
+	def _act(self, params):
+		logging.debug("Executing \"part_detection\" ")
+		return detection.partDetection.detectParts()
