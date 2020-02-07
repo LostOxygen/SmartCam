@@ -47,7 +47,7 @@ class exitServer(AbstractCommand):
 		super().__init__(0)
 
 	def _act(self, params):
-		pass
+		return "EX"
 
 
 class setLight(AbstractCommand):

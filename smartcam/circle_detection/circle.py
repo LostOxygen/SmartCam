@@ -23,7 +23,7 @@ class circleDetection():
         pass
 
     @classmethod
-    def detectCircles(cls, picture): #Picture ist bool und ist für das erstellen eines Bildes oder nicht
+    def detectCircles(cls, picture=False): #Picture ist bool und ist für das erstellen eines Bildes oder nicht
 
         #Variablen
         image_frame = None
