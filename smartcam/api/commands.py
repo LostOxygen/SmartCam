@@ -55,7 +55,7 @@ class setLight(AbstractCommand):
 	def _act(self, params):
 		color = str(params[:6])
 		cmd = '../schunk_module/led.py ' + color
-        os.system(cmd)
+		os.system(cmd)
 
 class makePicture(AbstractCommand):
 	def __init__(self):
@@ -111,5 +111,3 @@ class moveGripper(AbstractCommand):
 	def _act(self, params):
 		gripper = iolink.Gripper(params[0])
 		gripper.move_abs(params[1])
-
-#
