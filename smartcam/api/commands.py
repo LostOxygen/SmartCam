@@ -1,7 +1,7 @@
 import logging
 import os
 
-from schunk_module import iolink
+from ..schunk_module import iolink
 from ..exceptions.exceptions import WrongNumberOfParametersException, InvalidParametersException
 from ..part_detection import detection
 from ..cable_detection import cable
