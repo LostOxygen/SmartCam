@@ -109,6 +109,8 @@ class cableDetection():
         time.sleep(0.1)
         camera.capture(rawCapture, format="bgr")
         img = rawCapture.array
+        del camera
+        del rawCapture
 
         height, width = img.shape[:2] # image shape has 3 dimensions
         mittelpunkt = (int(width/2), int(height/2)) # getRotationMatrix2D needs coordinates in reverse order (width, height) compared to shape
