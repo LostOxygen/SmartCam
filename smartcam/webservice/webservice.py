@@ -49,25 +49,24 @@ def config():
 def api():
     return render_template('api.html')
 
-@app.route('/api/cable1/')
-@app.route('/api/cable1')
+@app.route('/api/cable/')
+@app.route('/api/cable')
 def cable1():
-    return send_from_directory(directory="../images", filename="cable1.jpg")
+    return send_from_directory(directory="../images", filename="cable.jpg")
 
-@app.route('/api/cablegray1/')
-@app.route('/api/cablegray1')
+@app.route('/api/cablegray/')
+@app.route('/api/cablegray')
 def cablegray1():
-    return send_from_directory(directory="../images", filename="cablegray1.jpg")
+    return send_from_directory(directory="../images", filename="cablegray.jpg")
 
 @app.route('/api/kreis/')
 @app.route('/api/kreis')
 def kreis():
-    return send_from_directory(directory="../images", filename="kreis.jpg")
+    return send_from_directory(directory="../images", filename="circle.jpg")
 
-@app.route('/api/quadrat1/')
-@app.route('/api/quadrat2')
+@app.route('/api/quadrat/')
 def quadrat1():
-    return send_from_directory(directory="../images", filename="quadrat1.jpg")
+    return send_from_directory(directory="../images", filename="quadrat.jpg")
 
 @app.route('/api/kreisbild/')
 @app.route('/api/kreisbild')
