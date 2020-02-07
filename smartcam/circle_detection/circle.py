@@ -78,6 +78,7 @@ class circleDetection():
         time.sleep(0.1)
         camera.capture(rawCapture, format="bgr")
         frame = rawCapture.array
+        camera.close()
         del camera
         del rawCapture
 

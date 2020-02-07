@@ -241,6 +241,9 @@ class partDetection():
         time.sleep(0.1)
         camera.capture(rawCapture, format="bgr")
         img = rawCapture.array
+        camera.close()
+        del camera
+        del rawCapture
 
         if img is None:
             raise NoImageDataFoundException(filename)
