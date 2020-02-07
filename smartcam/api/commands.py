@@ -1,6 +1,7 @@
 import logging
-import importlib
+import os
 
+from schunk_module import iolink
 from ..exceptions.exceptions import WrongNumberOfParametersException, InvalidParametersException
 from ..part_detection import detection
 from ..cable_detection import cable
@@ -32,7 +33,6 @@ class AbstractCommand:
 	def _act(self, params):
 		pass
 
-
 class getCircleOffset(AbstractCommand):
 	def __init__(self):
 		super().__init__(0)
@@ -41,7 +41,6 @@ class getCircleOffset(AbstractCommand):
 		logging.debug("Executing \"circle_detection\" ")
 		return circle.circleDetection.detectCircles()
 
-
 class exitServer(AbstractCommand):
 	def __init__(self):
 		super().__init__(0)
@@ -49,14 +48,14 @@ class exitServer(AbstractCommand):
 	def _act(self, params):
 		return "EX"
 
-
 class setLight(AbstractCommand):
 	def __init__(self):
-		super().__init__(3)
+		super().__init__(6)
 
 	def _act(self, params):
-		pass
-
+		color = str(params[:6])
+		cmd = '../schunk_module/led.py ' + color
+        os.system(cmd)
 
 class makePicture(AbstractCommand):
 	def __init__(self):
@@ -73,7 +72,6 @@ class getCableOffset(AbstractCommand):
 		logging.debug("Executing \"cable_detection\" ")
 		return cable.cableDetection.detectCable()
 
-
 class calibrate(AbstractCommand):
 	def __init__(self):
 		super().__init__(0)
@@ -82,7 +80,6 @@ class calibrate(AbstractCommand):
 		logging.debug("Executing \"calibration\" ")
 		calibration.calibrate()
 
-
 class grabPoint(AbstractCommand):
 	def __init__(self):
 		super().__init__(0)
@@ -90,3 +87,27 @@ class grabPoint(AbstractCommand):
 	def _act(self, params):
 		logging.debug("Executing \"part_detection\" ")
 		return detection.partDetection.detectParts()
+
+class openGripper(AbstractCommand):
+	def __init__(self):
+		super().__init__(1)
+
+	def _act(self, params):
+		gripper = iolink.Gripper(params[0])
+		gripper.open()
+
+class closeGripper(AbstractCommand):
+	def __init__(self):
+		super().__init__(1)
+
+	def _act(self, params):
+		gripper = iolink.Gripper(params[0])
+		gripper.close()
+
+class moveGripper(AbstractCommand):
+	def __init__(self):
+		super().__init__(2)
+
+	def _act(self, params):
+		gripper = iolink.Gripper(params[0])
+		gripper.move_abs(params[1])
