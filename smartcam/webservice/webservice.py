@@ -12,7 +12,7 @@ from PIL import Image
 import io
 import configparser
 from pathlib import Path
-from ..configLoader import configReader
+#from ..configLoader import configReader
 
 #-------------------- Variablen --------------------
 app = Flask(__name__)
