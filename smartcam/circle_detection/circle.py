@@ -49,7 +49,7 @@ class circleDetection():
 
         # ----------- Config einlesen und überprüfen --------------------------
         try:
-            umrechnung_pixel_mm = float(configReader.returnEntry('conversion', 'mm_per_pixel1')) #fragt Wert aus Config File ab
+            umrechnung_pixel_mm = float(configReader.returnEntry('conversion', 'mm_per_pixel')) #fragt Wert aus Config File ab
         except Exception as e:
             logging.error("could not load config entry " + str(e))
             umrechnung_pixel_mm = 1

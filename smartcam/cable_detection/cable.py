@@ -66,7 +66,7 @@ class cableDetection():
     @classmethod
     def saveImg(cls, bild_num, img, gray):
         #if str(bild_num) == "1":
-        logging.info("saved cable1.jpg and cablegray1.jpg in ../images/")
+        logging.info("saved cable.jpg and cablegray.jpg in ../images/")
         cv2.imwrite("../images/cablegray.jpg", gray)
         cv2.imwrite("../images/cable.jpg", img)
         # elif str(bild_num) == "2":
@@ -76,7 +76,7 @@ class cableDetection():
 
     @classmethod
     def config(cls):
-        cls.umrechnung_pixel_mm = float(configReader.returnEntry('conversion', 'mm_per_pixel1')) #fragt Wert aus Config File ab
+        cls.umrechnung_pixel_mm = float(configReader.returnEntry('conversion', 'mm_per_pixel')) #fragt Wert aus Config File ab
 
     @classmethod
     def rotate(cls, img, mittelpunkt, width, height):
