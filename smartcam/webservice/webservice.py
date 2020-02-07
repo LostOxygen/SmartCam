@@ -17,8 +17,6 @@ import logging
 
 #-------------------- Variablen --------------------
 app = Flask(__name__)
-HOST = '127.0.0.1' #Standard IP und Port
-PORT = 80
 #---------------------------- Webservice Routen ----------------------
 @app.route('/index')
 @app.route('/')
@@ -79,6 +77,8 @@ def kreisbild():
 
 #---------------------- Main init -----------------------------
 if __name__ == '__main__':
+    HOST = '127.0.0.1' #Standard IP und Port
+    PORT = 80
     try:
         HOST = configReader.returnEntry("web", "host")
         PORT = int(configReader.returnEntry("web", "port"))
