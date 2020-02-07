@@ -12,6 +12,7 @@ from PIL import Image
 import io
 import configparser
 from pathlib import Path
+import logging
 #from ..configLoader import configReader
 
 #-------------------- Variablen --------------------
