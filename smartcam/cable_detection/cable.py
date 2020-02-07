@@ -67,7 +67,7 @@ class cableDetection():
     def saveImg(cls, bild_num, img, gray):
         if str(bild_num) == "1":
             logging.info("saved cable1.jpg and cablegray1.jpg in ../images/")
-            cv2.imwrite("../images/cablegray1.jpg", gray)
+            cv2.imwrite("/home/pi/RoboSchalt/images/cablegray1.jpg", gray)
             cv2.imwrite("../images/cable1.jpg", img)
         elif str(bild_num) == "2":
             logging.info("saved cable2.jpg and cablegray2.jpg in ../images/")
@@ -102,7 +102,7 @@ class cableDetection():
     def detectCable(cls, bild_num=1):
         #main part which checks for wires and their angle
         camera = PiCamera()
-        camera.resolution = (1920, 1080)
+        camera.resolution = (1920, 1088)
         camera.hflip = True
         camera.vflip = True
         rawCapture = PiRGBArray(camera)
