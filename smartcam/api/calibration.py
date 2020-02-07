@@ -4,7 +4,7 @@ import logging
 import cv2
 import sys
 import numpy as np
-import ..configLoader
+from ..configLoader import configReader
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 
@@ -25,7 +25,7 @@ class Calibration:
     @classmethod
     def calibrate(cls):
         try:
-            cls.realMeasurement = configLoader.returnEntry("calibration", "realMeasurement")
+            cls.realMeasurement = configReader.returnEntry("calibration", "realMeasurement")
         except Exception as e:
             logging.warning("couldn't get measurement data from config file.. \n" + e.message)
 
@@ -35,7 +35,7 @@ class Calibration:
         logging.info("calibration successful. Calibration Data: " + str(cls.mmPerPixel) + "mm per pixel")
 
         try:
-            configLoader.updateConfig("calibration", "mmPerPixel", cls.mmPerPixel)
+            configReader.updateConfig("calibration", "mmPerPixel", cls.mmPerPixel)
         except Exception as e:
             logging.warning("couldn't update config properly .. \n" + e.message)
 
