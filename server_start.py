@@ -31,7 +31,7 @@ def main():
 
 	try:
 		bind_ip = configReader.returnEntry("tcp", "host")
-		port = configReader.returnEntry("tcp", "port")
+		port = int(configReader.returnEntry("tcp", "port"))
 	except Exception as e:
 		logging.error("couldnt load ip from config file" + str(e))
 
