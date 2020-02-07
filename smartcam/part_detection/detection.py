@@ -140,7 +140,7 @@ class partDetection():
         offset = (mittelpunkt[0] - gripPoint[0] , mittelpunkt[1] - gripPoint[1])
         offset = (round((offset[0]*mmPerPixel),2), round((offset[1]*mmPerPixel),2))
 
-        print("\nINFO: Offset:", offset)
+        logging.info("Offset:", offset)
         return offset
 
 
@@ -155,7 +155,7 @@ class partDetection():
         intersection = Line1.intersection(Line2)
 
         center = (int(np.round(intersection.x)), int(np.round(intersection.y)))
-        logging.debug("calculated center: " + str(center))
+        logging.info("calculated center: " + str(center))
         return center
 
 
@@ -176,11 +176,11 @@ class partDetection():
         box = cls.sortPoints(box)
         boxVector = Vector(box[1][0]-box[0][0], box[1][1]-box[0][1]) #vector of the top box contour
         gripPointVector = Vector(gripPoint[0]-box[0][0], 0)
-        print("\nINFO: boxVector:" + str((boxVector.x, boxVector.y)))
-        print("INFO: gripPointVector:" + str((gripPointVector.x, gripPointVector.y)))
+        logging.info("boxVector:" + str((boxVector.x, boxVector.y)))
+        logging.info("gripPointVector:" + str((gripPointVector.x, gripPointVector.y)))
 
         rotation = boxVector.angle(gripPointVector)
-        print("\nINFO: rotation offset:" + str(rotation))
+        logging.info("rotation offset:" + str(rotation))
 
         return rotation
 
@@ -213,7 +213,7 @@ class partDetection():
                     area = areaTemp
                     cnt = cntTemp
 
-            logging.info("areaTemp: " + str(area) + " outerArea: " + str(outerArea))
+            logging.debug("areaTemp: " + str(area) + " outerArea: " + str(outerArea))
             approx = cv2.approxPolyDP(cnt, 0.1*cv2.arcLength(cnt, True), True)
             hull = cv2.convexHull(cnt)
 
