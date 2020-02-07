@@ -77,7 +77,7 @@ def kreisbild():
 
 #---------------------- Main init -----------------------------
 if __name__ == '__main__':
-    HOST = '127.0.0.1' #Standard IP und Port
+    HOST = '134.147.234.232' #Standard IP und Port
     PORT = 80
     try:
         HOST = configReader.returnEntry("web", "host")
