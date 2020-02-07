@@ -35,6 +35,7 @@ def main():
 		try:
 			ans = commandManager.execute(data)
 			if ans[0] == "E" and ans[1] == "X":
+				global stop
 				stop = True
 			server.send(ans)
 		except UnknownCommandException as e:
