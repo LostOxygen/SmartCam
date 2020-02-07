@@ -20,20 +20,20 @@ class configReader():
     @classmethod
     def createConfigFile(cls, path):
         try:
-            configpar['tcp'] = {'host' : '192.168.8.60',
+            config['tcp'] = {'host' : '192.168.8.60',
                                 'port' : '5005'}
-            configpar['web'] = {'web_host' : '134.147.234.232',
+            config['web'] = {'web_host' : '134.147.234.232',
                                 'web_port' : '80'}
-            configpar['conversion'] = {'distanceToObject' : 0,
+            config['conversion'] = {'distanceToObject' : 0,
                                         'mm_per_pixel' : 1,
                                         'scalingFactor' : 1}
-            configpar['edges1'] = {'edge_x1' : 0,
+            config['edges1'] = {'edge_x1' : 0,
                                     'edge_x2' : 0,
                                     'edge_y1' : 0,
                                     'edge_y2' : 0}
-            configpar['image'] = {'width' : 0,
+            config['image'] = {'width' : 0,
                                   'height' : 0}
-            configpar['points'] = {'min_x' : 0,
+            config['points'] = {'min_x' : 0,
                                    'min_y' : 0,
                                    'max_x' : 0,
                                    'max_y' : 0}
