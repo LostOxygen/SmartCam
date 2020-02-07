@@ -228,24 +228,19 @@ class partDetection():
 
 # ---------------- main procedure to start calculations for part detection -----------------------------
     @classmethod
-    def detectParts(cls, path=None, boxHasHole=False):
-        filename = None
-        if path is not None:
-            filename = path
-        else:
-            #raspberrypi imports
-            try:
-                from picamera import PiCamera
-                from picamera.array import PiRGBArray
-                camera = PiCamera()
-                camera.resolution = (1920, 1080)
-                camera.hflip = True
-                camera.vflip = True
-            except Exception as e:
-                logging.error(e)
+    def detectParts(cls, boxHasHole=False):
+        from picamera import PiCamera
+        from picamera.array import PiRGBArray
+        camera = PiCamera()
+        camera.resolution = (1920, 1080)
+        camera.hflip = True
+        camera.vflip = True
 
+        rawCapture = PiRGBArray(camera)
+        time.sleep(0.1)
+        camera.capture(rawCapture, format="bgr")
+        img = rawCapture.array
 
-        img = cv2.imread(filename, cv2.IMREAD_COLOR)
         if img is None:
             raise NoImageDataFoundException(filename)
             return -1
