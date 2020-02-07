@@ -1,4 +1,4 @@
-from .exceptions import NoInstanceException
+from ..exceptions import NoInstanceException
 from sympy.geometry import Point, Point2D, Polygon, Circle
 import math
 import numpy as np

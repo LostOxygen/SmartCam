@@ -1,4 +1,4 @@
-from .exceptions import UnknownCommandException
+from ..exceptions import UnknownCommandException
 
 class CommandManager:
 
