@@ -21,9 +21,9 @@ class configReader():
     def createConfigFile(cls, path):
         try:
             cls.config['tcp'] = {'host' : '192.168.8.60',
-                                'port' : '5005'}
+                                'port' : 5005}
             cls.config['web'] = {'web_host' : '134.147.234.232',
-                                'web_port' : '80'}
+                                'web_port' : 80}
             cls.config['conversion'] = {'distanceToObject' : 0,
                                         'mm_per_pixel' : 1,
                                         'scalingFactor' : 1}

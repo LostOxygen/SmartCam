@@ -33,7 +33,7 @@ def main():
 		bind_ip = configReader.returnEntry("tcp", "host")
 		port = configReader.returnEntry("tcp", "port")
 	except Exception as e:
-		logging.error("couldnt load ip from config file" + str(e.message))
+		logging.error("couldnt load ip from config file" + str(e))
 
 	server = Server(bind_ip, port)
 
