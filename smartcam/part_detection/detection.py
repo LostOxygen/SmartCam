@@ -2,7 +2,7 @@
 # -*- coding: utf8 -*-
 #montybot imports
 import logging
-from ..exceptions import NoContoursFoundException, NoImageDataFoundException
+from ..exceptions.exceptions import NoContoursFoundException, NoImageDataFoundException
 from .geometry import Line_, Vector, Area
 from ..configLoader import configReader
 
