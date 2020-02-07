@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf8 -*-
 
+import logging
+
 import cv2
 import sys
 import os
@@ -10,7 +12,6 @@ import math
 import imutils
 import configparser
 from pathlib import Path
-from pprint import pprint #Nur für Debug benötigt
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time
@@ -18,9 +19,9 @@ from PIL import Image
 import io
 from datetime import datetime
 
-class Kabel():
+class cableDetection():
     #Variablen
-    fenster_name = "Kabelerkenung"
+    fenster_name = "Cable Detection"
     detection_size = (500, 500)
     config_test = True
     umrechnung_pixel_mm = 1 #to avoid errors the value is preset to 1
@@ -45,8 +46,8 @@ class Kabel():
         timestamp = "" + str(imgDate) + "." + str(imgMonth) + "." + str(imgYear) + " " + str(imgHour) + ":" + str(imgMins)
         cv2.putText(img, timestamp + " | " + str(round(dist_x_mm, 2)) + " mm | " + str(round(dist_y_mm, 2)) + " mm ", (20,1060), cv2.FONT_HERSHEY_PLAIN, 2, (0,0,0), 2, cv2.LINE_AA, 0)
 
-        print("Distanz_Y: " + str(dist_y))
-        print("umgerechnet: " + str(round(dist_y_mm, 2)) + "mm")
+        logging.info("Distanz_Y: " + str(dist_y))
+        logging.info("umgerechnet: " + str(round(dist_y_mm, 2)) + "mm")
 
     def visualization_gray(gray, extLeft, g_height, g_mittelpunkt):
         cv2.circle(gray, extLeft, 4, (255, 255, 255), 4) #zeichnet punkt ganz links
@@ -58,24 +59,24 @@ class Kabel():
 
     def saveImg(bild_num, img, gray):
         if str(bild_num) == "1":
-            print("Speichert kabel1.jpg und kabelgrau1.jpg in /home/pi/RoboSchalt/raspberry_pi/bilder/")
-            cv2.imwrite("../bilder/kabelgrau1.jpg", gray)
-            cv2.imwrite("../bilder/kabel1.jpg", img) #speichert ein Bild
+            logging.info("saved cable1.jpg and cablegray1.jpg in ../images/")
+            cv2.imwrite("../images/cablegray1.jpg", gray)
+            cv2.imwrite("../images/cable1.jpg", img)
         elif str(bild_num) == "2":
-            print("Speichert kabel2.jpg und kabelgrau2.jpg in /home/pi/RoboSchalt/raspberry_pi/bilder/")
-            cv2.imwrite("../bilder/kabelgrau2.jpg", gray)
-            cv2.imwrite("../bilder/kabel2.jpg", img)
+            logging.info("saved cable2.jpg and cablegray2.jpg in ../images/")
+            cv2.imwrite("../images/cablegray2.jpg", gray)
+            cv2.imwrite("../images/cable2.jpg", img) #speichert ein Bild
 
     def config():
         # ----------- reads config and checks values --------------------------
         config = configparser.ConfigParser()
         test = Path('../config.ini')
         if test.is_file():
-            print('Config Datei gefunden')
+            logging.info('Found config file!')
             config.read('../config.ini')
 
         else:
-            print('Config konnte nicht gefunden werden. Bitte erst mit configGenerator.py eine Config generieren lassen!')
+            logging.error('Could not find any config file. Maybe you need to create a new config file with the calibration command or manual..')
             Kabel.config_test = False
 
         Kabel.umrechnung_pixel_mm = float(config['conversion']['mm_per_pixel1']) #fragt Wert aus Config File ab
@@ -115,7 +116,7 @@ class Kabel():
         unten_rechts = (int(mittelpunkt[0]), int(mittelpunkt[1]+ Kabel.detection_size[1]/2))
 
         if img is None: #to prevent errors with empty images
-            print("Fehler bei Laden des frames!" + "!\n")
+            logging.error("Could not load frame properly..")
             return -1
 
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -133,8 +134,8 @@ class Kabel():
             cnts = max(contours, key=cv2.contourArea)
             extLeft = tuple(cnts[cnts[:, :, 0].argmin()][0])
         except Exception as e:
-            print(e)
-            print("Es konnnten keine Konturen gefunden werden!")
+            logging.error(e)
+            logging.error("Could not find any contours..")
             extLeft = (0,0)
 
         g_height, g_width = gray.shape[:2]
