@@ -8,6 +8,7 @@ import argparse
 stop = False
 
 def main():
+	from smartcam.configLoader import configReader
 	from smartcam.exceptions.exceptions import UnknownCommandException, WrongNumberOfParametersException, InvalidParametersException
 	from smartcam.api.commandManager import CommandManager
 	from smartcam.api.commands import exitServer, getCableOffset, getCircleOffset, setLight, calibrate, grabPoint
@@ -25,7 +26,16 @@ def main():
 	commandManager.addCommand("OGR", openGripper())
 	commandManager.addCommand("CGR", closeGripper())
 
-	server = Server(bind_ip=args.bind_address, port=args.port)
+	bind_ip = args.bind_address
+	port = args.port
+
+	try:
+		bind_ip = configReader.returnEntry("tcp", "host")
+		port = configReader.returnEntry("tcp", "port")
+	except Exception as e:
+		logging.error("couldnt load ip from config file" + str(e.message))
+
+	server = Server(bind_ip, port)
 
 	while not (server.isConnected() or stop):
 		server.accept()

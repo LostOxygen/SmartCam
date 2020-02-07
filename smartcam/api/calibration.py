@@ -27,6 +27,7 @@ class Calibration:
         try:
             cls.realMeasurement = configReader.returnEntry("calibration", "realMeasurement")
         except Exception as e:
+            realMeasurement = 70
             logging.warning("couldn't get measurement data from config file.. \n" + e.message)
 
         digitalMeasurement = cls.scan()
