@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf8 -*-
 import logging
+import time
 import cv2
 import sys
 import numpy as np
@@ -41,6 +42,29 @@ class Calibration:
             logging.warning("couldn't update config properly .. \n" + e.message)
 
     @classmethod
+    def visualization(cls, img, points, edges):
+        cv2.circle(img, points[0], 2, (255,255,0), 2) #oben links
+        cv2.circle(img, points[1], 2, (255,255,0), 2) #oben rechts
+        cv2.circle(img, points[2], 2, (255,255,0), 2) #unten links
+        cv2.circle(img, points[3], 2, (255,255,0), 2) #unten rechts
+        timestamp = cls.getTimestamp()
+        cv2.putText(img, timestamp, (20, 1060), cv2.FONT_HERSHEY_PLAIN, 2, (0,0,0), 2, cv2.LINE_AA, 0)
+
+        return img
+
+    @classmethod
+    def getTimestamp(cls):
+        d = datetime.now()
+        imgYear = "%04d" % (d.year)
+        imgMonth = "%02d" % (d.month)
+        imgDate = "%02d" % (d.day)
+        imgHour = "%02d" % (d.hour)
+        imgMins = "%02d" % (d.minute)
+        imgSecs = "%02d" % (d.second)
+        timestamp = "" + str(imgDate) + "." + str(imgMonth) + "." + str(imgYear) + " " + str(imgHour) + ":" + str(imgMins) + ":" + str(imgSecs)
+        return timestamp
+
+    @classmethod
     def scan(cls):
         camera = PiCamera()
         camera.resolution = (1920, 1080)
@@ -52,6 +76,9 @@ class Calibration:
         time.sleep(0.1)
         camera.capture(rawCapture, format="bgr")
         img = rawCapture.array
+        camera.stop()
+        del camera
+        del rawCapture
 
         if img is None:
             logging.warning("Could not load frame!" + "!\n")
@@ -68,11 +95,10 @@ class Calibration:
 
         for cnt in contours:
             area = cv2.contourArea(cnt)
-            #if area > 0: #an die geforderte Größe anpassen
 
             approx = cv2.approxPolyDP(cnt, 0.02*cv2.arcLength(cnt, True), True)
 
-            x_values = [] #Listen für x und y werte um die passenden rauszusuchen
+            x_values = []
             y_values = []
 
             for i in approx:
@@ -94,5 +120,10 @@ class Calibration:
 
             digitalMeasurement = np.mean([edge_x1, edge_x2, edge_y1, edge_y2])
 
-        del camera
+            img = cls.visualization(img, points, edges)
         return digitalMeasurement
+
+    @classmethod
+    def saveImg(cls, img):
+        logging.info("saves quadrat.jpg in ../images/")
+        cv2.imwrite("../images/quadrat.jpg", img)
