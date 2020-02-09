@@ -13,6 +13,7 @@ def main():
 	from smartcam.api.commandManager import CommandManager
 	from smartcam.api.commands import exitServer, getCableOffset, getCircleOffset, setLight, calibrate, grabPoint, moveGripper, closeGripper, openGripper
 	from smartcam.api.server import Server
+	from smartcam.webservice.webservice import webService
 
 	# Create CommandManager and register all handlers
 	commandManager = CommandManager(3)
@@ -28,15 +29,26 @@ def main():
 
 	bind_ip = args.bind_address
 	port = args.port
+	web_bind_ip = args.web_bind_ip
+	web_port = args.web_port
 
 	try:
 		bind_ip = configReader.returnEntry("tcp", "host")
 		port = int(configReader.returnEntry("tcp", "port"))
 	except Exception as e:
-		logging.error("couldnt load ip from config file" + str(e))
+		logging.error("couldnt load server ip and port from config file" + str(e))
+	try:
+		bind_ip = configReader.returnEntry("tcp", "host")
+		port = int(configReader.returnEntry("tcp", "port"))
+	except Exception as e:
+		logging.error("couldnt load server ip and port from config file" + str(e))
+
 
 	server = Server(bind_ip, port)
-	logging.info("ip: " + str(bind_ip) + " port: " + str(port))
+	logging.info(" ip: " + str(bind_ip) + " port: " + str(port))
+	web = webService(web_bind_ip, web_port)
+	logging.info(" ip: " + str(bind_ip) + " port: " + str(port))
+
 
 	while not (server.isConnected() or stop):
 		server.accept()
@@ -76,12 +88,17 @@ def handler(signum, frame):
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
+
 	parser.add_argument("-p", "--port", help="port on which the server should run", type=int)
 	parser.add_argument("-a", "--bind_address", help="address on which the server should bind")
+	parser.add_argument("-wp", "--web_port", help="port on which the webservice should run", type=int)
+	parser.add_argument("-wa", "--web_bind_address", help="address on which the webservice should bind")
+
 	loggerMode = parser.add_mutually_exclusive_group(required=False)
 	loggerMode.add_argument("-v", "--verbose", help="Prints info messages", action="store_true")
 	loggerMode.add_argument("-q", "--quiet", help="Prints only error messages", action="store_true")
-	parser.add_argument("--logfile", help="Logs will be written to this file")
+	parser.add_argument("--logfile", help="Logs will be written to this file
+
 	args = parser.parse_args()
 
 	if args.verbose:

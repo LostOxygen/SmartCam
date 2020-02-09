@@ -13,10 +13,24 @@ import io
 import configparser
 from pathlib import Path
 import logging
-#from ..configLoader import configReader
+from ..configLoader import configReader
 
-#-------------------- Variablen --------------------
-app = Flask(__name__)
+class webService():
+    def __init__(self, bind_ip=None, port=None):
+        if bind_ip is None:
+            self.BIND_IP = '127.0.0.1'
+        else:
+            self.BIND_IP = bind_ip
+        if port is None:
+            self.PORT = 80
+        else:
+            self.PORT = port
+
+        app = Flask("WebService")
+        app.run(host=self.BIND_IP, port=self.PORT, debug=True, threaded=True)
+        logging.info("Webservice started!")
+
+
 #---------------------------- Webservice Routen ----------------------
 @app.route('/index')
 @app.route('/')
@@ -26,14 +40,6 @@ def index():
 @app.route('/api/bild/')
 @app.route('/api/bild')
 def bild():
-#    d = datetime.now()
-#    imgYear = "%04d" % (d.year)
-#    imgMonth = "%02d" % (d.month)
-#    imgDate = "%02d" % (d.day)
-#    imgHour = "%02d" % (d.hour)
-#    imgMins = "%02d" % (d.minute)
-#    fileName = "" +str(imgYear) + str(imgMonth) + str(imgDate) + str(imgHour) + str(imgMins) + ".jpg"
-#    make_picture(camera, fileName)
     return send_from_directory(directory="../images", filename="cv_bild.jpg")
 
 @app.route('/api/config/')
@@ -73,15 +79,3 @@ def quadrat1():
 def kreisbild():
     #return "Aktuell noch WIP"
     return render_template('kreisbild.html')
-
-#---------------------- Main init -----------------------------
-if __name__ == '__main__':
-    HOST = '134.147.234.232' #Standard IP und Port
-    PORT = 80
-    try:
-        HOST = configReader.returnEntry("web", "host")
-        PORT = int(configReader.returnEntry("web", "port"))
-    except Exception as e:
-        logging.error("couldnt load ip from config file" + str(e))
-
-    app.run(host=HOST, port=PORT, debug=True, threaded=True)
