@@ -15,6 +15,8 @@ from pathlib import Path
 import logging
 from ..configLoader import configReader
 
+app = None
+
 class webService():
     def __init__(self, bind_ip=None, port=None):
         if bind_ip is None:
