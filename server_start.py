@@ -97,7 +97,7 @@ if __name__ == "__main__":
 	loggerMode = parser.add_mutually_exclusive_group(required=False)
 	loggerMode.add_argument("-v", "--verbose", help="Prints info messages", action="store_true")
 	loggerMode.add_argument("-q", "--quiet", help="Prints only error messages", action="store_true")
-	parser.add_argument("--logfile", help="Logs will be written to this file
+	parser.add_argument("--logfile", help="Logs will be written to this file")
 
 	args = parser.parse_args()
 
