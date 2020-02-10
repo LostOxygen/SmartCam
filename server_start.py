@@ -38,8 +38,8 @@ def main():
 	except Exception as e:
 		logging.error("could not load server ip and port from config file" + str(e))
 	try:
-		bind_ip = configReader.returnEntry("tcp", "host")
-		port = int(configReader.returnEntry("tcp", "port"))
+		web_bind_ip = configReader.returnEntry("tcp", "web_host")
+		web_port = int(configReader.returnEntry("tcp", "web_port"))
 	except Exception as e:
 		logging.error("could not load server ip and port from config file" + str(e))
 
