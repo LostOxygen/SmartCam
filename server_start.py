@@ -29,7 +29,7 @@ def main():
 
 	bind_ip = args.bind_address
 	port = args.port
-	web_bind_ip = args.web_bind_ip
+	web_bind_ip = args.web_bind_address
 	web_port = args.web_port
 
 	try:
