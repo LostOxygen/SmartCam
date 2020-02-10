@@ -11,7 +11,7 @@ class configReader():
     @classmethod
     def loadConfig(cls, path):
         if os.path.exists(path):
-            logging.info('Config file found!')
+            logging.debug('Config file found!')
             cls.config.read(path)
         else:
             logging.warning('Config file not found. A new config file will be generated..')

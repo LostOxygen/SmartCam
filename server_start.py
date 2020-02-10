@@ -43,11 +43,11 @@ def main():
 	except Exception as e:
 		logging.error("could not load server ip and port from config file" + str(e))
 
-
-	server = Server(bind_ip, port)
-	logging.info(" ip: " + str(bind_ip) + " port: " + str(port))
 	web = webService(web_bind_ip, web_port)
 	logging.info(" ip: " + str(bind_ip) + " port: " + str(port))
+	server = Server(bind_ip, port)
+	logging.info(" ip: " + str(bind_ip) + " port: " + str(port))
+
 
 
 	while not (server.isConnected() or stop):
