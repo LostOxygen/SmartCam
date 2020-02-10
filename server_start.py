@@ -36,12 +36,12 @@ def main():
 		bind_ip = configReader.returnEntry("tcp", "host")
 		port = int(configReader.returnEntry("tcp", "port"))
 	except Exception as e:
-		logging.error("couldnt load server ip and port from config file" + str(e))
+		logging.error("could not load server ip and port from config file" + str(e))
 	try:
 		bind_ip = configReader.returnEntry("tcp", "host")
 		port = int(configReader.returnEntry("tcp", "port"))
 	except Exception as e:
-		logging.error("couldnt load server ip and port from config file" + str(e))
+		logging.error("could not load server ip and port from config file" + str(e))
 
 
 	server = Server(bind_ip, port)
@@ -61,7 +61,7 @@ def main():
 		try:
 			ans = commandManager.execute(data)
 			if ans[0] == "E" and ans[1] == "X":
-				global stop
+				#global stop
 				stop = True
 			server.send(ans)
 		except UnknownCommandException as e:
