@@ -15,8 +15,6 @@ from pathlib import Path
 import logging
 from ..configLoader import configReader
 
-app = None
-
 class webService():
     def __init__(self, bind_ip=None, port=None):
         if bind_ip is None:
@@ -28,56 +26,56 @@ class webService():
         else:
             self.PORT = port
 
-        app = Flask("WebService")
-        app.run(host=self.BIND_IP, port=self.PORT, debug=True, threaded=True)
+        self.app = Flask("WebService")
+        self.app.run(host=self.BIND_IP, port=self.PORT, debug=True, threaded=True)
         logging.info("Webservice started!")
 
 
 #---------------------------- Webservice Routen ----------------------
-@app.route('/index')
-@app.route('/')
-def index():
-    return render_template('index.html')
+    @self.app.route('/index')
+    @self.app.route('/')
+    def index():
+        return render_template('index.html')
 
-@app.route('/api/bild/')
-@app.route('/api/bild')
-def bild():
-    return send_from_directory(directory="../images", filename="cv_bild.jpg")
+    @self.app.route('/api/bild/')
+    @self.app.route('/api/bild')
+    def bild():
+        return send_from_directory(directory="../images", filename="cv_bild.jpg")
 
-@app.route('/api/config/')
-@app.route('/api/config')
-def config():
-    f = open('../../config.ini', 'r')
-    content = f.read()
-    f.close()
-    return render_template('config.html', content=content)
+    @self.app.route('/api/config/')
+    @self.app.route('/api/config')
+    def config():
+        f = open('../../config.ini', 'r')
+        content = f.read()
+        f.close()
+        return render_template('config.html', content=content)
 
-@app.route('/api/')
-@app.route('/api')
-def api():
-    return render_template('api.html')
+    @self.app.route('/api/')
+    @self.app.route('/api')
+    def api():
+        return render_template('api.html')
 
-@app.route('/api/cable/')
-@app.route('/api/cable')
-def cable1():
-    return send_from_directory(directory="../images", filename="cable.jpg")
+    @self.app.route('/api/cable/')
+    @self.app.route('/api/cable')
+    def cable1():
+        return send_from_directory(directory="../images", filename="cable.jpg")
 
-@app.route('/api/cablegray/')
-@app.route('/api/cablegray')
-def cablegray1():
-    return send_from_directory(directory="../images", filename="cablegray.jpg")
+    @self.app.route('/api/cablegray/')
+    @self.app.route('/api/cablegray')
+    def cablegray1():
+        return send_from_directory(directory="../images", filename="cablegray.jpg")
 
-@app.route('/api/kreis/')
-@app.route('/api/kreis')
-def kreis():
-    return send_from_directory(directory="../images", filename="circle.jpg")
+    @self.app.route('/api/kreis/')
+    @self.app.route('/api/kreis')
+    def kreis():
+        return send_from_directory(directory="../images", filename="circle.jpg")
 
-@app.route('/api/quadrat/')
-def quadrat1():
-    return send_from_directory(directory="../images", filename="quadrat.jpg")
+    @self.app.route('/api/quadrat/')
+    def quadrat1():
+        return send_from_directory(directory="../images", filename="quadrat.jpg")
 
-@app.route('/api/kreisbild/')
-@app.route('/api/kreisbild')
-def kreisbild():
-    #return "Aktuell noch WIP"
-    return render_template('kreisbild.html')
+    @self.app.route('/api/kreisbild/')
+    @self.app.route('/api/kreisbild')
+    def kreisbild():
+        #return "Aktuell noch WIP"
+        return render_template('kreisbild.html')
