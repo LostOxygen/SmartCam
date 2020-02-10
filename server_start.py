@@ -16,7 +16,7 @@ def main():
 	from smartcam.webservice.webservice import webService
 
 	# Create CommandManager and register all handlers
-	commandManager = CommandManager(commandLength=3)
+	commandManager = CommandManager(3)
 	commandManager.addCommand("GOO", getCircleOffset())
 	commandManager.addCommand("GRP", grabPoint())
 	commandManager.addCommand("GCO", getCableOffset())
