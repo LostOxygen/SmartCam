@@ -34,18 +34,12 @@ def main():
 		port = int(configReader.returnEntry("tcp", "port"))
 	except Exception as e:
 		logging.error("could not load server ip and port from config file" + str(e))
-	try:
-		web_bind_ip = configReader.returnEntry("web", "web_host")
-		web_port = int(configReader.returnEntry("web", "web_port"))
-	except Exception as e:
-		logging.error("could not load server ip and port from config file" + str(e))
 
-	# web = webService(web_bind_ip, web_port)
-	# logging.info(" ip: " + str(bind_ip) + " port: " + str(port))
+	#bind_ip = args.bind_address
+	#port = args.port
+
 	server = Server(bind_ip, port)
 	logging.info(" ip: " + str(bind_ip) + " port: " + str(port))
-
-
 
 	while not (server.isConnected() or stop):
 		server.accept()
