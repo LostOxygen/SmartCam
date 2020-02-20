@@ -20,6 +20,11 @@ class cableDetection():
         pass
 
 
+class cableDetection():
+    def __init__(cls):
+        pass
+
+
     #Variablen
     fenster_name = "Cable Detection"
     detection_size = (500, 500)
