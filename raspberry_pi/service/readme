@@ -1,5 +1,0 @@
-Starten & Co:
-sudo systemctl enable|start|stop XXX
-
-Ort für Skripte:
-/lib/systemd/system/

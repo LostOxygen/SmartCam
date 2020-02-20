@@ -1,0 +1,7 @@
+numpy
+flask
+Pillow
+sympy
+Flask
+adafruit-circuitpython-neopixel
+opencv-python
