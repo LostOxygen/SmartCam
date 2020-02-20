@@ -1,0 +1,1 @@
+# Studienprojekt "Lernen einer Montageaufgabe"

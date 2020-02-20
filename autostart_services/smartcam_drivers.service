@@ -1,0 +1,14 @@
+[Unit]
+Description=SmartCam Drivers
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart= sudo /sbin/modprobe ftdi-sio && sudo echo "0403 a241" > /sys/bus/usb-serial/drivers/ftdi-sio/new_id
+SyslogIdentifier=smartcam_drivers
+StandardOutput=syslog
+StandardError=syslog
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

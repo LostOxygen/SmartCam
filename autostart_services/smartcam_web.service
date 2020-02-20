@@ -1,0 +1,15 @@
+[Unit]
+Description=SmartCam WebService
+After=network.target
+
+[Service]
+Type=idle
+WorkingDirectory=/home/pi/smartcam/smartcam/webservice
+ExecStart=/usr/bin/python3 /home/pi/smartcam/smartcam/webservice/webservice.py
+SyslogIdentifier=smartcam_web
+StandardOutput=syslog
+StandardError=syslog
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

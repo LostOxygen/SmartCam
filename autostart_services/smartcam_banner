@@ -1,0 +1,15 @@
+ __                      _     ___
+/ _\_ __ ___   __ _ _ __| |_  / __\__ _ _ __ ___
+\ \| '_ ` _ \ / _` | '__| __|/ /  / _` | '_ ` _ \
+_\ \ | | | | | (_| | |  | |_/ /__| (_| | | | | | |
+\__/_| |_| |_|\__,_|_|   \__\____/\__,_|_| |_| |_|
+
+Welcome! To start the SmartCam TCP/IP Server run:
+--      python3 server_start.py      --
+inside the SmartCam directory.
+
+To start it's webservice run:
+--      sudo python3 webservice.py   --
+under ../smartcam/smartcam/webservice/
+
+For available commands see ../smartcam/README.txt 
