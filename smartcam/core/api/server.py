@@ -4,12 +4,15 @@ import socket
 TIMEOUT = 5
 
 class Server():
+'''
+Standard python implementation of a tcp/ip server without big changes.
+'''
 
     BUFFER_SIZE = 1024
 
     def __init__(self, bind_ip=None, port=None):
         if bind_ip is None:
-            bind_ip = "127.0.0.1"
+            bind_ip = "0.0.0.0"
         if port is None:
             port = 5005
 

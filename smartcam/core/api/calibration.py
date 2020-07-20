@@ -18,9 +18,9 @@ class calibration:
     kernel = np.ones((5, 5), np.uint8)
     gauss_faktor = 0
     gauss_matrix = (7,7)
-    maxCorners = 300 #Anzahl zu erkennenden Kanten
-    qualityLevel = 0.03 #je höher desto genauer
-    minDistance = 10 #mindeste Distanz zwischen Punkten
+    maxCorners = 300 #amount of detection points
+    qualityLevel = 0.03 #higher is more accurate
+    minDistance = 10 #min distance between points
 
     def __init__(cls):
         pass
@@ -128,7 +128,7 @@ class calibration:
         return digitalMeasurement
 
     @classmethod
-    def makeNormalImage(cls):
+    def makeNormalImage(cls, imgName="normal_image", info=True):
         camera = PiCamera()
         camera.resolution = (1920, 1088)
         camera.hflip = True
@@ -141,28 +141,58 @@ class calibration:
         del camera
         del rawCapture
 
+        if info == True:
+            cv2.putText(img, cls.getTimestamp(), (10, 725), cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 2, cv2.LINE_AA, 0)
+
         if img is None:
             logging.warning("Could not load frame!" + "!\n")
             return -1
 
-        if not os.path.exists("./smartcam/images/"):
+        path = configReader.returnEntry("options", "imagepath")
+        if not os.path.exists(path):
             try:
-                os.mkdir("./smartcam/images/")
+                os.mkdir(path)
             except Exception as e:
                 logging.error("Image directory couldn't get created.. \n" + str(e))
 
-        logging.debug("saved normal_image.jpg in ./smartcam/images/")
-        cv2.imwrite("./smartcam/images/normal_image.jpg", img)
+        logging.debug("saved " + imgName + " in " + path)
+        cv2.imwrite(path + imgName, img)
 
         return "Image saved"
 
     @classmethod
     def saveImg(cls, img):
-        if not os.path.exists("./smartcam/images/"):
+        path = configReader.returnEntry("options", "imagepath")
+        if not os.path.exists(path):
             try:
-                os.mkdir("./smartcam/images/")
+                os.mkdir(path)
             except Exception as e:
                 logging.error("Image directory couldn't get created.. \n" + str(e))
 
-        logging.debug("saved quadrat.jpg in ./smartcam/images/")
-        cv2.imwrite("./smartcam/images/quadrat.jpg", img)
+        logging.debug("saved quadrat.jpg in " + path)
+        cv2.imwrite(path + "quadrat.jpg", img)
+
+    @classmethod
+    def writeText(cls, text, pos):
+        image_path = configReader.returnEntry("options", "imagepath")
+        image_list = ['quadrat.jpg', 'partDetection.jpg', 'cablegray1.jpg', 'cablegray2.jpg', 'circle.jpg']
+
+        position = (0, 0)
+        if pos == "ul":
+            position = (200, 200)
+        if pos == "dl":
+            position = (200, 1200)
+        if pos == "ur":
+            position = (1200, 200)
+        if pos == "dr":
+            position = (1200, 1200)
+
+        for img in image_list:
+            path = image_path + img
+            try:
+                img = cv2.imread(path, cv2.IMREAD_COLOR)
+                cv2.putText(img, text, position, cv2.FONT_HERSHEY_PLAIN, 2, (255,255,255), 2, cv2.LINE_AA, 0)
+                cv2.imwrite(path, img)
+
+            except Exception as e:
+                logging.error(str(e))

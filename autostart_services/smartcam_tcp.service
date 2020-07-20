@@ -1,11 +1,11 @@
-cd [Unit]
+[Unit]
 Description=SmartCam TCP Server
-After=syslog.target
+After=network.target
 
 [Service]
-Type=simple
+Type=idle
 WorkingDirectory=/home/pi/smartcam
-ExecStart=/home/pi/smartcam/start_server.py
+ExecStart=/usr/bin/python3 /home/pi/smartcam/start_server.py
 SyslogIdentifier=smartcam_tcp
 StandardOutput=syslog
 StandardError=syslog

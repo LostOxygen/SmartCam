@@ -4,6 +4,11 @@
 import sys
 import socket
 
+'''
+just a simple testclient to send data to a specific address.
+Usage: 'python3 testClient.py <ip-address>' or just 'python3 testClient.py' and enter the address when asked to
+'''
+
 def main(argv):
     try:
         HOST = argv[0]
@@ -23,9 +28,10 @@ def main(argv):
             response = data.decode()
             print('Received data: ', response)
 
-            if response[0] == 'E' and response[1] == 'X':
+            if len(response) == 2 and response[0] == 'E' and response[1] == 'X':
                 print("Closing connection..")
                 break
+
     print("Connection closed!")
 
 if __name__ == "__main__":

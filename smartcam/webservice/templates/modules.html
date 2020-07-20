@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="refresh" content="30">
+    <meta charset="utf-8">
+  </head>
+  <body class="body">
+{% import "navbar.html" as nav %}
+{% block navbar %}
+    {{ nav }}
+{% endblock navbar %}
+
+<center>
+{% block content %}
+
+  {% if circle == 'True' %}
+    <b>CircleDetection</b> module is <a class="btn btn-primary">loaded</a>
+  {% else %}
+    <b>CircleDetection</b> module is <a class="btn btn-danger">not loaded</a>
+  {% endif %}
+  <br>
+  {% if cable == 'True' %}
+    <b>CableDetection</b> module is <a class="btn btn-primary">loaded</a>
+  {% else %}
+    <b>CableDetection</b> module is <a class="btn btn-danger">not loaded</a>
+  {% endif %}
+  <br>
+  {% if parts == 'True' %}
+    <b>PartDetection</b> module is <a class="btn btn-primary">loaded</a>
+  {% else %}
+    <b>PartDetection</b> module is <a class="btn btn-danger">not loaded</a>
+  {% endif %}
+  <br>
+  {% if led == 'True' %}
+    <b>LED</b> module is <a class="btn btn-primary">loaded</a>
+  {% else %}
+    <b>LED</b> module is <a class="btn btn-danger">not loaded</a>
+  {% endif %}
+  <br>
+  {% if iolink == 'True' %}
+    <b>I/OLink</b> module is <a class="btn btn-primary">loaded</a>
+  {% else %}
+    <b>I/OLink</b> module is <a class="btn btn-danger">not loaded</a>
+  {% endif %}
+  <br>
+  {% if schunk == 'True' %}
+    <b>Schunk</b> module is <a class="btn btn-primary">loaded</a>
+  {% else %}
+    <b>Schunk</b> module is <a class="btn btn-danger">not loaded</a>
+  {% endif %}
+
+{% endblock content %}
+
+
+</body>
+</html>

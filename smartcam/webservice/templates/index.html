@@ -1,9 +1,99 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <title>Index</title>
-    <link rel="stylesheet" href="../static/style.css"/>
+    <meta http-equiv="refresh" content="30">
+    <meta charset="utf-8">
   </head>
-  <body>
-    Index des Raspberrypi Webservice. Für Schnittstellen <a href="/api"> hier </a> klicken.
-  </body>
+  <body class="body">
+{% import "navbar.html" as nav %}
+{% block navbar %}
+    {{ nav }}
+{% endblock navbar %}
+
+{% block content %}
+<div class="container">
+
+<div class="row">
+  <div class="col">
+    <b>normal image</b>
+  </div>
+  <div class="col">
+    {% if circle == 'True' %}
+    <b>circle detection</b>
+    {% endif %}
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <img src={{url_for('send_image', filename='normal_image.jpg')}} width=100%>
+  </div>
+  <div class="col">
+    {% if circle == 'True' %}
+    <img src={{url_for('send_image', filename='circle.jpg')}} width=100%>
+    {% endif %}
+  </div>
+</div>
+<br>
+
+<div class="row">
+  <div class="col">
+    <b>config generation square</b>
+  </div>
+  <div class="col">
+    {% if parts == 'True' %}
+    <b>part detection</b>
+    {% endif %}
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <img src={{url_for('send_image', filename='quadrat.jpg')}} width=100%>
+  </div>
+  <div class="col">
+    <img src={{url_for('send_image', filename='partDetection.jpg')}} width=100%>
+  </div>
+</div>
+<br>
+
+{% if cable == 'True' %}
+<div class="row">
+  <div class="col">
+    <b>cable detection 1</b>
+  </div>
+  <div class="col">
+    <b>cable detection 2</b>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <img src={{url_for('send_image', filename='cable1.jpg')}} width=100%>
+  </div>
+  <div class="col">
+    <img src={{url_for('send_image', filename='cable2.jpg')}} width=100%>
+  </div>
+</div>
+<br>
+
+<div class="row">
+  <div class="col">
+    <b>cable detection gray 1</b>
+  </div>
+  <div class="col">
+    <b>cable detection gray 2</b>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <img src={{url_for('send_image', filename='cablegray1.jpg')}} width=80%>
+  </div>
+  <div class="col">
+    <img src={{url_for('send_image', filename='cablegray2.jpg')}} width=80%>
+  </div>
+</div>
+{% endif %}
+
+</div>
+{% endblock content %}
+
+</body>
 </html>

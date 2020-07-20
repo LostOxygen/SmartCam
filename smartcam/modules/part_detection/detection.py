@@ -1,10 +1,8 @@
-#!/usr/bin/env python3
-# -*- coding: utf8 -*-
 #montybot imports
 import logging
 from ..exceptions.exceptions import NoContoursFoundException, NoImageDataFoundException
 from .geometry import Line_, Vector, Area
-from ..configLoader import configReader
+from ...core.configLoader import configReader
 
 #general imports
 import cv2
@@ -16,6 +14,10 @@ from datetime import datetime
 
 
 class partDetection():
+'''
+This class detects parts and its whole contours to calculate a gripping point for the gripper and the rotation angle.
+'''
+
     clear = lambda: os.system('clear')
     windowName = "detection"
     gaussMatrix = (7,7)
@@ -51,13 +53,14 @@ class partDetection():
 # ------------------ saves the output image for debugging --------------------------------
     @classmethod
     def saveImg(cls, img):
-        if not os.path.exists("./smartcam/images/"):
+        path = configReader.returnEntry("options", "imagepath")
+        if not os.path.exists(path):
             try:
-                os.mkdir("./smartcam/images/")
+                os.mkdir(path)
             except Exception as e:
                 logging.error("Image directory couldn't get created.. \n" + str(e))
         filename = "partDetection.jpg"
-        cv2.imwrite("./smartcam/images/" + filename, img)
+        cv2.imwrite(path + filename, img)
 
 
 # ------------------------- visualizes the detected parts etc. on the frame --------------------

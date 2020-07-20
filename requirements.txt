@@ -4,4 +4,5 @@ Pillow
 sympy
 Flask
 adafruit-circuitpython-neopixel
+rpi_ws281x
 opencv-python

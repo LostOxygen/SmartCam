@@ -4,39 +4,61 @@ import sys
 import logging
 import signal
 import argparse
+from smartcam.core.configLoader import configReader
+
+from smartcam.modules.exceptions.exceptions import UnknownCommandException, WrongNumberOfParametersException, InvalidParametersException
+from smartcam.core.api.commandManager import CommandManager
+from smartcam.core.api.server import Server
+#import standard commands
+from smartcam.core.api.commands import exitServer, calibrate, makeNormalImage, makeBackgroundImage, writeText
 
 stop = False
 
+'''
+starts the server and registers all the imported modules as handlers for a command manager. uses the ip and port specified in the config.ini
+'''
+
 def main():
-	from smartcam.configLoader import configReader
-	from smartcam.exceptions.exceptions import UnknownCommandException, WrongNumberOfParametersException, InvalidParametersException
-	from smartcam.api.commandManager import CommandManager
-	from smartcam.api.commands import exitServer, getCableOffset, getCircleOffset, setLight, calibrate, grabPoint, moveGripper, closeGripper, openGripper, makeNormalImage
-	from smartcam.api.server import Server
-
-	# Create CommandManager and register all handlers
-	commandManager = CommandManager(3)
-	commandManager.addCommand("GOO", getCircleOffset())
-	commandManager.addCommand("GRP", grabPoint())
-	commandManager.addCommand("GCO", getCableOffset())
+# Create CommandManager and register all handlers
+	commandManager = CommandManager()
 	commandManager.addCommand("IMG", makeNormalImage())
-
-	commandManager.addCommand("MGR", moveGripper())
-	commandManager.addCommand("OGR", openGripper())
-	commandManager.addCommand("CGR", closeGripper())
-
-	commandManager.addCommand("SFX", setLight())
+	commandManager.addCommand("BGD", makeBackgroundImage())
 	commandManager.addCommand("CLB", calibrate())
+	commandManager.addCommand("WRT", writeText())
 	commandManager.addCommand("EXT", exitServer())
+
+#check the modules and load specific handlers
+	if configReader.returnEntry("modules", "circle"):
+		from smartcam.core.api.commands import getCircleOffset
+		commandManager.addCommand("GOO", getCircleOffset())
+
+	if configReader.returnEntry("modules", "cable"):
+		from smartcam.core.api.commands import getCableOffset
+		commandManager.addCommand("GCO", getCableOffset())
+
+	if configReader.returnEntry("modules", "parts"):
+		from smartcam.core.api.commands import grabPoint
+		commandManager.addCommand("GRP", grabPoint())
+
+	if configReader.returnEntry("modules", "led"):
+		from smartcam.core.api.commands import setLight
+		commandManager.addCommand("LED", setLight())
+
+	if configReader.returnEntry("modules", "iolink"):
+		from smartcam.core.api.commands import moveGripper, closeGripper, openGripper
+		commandManager.addCommand("MGR", moveGripper())
+		commandManager.addCommand("OGR", openGripper())
+		commandManager.addCommand("CGR", closeGripper())
+
+	if configReader.returnEntry("modules", "schunk"):
+		from smartcam.core.api.commands import schunkPrh
+		commandManager.addCommand("PRH", schunkPrh())
 
 	try:
 		bind_ip = configReader.returnEntry("tcp", "host")
 		port = int(configReader.returnEntry("tcp", "port"))
 	except Exception as e:
 		logging.error("could not load server ip and port from config file" + str(e))
-
-	#bind_ip = args.bind_address
-	#port = args.port
 
 	server = Server(bind_ip, port)
 	logging.info(" ip: " + str(bind_ip) + " port: " + str(port))
@@ -68,8 +90,9 @@ def main():
 	server.close()
 
 def loadConfig():
-	from smartcam.configLoader import configReader
-	configReader.loadConfig("config.ini")
+	#loads the config
+	from smartcam.core.configLoader import configReader
+	configReader.loadConfig("/home/pi/.smartcam/config.ini")
 
 def handler(signum, frame):
 	global stop

@@ -6,7 +6,7 @@ import cv2
 import sys
 import os
 import numpy as np
-from ..configLoader import configReader
+from ...core.configLoader import configReader
 from pathlib import Path
 from picamera.array import PiRGBArray
 from picamera import PiCamera
@@ -16,25 +16,24 @@ from datetime import datetime
 import imutils
 
 class cableDetection():
+'''
+This class takes a picture with the RPI Camera and looks for the top of a cable and calculates its offset and angle relatively to the center of the image (where the robot gripper is supposed to be)
+'''
     def __init__(cls):
         pass
 
-
-    #Variablen
     fenster_name = "Cable Detection"
     detection_size = (500, 500)
     config_test = True
     umrechnung_pixel_mm = 1 #to avoid errors the value is preset to 1
-    maxCorners = 300 #Anzahl zu erkennenden Kanten
-    qualityLevel = 0.03 #je höher desto genauer
-    minDistance = 10 #mindeste Distanz zwischen Punkten
+    maxCorners = 300 #amount of detection points
+    qualityLevel = 0.03 #higher value is more accurate
+    minDistance = 10 #minimum distance between points
 
     @classmethod
     def visualization_rgb(cls, img, min_xy, height, mittelpunkt, dist_x_mm, dist_y_mm, dist_x, dist_y):
     #visualization of the rgb picture
-        cv2.circle(img, min_xy, 4, (255, 255, 255), 4) #zeichnet punkt ganz links
-        cv2.line(img, min_xy, (min_xy[0], int(height/2)), (255,255,255), 2) #zeichnet linie von punkt nach oben
-        #zeichnet Mittelpunkt und Linie nach links
+        cv2.line(img, min_xy, (min_xy[0], int(height/2)), (255,255,255), 2)
         cv2.circle(img, mittelpunkt, 2, (255,255,255), 2)
         cv2.line(img, mittelpunkt, (min_xy[0], int(height/2)), (255,255,255), 2)
         cv2.line(img, mittelpunkt, min_xy, (255,255,255), 2)
@@ -52,34 +51,41 @@ class cableDetection():
 
     @classmethod
     def visualization_gray(cls, gray, extLeft, g_height, g_mittelpunkt):
-        cv2.circle(gray, extLeft, 4, (255, 255, 255), 4) #zeichnet punkt ganz links
-        cv2.line(gray, extLeft, (extLeft[0], int(g_height/2)), (255,255,255), 2) #zeichnet linie von punkt nach oben
-        #zeichnet Mittelpunkt und Linie nach links
+        #visualization of the gray picture
+        cv2.line(gray, extLeft, (extLeft[0], int(g_height/2)), (255,255,255), 2)
         cv2.circle(gray, g_mittelpunkt, 2, (255,255,255), 2)
         cv2.line(gray, g_mittelpunkt, (extLeft[0], int(g_height/2)), (255,255,255), 2)
         cv2.line(gray, g_mittelpunkt, extLeft, (255,255,255), 2)
 
     @classmethod
     def saveImg(cls, bild_num, img, gray):
-        #if str(bild_num) == "1":
-        if not os.path.exists("./smartcam/images/"):
+        # saves the image in the path which is specified in the config file
+        path = configReader.returnEntry("options", "imagepath")
+        if not os.path.exists(path):
             try:
-                os.mkdir("./smartcam/images/")
+                os.mkdir(path)
             except Exception as e:
                 logging.error("Image directory couldn't get created.. \n" + str(e))
 
-        logging.debug("saved cable.jpg and cablegray.jpg in ./smartcam/images/")
-        cv2.imwrite("./smartcam/images/cablegray.jpg", gray)
-        cv2.imwrite("./smartcam/images/cable.jpg", img)
+        logging.debug("saved cable.jpg and cablegray.jpg in " + path)
+        cv2.imwrite(path + str(bild_num)+".jpg", gray)
+        cv2.imwrite(path + str(bild_num)+".jpg", img)
 
-        # elif str(bild_num) == "2":
-        #     logging.info("saved cable2.jpg and cablegray2.jpg in ../images/")
-        #     cv2.imwrite("../images/cablegray2.jpg", gray)
-        #     cv2.imwrite("../images/cable2.jpg", img) #speichert ein Bild
+    @classmethod
+    def removeBackground(cls, img, background):
+        # removes the background by checking if it's difference is smaller than a threshold
+        result = np.copy(img)
+        for i in range(img.shape[0]):
+            for j in range(img.shape[1]):
+                diff = img[i][j] - background[i][j]
+                if diff < 100:
+                    result[i][j] = 255
+
+        return result
 
     @classmethod
     def config(cls):
-        cls.umrechnung_pixel_mm = float(configReader.returnEntry('conversion', 'mm_per_pixel')) #fragt Wert aus Config File ab
+        cls.umrechnung_pixel_mm = float(configReader.returnEntry('conversion', 'mm_per_pixel'))
 
     @classmethod
     def rotate(cls, img, mittelpunkt, width, height):
@@ -103,7 +109,8 @@ class cableDetection():
 
     @classmethod
     def detectCable(cls, bild_num=1):
-        #main part which checks for wires and their angle
+        # main part which checks first initializes the PiCamera and takes a picture and then looks for wires and their angle
+        cls.config()
         camera = PiCamera()
         camera.resolution = (1920, 1088)
         camera.hflip = True
@@ -115,29 +122,43 @@ class cableDetection():
         camera.close()
         del camera
         del rawCapture
-
-        height, width = img.shape[:2] # image shape has 3 dimensions
-        mittelpunkt = (int(width/2), int(height/2)) # getRotationMatrix2D needs coordinates in reverse order (width, height) compared to shape
-        img = cls.rotate(img, mittelpunkt, width, height)  #rotiert das Bild ggf.
-        height, width = img.shape[:2]
-
-        oben_links = (int(mittelpunkt[0]- cls.detection_size[0]), int(mittelpunkt[1]- cls.detection_size[1]/2))
-        unten_rechts = (int(mittelpunkt[0]), int(mittelpunkt[1]+ cls.detection_size[1]/2))
-
         if img is None: #to prevent errors with empty images
             logging.error("Could not load frame properly..")
             return -1
 
+        height, width = img.shape[:2] # image shape has 3 dimensions
+        # getRotationMatrix2D needs coordinates in reverse order (width, height) compared to shape
+        mittelpunkt = (int(width/2), int(height/2))
+        img = cls.rotate(img, mittelpunkt, width, height)
+
+        try:
+            background = cv2.imread('~/.smartcam/background.jpg', 2)
+            background = cls.rotate(background, mittelpunkt, width, height) #rotates background
+        except Exception as e:
+            logging.info("Background couldn't get loaded. Background removal disabled..")
+
+        height, width = img.shape[:2]
+        oben_links = (int(mittelpunkt[0]- cls.detection_size[0]), int(mittelpunkt[1]- cls.detection_size[1]/2))
+        unten_rechts = (int(mittelpunkt[0]), int(mittelpunkt[1]+ cls.detection_size[1]/2))
+
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        gray = gray[int(oben_links[1]) : int(unten_rechts[1]), int(oben_links[0]) : int(unten_rechts[0])] #schneidet graubild auf relevanten Bereich zu
+
+        if img.shape[0] == background.shape[0] and img.shape[1] == background.shape[1]:
+            gray = cls.removeBackground(gray, background)
+        else:
+            logging.error("Background got wrong dimensions. Background removal disabled..")
+
+        # crops the image to it's relevant areas
+        gray = gray[int(oben_links[1]) : int(unten_rechts[1]), int(oben_links[0]) : int(unten_rechts[0])]
         blur = cv2.GaussianBlur(gray, (7,7), 1)
         blur = cv2.bilateralFilter(blur, 11, 17, 17)
         blur = cv2.Canny(blur, 30, 120)
 
-        contours = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) #Konturen suchen
-        #corners = cv2.goodFeaturesToTrack(gray, cls.maxCorners, cls.qualityLevel, cls.minDistance)
+        # search for contours and draw them
+        contours = cv2.findContours(blur, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         cv2.drawContours(gray, contours[0], -1, (0,255,0), 3)
 
+        # make a list out of the contours to sort them to detect the top of the cable
         contours = imutils.grab_contours(contours)
         try:
             cnts = max(contours, key=cv2.contourArea)
@@ -151,19 +172,12 @@ class cableDetection():
         g_mittelpunkt = (g_width, int(g_height/2))
         cls.visualization_gray(gray, extLeft, g_height, g_mittelpunkt)
 
-        min_xy = extLeft #temp Var zum finden von punkt ganz oben_links
-        #if corners is not None:
-        #    for i in corners:
-        #        x,y = i.ravel()
-        #        if x <= 1100: #zeichnet nur Relevante Punkte
-        #            cv2.circle(gray, (x,y), 2, (255, 255, 255), 2)
-        #            cv2.circle(img, (int(mittelpunkt[0] - int(g_mittelpunkt[0] - x)), int(mittelpunkt[1] - int(g_mittelpunkt[1] - y))), 2, (255, 255, 255), 2) #rechnet auf ganzes Bild um und zeichnet Punkte ein
-        #        if x < min_xy[0]: #guckt nach kleinstem x wert
-        #            min_xy = (x,y)
+        min_xy = extLeft
 
+        # calculating the offset between the center of the image (where the gripper is supposed to be) and the top of the wire
         dist_y = g_mittelpunkt[1] - min_xy[1]
         dist_x = g_mittelpunkt[0] - min_xy[0]
-        min_xy = (int(mittelpunkt[0] - dist_x), int(mittelpunkt[1] - dist_y)) #rechnet min_xy auf das gesamte Bild um
+        min_xy = (int(mittelpunkt[0] - dist_x), int(mittelpunkt[1] - dist_y))
         dist_y_mm = (dist_y * cls.umrechnung_pixel_mm)/2
         dist_x_mm = (dist_x * cls.umrechnung_pixel_mm)/2
 

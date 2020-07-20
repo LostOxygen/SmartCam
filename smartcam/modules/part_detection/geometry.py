@@ -3,6 +3,10 @@ from sympy.geometry import Point, Point2D, Polygon, Circle
 import math
 import numpy as np
 
+'''
+Geometry Class which implements some basic operations between vectors or geometric shapes to calculate intersections
+'''
+
 class Vector():
     def __init__(self, x, y):
         self.x = x
@@ -28,7 +32,6 @@ class Vector():
             return NoInstanceException(v, Vector)
         return np.round(np.rad2deg(np.arccos((self.x*v.x + self.y*v.y) / (math.sqrt(self.x**2 + self.y**2) * math.sqrt(v.x**2 + v.y**2)))), 2)
 
-
 class Line_():
     def __init__(self, v1, v2):
         self.a = v2.y - v1.y
@@ -47,7 +50,6 @@ class Line_():
             (self.b*other.c - self.c*other.b)/w,
             (self.c*other.a - self.a*other.c)/w
         )
-
 
 class Area():
     def __init__(self):

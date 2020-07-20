@@ -3,9 +3,15 @@ import configparser
 import os
 
 class configReader():
+'''
+The configReader/Loader for the tcp-server. Should be handled as a semi-singleton implementation to work properly.
+The Class creates a standard config file when no config file is found. Once a config file is found the configReader loads the file and provides it as a singleton.
+
+'''
     config = configparser.ConfigParser()
 
     def __init__(cls):
+        cls.path = ""
         pass
 
     @classmethod
@@ -41,6 +47,14 @@ class configReader():
                                    'max_y' : 0}
             cls.config['calibration'] = {'realMeasurement' : 70,
                                          'mmPerPixel' : 1}
+            cls.config['options'] = {'imagepath' : '/home/pi/.smartcam/images/'}
+            cls.config['modules'] = {'circle' : True,
+                                     'cable'  : True,
+                                     'parts'  : True,
+                                     'led'    : True,
+                                     'iolink' : True,
+                                     'schunk' : True
+                                     }
             with open(path, 'w') as configFile:
                 cls.config.write(configFile)
                 cls.config.read(path)

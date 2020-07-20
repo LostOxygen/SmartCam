@@ -27,9 +27,11 @@ optional arguments:
 | MGR| [move_gripper](#move_gripper)| moves the selected gripper gripper into specified direction -> (X, Y) offset
 | OGR| [open_gripper](#open_gripper)| opens the selected gripper
 | CGR| [close_gripper](#close_gripper)| closes the selected gripper
-| SFX| [lights](#lights)| sets the LEDs to specified HEX values
+| PRH| [schunk_prh](#schunk_prh)| schunk acknowledge
+| LED| [lights](#lights)| sets the LEDs to specified HEX values
 | CLB| [calibrate](#calibrate)| calls the calibration to generate an empty config.ini and calibrates the scaling between pixels and millimeters
 | EXT| [exit](#exit)| exits the server and sends EX to the client
+| BGD| [make_background_image](#make_background_image)| generates an image which will be used to remove the background while detecting cables
 
 ### Errors
 
@@ -49,7 +51,7 @@ install pip packages manually or with **sudo pip3 -r requirements.txt** :
 + [Flask](http://flask.pocoo.org/): **sudo pip3 install Flask**
 + [NumPy](http://www.numpy.org/): **sudo pip3 install numpy**
 + [SymPy](http://www.sympy.org/): **sudo pip3 install sympy**
-+ [Neopixel](http://learn.adafruit.com/): **sudo pip3 install adafruit-circuitpython-neopixel**
++ [Neopixel](http://learn.adafruit.com/): **sudo pip3 install rpi_ws281x adafruit-circuitpython-neopixel**
 + [OpenCV](http://www.opencv.org/) **sudo pip3 install opencv-python**
 
 ### Particularities with Debian/Raspbian
