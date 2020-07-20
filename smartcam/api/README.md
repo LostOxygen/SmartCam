@@ -1,1 +1,1 @@
-
+# SmartCam API Readme
